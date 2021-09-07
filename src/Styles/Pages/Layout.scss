@@ -1,0 +1,19 @@
+//================================================================
+//                              Layout
+//================================================================
+
+.layout-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.side-nav {
+  width: 200px;
+  background-color: black;
+}
+
+.top-nav {
+  background-color: aqua;
+  height: 55px;
+}

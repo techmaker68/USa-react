@@ -1,19 +1,20 @@
 import "./App.scss";
 import {BrowserRouter as Router, Switch} from "react-router-dom";
 import PrivateRoute from "./Routes/PrivateRoute";
+import Dashboard from "./Pages/Dashboard/Index";
 
 function App() {
   return (
     <Router>
       <div>
-        <main>
           <Switch>
             {
               // private routes
             }
-            <PrivateRoute path=''></PrivateRoute>
+            <PrivateRoute path='/dashboard' exact>
+              <Dashboard />
+            </PrivateRoute>
           </Switch>
-        </main>
       </div>
     </Router>
   );

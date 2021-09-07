@@ -1,5 +1,7 @@
+import Layout from "../../Layout/Index.jsx";
+
 const Index = () => {
-  return <> </>;
+  return <Layout>dashboard</Layout>;
 };
 
 export default Index;
