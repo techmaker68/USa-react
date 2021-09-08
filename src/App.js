@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch} from "react-router-dom";
 import PrivateRoute from "./Routes/PrivateRoute";
 import Dashboard from "./Pages/Dashboard/Index";
 import ManageTenants from "./Pages/ManageTenants/Index";
+import CreateTenant from "./Pages/ManageTenants/Create";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
 
           <PrivateRoute path='/manage-tenants' exact>
             <ManageTenants />
+          </PrivateRoute>
+          <PrivateRoute path='/manage-tenants/create' exact>
+            <CreateTenant />
           </PrivateRoute>
         </Switch>
       </div>
