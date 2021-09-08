@@ -18,91 +18,6 @@ html {
 .ant-radio-input:focus + .ant-radio-inner {
   border-color: #089752 !important;
 }
-
-// //// pagination reset
-// .ant-pagination-options::before {
-//   content: "Rows Per Page:";
-//   font-size: 14px;
-//   font-weight: 400;
-//   padding-right: 12px;
-// }
-
-// .ant-pagination-item-container,
-// .ant-pagination-jump-next {
-//   display: none;
-// }
-
-// .ant-pagination {
-//   margin-right: 50px !important;
-// }
-
-// .ant-pagination-item-link {
-//   border: 0 !important;
-//   color: #000000 !important;
-//   font-size: 14px !important;
-// }
-
-// .ant-pagination-item {
-//   display: none !important;
-// }
-
-// .ant-table-column-sorter-up.active,
-// .ant-table-column-sorter-down.active {
-//   color: black !important;
-// }
-
-// .ant-pagination-options {
-//   position: absolute;
-//   right: 115px;
-
-//   .ant-select-selector,
-//   .ant-select-selector:hover,
-//   .ant-select-selector:active {
-//     width: 60px !important;
-//     height: 39px !important;
-//     border: 0 !important;
-//     font-size: 16px !important;
-//     box-shadow: none !important;
-//   }
-
-//   .ant-select-arrow {
-//     color: #343379 !important;
-//     font-size: 10px !important;
-//     margin-top: -8px !important;
-//     margin-left: 4px !important;
-//   }
-
-//   .ant-select-selection-item {
-//     line-height: 33px !important;
-//     font-size: 14px !important;
-//     font-weight: 500 !important;
-//   }
-// }
-// .ant-pagination {
-//   .ant-select-selection-item {
-//     font-weight: 400 !important;
-//   }
-// }
-// .ant-pagination-item-link {
-//   background-color: transparent !important;
-//   font-weight: 800 !important;
-//   font-size: 13px !important;
-//   margin-left: 15px !important;
-//   .anticon {
-//     vertical-align: 0rem !important;
-//   }
-// }
-
-// //// antd table reset
-// .ant-table-container {
-//   thead tr th {
-//     background-color: #fff !important;
-//   }
-//   tbody tr td {
-//     padding: 13px 40px !important;
-//   }
-// }
-
 .select-option-filter {
   color: #3e98ff !important;
   .ant-select-selector,
@@ -114,7 +29,7 @@ html {
   }
 
   .ant-select-arrow {
-    margin-top: -7px !important;
+    margin-top: -8px !important;
     right: 14px !important;
   }
 }
@@ -125,10 +40,11 @@ html {
 
 .primary-table {
   &__header {
-    padding: 19px 14px;
+    padding: 16px 14px;
     background-color: #ffffff;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     ul {
       list-style-type: none;
@@ -142,6 +58,9 @@ html {
     font-size: 12px !important;
     font-weight: 500 !important;
   }
+  table tr td {
+    padding: 20px 8px !important;
+  }
   table tr th {
     font-weight: 700 !important;
     background-color: #d6edff !important;
@@ -149,13 +68,66 @@ html {
   table tr th:before {
     background-color: transparent !important;
   }
-  table tr td:first-child {
-    padding-left: 13px !important;
+  table tr td:first-child,
+  table tr th:first-child {
+    padding-left: 20px !important;
   }
-
   p {
     font-weight: 500 !important;
     margin: 0 !important;
+  }
+}
+// primary table action
+
+.primary-table-action-menu li {
+  font-size: 12px !important;
+  span {
+    font-weight: 500 !important;
+  }
+}
+
+/// primary tabs
+
+.primary-tabs {
+  .ant-tabs-tab.ant-tabs-tab .ant-tabs-tab-btn {
+    color: #c8c8c8 !important;
+    font-size: 16px !important;
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #3e98ff !important;
+  }
+  .ant-tabs-tab {
+    padding: 8px 0 !important;
+  }
+  .ant-tabs-nav {
+    margin: 0 !important;
+  }
+  .ant-tabs-nav-wrap {
+    margin-left: 14px !important;
+  }
+
+  .ant-tabs-nav::before {
+    border: 0 !important;
+  }
+}
+
+.primary-range-picker {
+  width: 245px !important;
+  height: 40px !important;
+  background: #ffffff 0% 0% no-repeat padding-box !important;
+  border: 1px solid #1768ac !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  .ant-picker-range-separator {
+    padding: 0px 17px 0px 10px !important;
+  }
+
+  .ant-picker-input > input {
+    font-size: 12px !important;
+    color: #1768ac !important;
+  }
+  .ant-picker-suffix > * {
+    width: 45px !important;
   }
 }
 
@@ -179,4 +151,29 @@ html {
     font-size: 12px !important;
     font-weight: 400 !important;
   }
+}
+
+/// table column status
+.col-status {
+  font-size: 12px;
+  padding: 4px 11px;
+  width: 78px;
+  height: 23px;
+  border-radius: 20px;
+}
+.status-approved,
+.status-active,
+.status-paid {
+  color: #40af3c;
+  background-color: #edffec;
+}
+.status-declined,
+.status-inactive,
+.status-unpaid {
+  color: #ff0000;
+  background-color: #fff3f3;
+}
+.status-pending {
+  color: #ff9e00;
+  background-color: #fff7e9;
 }

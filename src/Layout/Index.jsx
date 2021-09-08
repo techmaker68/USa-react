@@ -27,7 +27,11 @@ const Index = ({children, title, currentPage}) => {
     {title: "Payments", url: "/payments", icon: PaymentsIcon},
     {title: "Manage Tenants", url: "/manage-tenants", icon: TenantsIcon},
     {title: "Demo Requests", url: "/demo-requests", icon: RequestsIcon},
-    {title: "User Management", url: "/user-management", icon: ManagementIcon},
+    {
+      title: "User Management",
+      url: "/users-management/manage-users",
+      icon: ManagementIcon,
+    },
   ];
 
   return (

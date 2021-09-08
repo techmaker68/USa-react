@@ -239,7 +239,7 @@ export default Index;
 
 const TableAction = () => {
   const menu = (
-    <Menu>
+    <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
         <Link href=''>View</Link>
       </Menu.Item>
@@ -248,15 +248,21 @@ const TableAction = () => {
         <Link href=''>Update</Link>
       </Menu.Item>
       <Menu.Divider />
+      <Menu.Item key='1'>
+        <Link href=''>Reset Password</Link>
+      </Menu.Item>
     </Menu>
   );
   return (
-    <>
-      <Dropdown className='cursor-pointer' overlay={menu} trigger={["click"]}>
-        <span>
-          <img className='align-middle' src={ActionIcon} alt='' />
-        </span>
-      </Dropdown>
-    </>
+    <Dropdown
+      placement='bottomRight'
+      className='cursor-pointer'
+      overlay={menu}
+      trigger={["click"]}
+    >
+      <span>
+        <img className='align-middle' src={ActionIcon} alt='' />
+      </span>
+    </Dropdown>
   );
 };
