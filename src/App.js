@@ -6,6 +6,7 @@ import Payments from "./Pages/Payments/index";
 import ManageTenants from "./Pages/ManageTenants/Index";
 import DemoRequests from "./Pages/DemoRequests/Index";
 import UserManagement from "./Pages/UsersManagement/Index";
+import CreateTenant from "./Pages/ManageTenants/Create";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
 
           <PrivateRoute path='/manage-tenants' exact>
             <ManageTenants />
+          </PrivateRoute>
+          <PrivateRoute path='/manage-tenants/create' exact>
+            <CreateTenant />
           </PrivateRoute>
 
           <PrivateRoute path='/demo-requests' exact>

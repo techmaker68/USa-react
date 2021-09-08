@@ -5,7 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import "bootstrap/dist/css/bootstrap.min.css"; // bootstrap css
-
+import "bootstrap/dist/js/bootstrap.js"; // bootstrap js
+import "react-phone-input-2/lib/style.css";
 ReactDOM.render(
   <React.StrictMode>
     <App />

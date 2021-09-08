@@ -160,10 +160,12 @@ const Index = () => {
             prefix={<img src={SearchIcon} alt='' />}
             placeholder='Search tenants'
           />
-          <Button className='primary-button'>
-            <img className='button-plus-icon' src={PlusIcon} alt='' /> Register
-            Tenant
-          </Button>
+          <Link to={"/manage-tenants/create"}>
+            <Button className='primary-button'>
+              <img className='button-plus-icon' src={PlusIcon} alt='' />{" "}
+              Register Tenant
+            </Button>
+          </Link>
         </div>
 
         {
