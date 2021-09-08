@@ -58,6 +58,9 @@ const Index = ({children, title, currentPage}) => {
         </ul>
       </nav>
       <div className='flex-1'>
+        {
+          // top nav
+        }
         <nav className='top-nav'>
           <div className='f-16 fw-600'>{title}</div>
           <Dropdown
@@ -75,6 +78,9 @@ const Index = ({children, title, currentPage}) => {
             </div>
           </Dropdown>
         </nav>
+        {
+          // main content
+        }
         <main>{children}</main>
       </div>
     </div>

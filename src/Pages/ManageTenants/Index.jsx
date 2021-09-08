@@ -1,10 +1,11 @@
-import {Button, Input, Table, Select} from "antd";
+import {Button, Input, Table, Select, Menu, Dropdown} from "antd";
 import Layout from "../../Layout/Index";
 import SearchIcon from "../../Assets/icons/saerch.svg";
 import PlusIcon from "../../Assets/icons/plus.svg";
 import FilterArrowDown from "../../Assets/icons/filterArrowDown.svg";
 import ActionIcon from "../../Assets/icons/action.svg";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 const {Option} = Select;
 
@@ -121,7 +122,6 @@ const Index = () => {
       title: "Payment Status",
       dataIndex: "paymentStatus",
       key: "paymentStatus",
-      render: (value) => <span className={`color-${value}`}>{value}</span>,
     },
     {
       title: "Auto Renew",
@@ -132,6 +132,9 @@ const Index = () => {
       title: "Access Status",
       dataIndex: "accessStatus",
       key: "accessStatus",
+      render: (value) => (
+        <span className={`color-${value} fw-500`}>{value}</span>
+      ),
     },
     {
       title: "Source",
@@ -142,9 +145,7 @@ const Index = () => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: (value) => (
-        <img className='align-middle' src={ActionIcon} alt='' />
-      ),
+      render: (value) => <TableAction />,
     },
   ];
 
@@ -235,3 +236,27 @@ const Index = () => {
 };
 
 export default Index;
+
+const TableAction = () => {
+  const menu = (
+    <Menu>
+      <Menu.Item key='0'>
+        <Link href=''>View</Link>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key='1'>
+        <Link href=''>Update</Link>
+      </Menu.Item>
+      <Menu.Divider />
+    </Menu>
+  );
+  return (
+    <>
+      <Dropdown className='cursor-pointer' overlay={menu} trigger={["click"]}>
+        <span>
+          <img className='align-middle' src={ActionIcon} alt='' />
+        </span>
+      </Dropdown>
+    </>
+  );
+};
