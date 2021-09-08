@@ -121,6 +121,7 @@ const Index = () => {
       title: "Payment Status",
       dataIndex: "paymentStatus",
       key: "paymentStatus",
+      render: (value) => <span className={`color-${value}`}>{value}</span>,
     },
     {
       title: "Auto Renew",

@@ -149,6 +149,9 @@ html {
   table tr th:before {
     background-color: transparent !important;
   }
+  table tr td:first-child {
+    padding-left: 13px !important;
+  }
 
   p {
     font-weight: 500 !important;
