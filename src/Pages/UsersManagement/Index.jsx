@@ -1,7 +1,7 @@
 import {Tabs} from "antd";
-import Layout from "../../Layout/Index";
+import Layout from "Layout/Index";
 import {useState} from "react";
-import ManageUsers from "../../Components/ManageUsers/Index";
+import ManageUsers from "Components/ManageUsers/Index";
 import {useHistory} from "react-router";
 
 const {TabPane} = Tabs;

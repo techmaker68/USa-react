@@ -1,18 +1,18 @@
 import Layout from "Layout/Index";
-import { Card, Form, Input, Row, Col, InputNumber, Radio } from "antd";
-import { Link } from "react-router-dom";
+import {Card, Form, Input, Row, Col, InputNumber, Radio} from "antd";
+import {Link} from "react-router-dom";
 import ArrowBack from "Assets/icons/arrow-back.svg";
 import PhoneInput from "react-phone-input-2";
 import CountryComponent from "Components/CountryComponent";
-import { Upload, message } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
+import {Upload, message} from "antd";
+import {InboxOutlined} from "@ant-design/icons";
 
-const { Dragger } = Upload;
+const {Dragger} = Upload;
 
 const props = {
   name: "file",
   onChange(info) {
-    const { status } = info.file;
+    const {status} = info.file;
     if (status !== "uploading") {
       console.log(info.file, info.fileList);
     }
@@ -32,10 +32,10 @@ const props = {
 
 const CreateTenant = () => {
   return (
-    <Layout title="Manage Tenants" currentPage={2}>
+    <Layout title='Manage Tenants' currentPage={2}>
       <Card
         className={"p-49"}
-        style={{ margin: 28 }}
+        style={{margin: 28}}
         title={
           <>
             <Link to={"/manage-tenants"}>
@@ -46,33 +46,33 @@ const CreateTenant = () => {
           </>
         }
       >
-        <Form layout={"vertical"} initialValues={{ payment_mode: 1 }}>
+        <Form layout={"vertical"} initialValues={{payment_mode: 1}}>
           {/*Personal Details*/}
           <section>
-            <p className="f-16 fw-600">Personal Information</p>
+            <p className='f-16 fw-600'>Personal Information</p>
             <hr />
-            <div className="p-49">
+            <div className='p-49'>
               <Row gutter={[24, 16]}>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"First Name"}>
-                    <Input size={"large"} style={{ width: "100%" }} />
+                    <Input size={"large"} style={{width: "100%"}} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"Last Name"}>
-                    <Input size={"large"} style={{ width: "100%" }} />
+                    <Input size={"large"} style={{width: "100%"}} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"Email"}>
-                    <Input size={"large"} style={{ width: "100%" }} />
+                    <Input size={"large"} style={{width: "100%"}} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"Phone Number"}>
                     <PhoneInput
                       country={"sa"}
-                      placeholder="Enter phone number"
+                      placeholder='Enter phone number'
                       inputClass={"w-100"}
                     />
                   </Form.Item>
@@ -83,13 +83,13 @@ const CreateTenant = () => {
 
           {/*Business Details*/}
           <section>
-            <p className="f-16 fw-600">Business Detail</p>
+            <p className='f-16 fw-600'>Business Detail</p>
             <hr />
-            <div className="p-49">
+            <div className='p-49'>
               <Row gutter={[24, 16]}>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"Business Name"}>
-                    <Input size={"large"} style={{ width: "100%" }} />
+                    <Input size={"large"} style={{width: "100%"}} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={8}>
@@ -97,7 +97,7 @@ const CreateTenant = () => {
                     <InputNumber
                       min={0}
                       size={"large"}
-                      style={{ width: "100%" }}
+                      style={{width: "100%"}}
                     />
                   </Form.Item>
                 </Col>
@@ -106,13 +106,13 @@ const CreateTenant = () => {
                     <InputNumber
                       min={0}
                       size={"large"}
-                      style={{ width: "100%" }}
+                      style={{width: "100%"}}
                     />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"Position (Title)"}>
-                    <Input size={"large"} style={{ width: "100%" }} />
+                    <Input size={"large"} style={{width: "100%"}} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -121,16 +121,13 @@ const CreateTenant = () => {
 
           {/*Billing Address*/}
           <section>
-            <p className="f-16 fw-600">Billing Address</p>
+            <p className='f-16 fw-600'>Billing Address</p>
             <hr />
-            <div className="p-49">
+            <div className='p-49'>
               <Row gutter={[24, 16]}>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"Business Name"}>
-                    <CountryComponent
-                      size={"large"}
-                      style={{ width: "100%" }}
-                    />
+                    <CountryComponent size={"large"} style={{width: "100%"}} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={8}>
@@ -138,7 +135,7 @@ const CreateTenant = () => {
                     <InputNumber
                       min={0}
                       size={"large"}
-                      style={{ width: "100%" }}
+                      style={{width: "100%"}}
                     />
                   </Form.Item>
                 </Col>
@@ -147,13 +144,13 @@ const CreateTenant = () => {
                     <InputNumber
                       min={0}
                       size={"large"}
-                      style={{ width: "100%" }}
+                      style={{width: "100%"}}
                     />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={8}>
                   <Form.Item label={"Position (Title)"}>
-                    <Input size={"large"} style={{ width: "100%" }} />
+                    <Input size={"large"} style={{width: "100%"}} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -162,9 +159,9 @@ const CreateTenant = () => {
 
           {/*Payment Information*/}
           <section>
-            <p className="f-16 fw-600">Payment Information</p>
+            <p className='f-16 fw-600'>Payment Information</p>
             <hr />
-            <div className="p-49">
+            <div className='p-49'>
               <Row gutter={[24, 16]}>
                 <Col xs={24}>
                   <Form.Item label={"Payment Mode"} name={"payment_mode"}>
@@ -178,14 +175,14 @@ const CreateTenant = () => {
                 <Col xs={24}>
                   <div className={"d-flex align-items-center"}>
                     <Dragger {...props} className={"p-3"}>
-                      <p className="ant-upload-drag-icon">
+                      <p className='ant-upload-drag-icon'>
                         <InboxOutlined />
                       </p>
-                      <p className="ant-upload-text">
+                      <p className='ant-upload-text'>
                         Drag & drop file to upload
                       </p>
-                      <p className="ant-upload-text">Or</p>
-                      <p className="ant-upload-text">Browser</p>
+                      <p className='ant-upload-text'>Or</p>
+                      <p className='ant-upload-text'>Browser</p>
                     </Dragger>
 
                     <div></div>

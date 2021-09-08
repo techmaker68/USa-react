@@ -1,11 +1,11 @@
-import Logo from "../Assets/logo.svg";
-import DashboardIcon from "../Assets/icons/dashboard.svg";
-import PaymentsIcon from "../Assets/icons/payments.svg";
-import TenantsIcon from "../Assets/icons/tenants.svg";
-import RequestsIcon from "../Assets/icons/requests.svg";
-import ManagementIcon from "../Assets/icons/management.svg";
-import ProfileIcon from "../Assets/icons/profile.svg";
-import DownIcon from "../Assets/icons/downIcon.svg";
+import Logo from "Assets/logo.svg";
+import {ReactComponent as DashboardIcon} from "Assets/icons/dashboard.svg";
+import {ReactComponent as PaymentsIcon} from "Assets/icons/payments.svg";
+import {ReactComponent as TenantsIcon} from "Assets/icons/tenants.svg";
+import {ReactComponent as RequestsIcon} from "Assets/icons/requests.svg";
+import {ReactComponent as ManagementIcon} from "Assets/icons/management.svg";
+import ProfileIcon from "Assets/icons/profile.svg";
+import DownIcon from "Assets/icons/downIcon.svg";
 import {Menu, Dropdown} from "antd";
 import {Link} from "react-router-dom";
 
@@ -23,14 +23,14 @@ const menu = (
 const Index = ({children, title, currentPage}) => {
   // static nav links data
   const navLinks = [
-    {title: "Dashboard", url: "/dashboard", icon: DashboardIcon},
-    {title: "Payments", url: "/payments", icon: PaymentsIcon},
-    {title: "Manage Tenants", url: "/manage-tenants", icon: TenantsIcon},
-    {title: "Demo Requests", url: "/demo-requests", icon: RequestsIcon},
+    {title: "Dashboard", url: "/dashboard", icon: <DashboardIcon />},
+    {title: "Payments", url: "/payments", icon: <PaymentsIcon />},
+    {title: "Manage Tenants", url: "/manage-tenants", icon: <TenantsIcon />},
+    {title: "Demo Requests", url: "/demo-requests", icon: <RequestsIcon />},
     {
       title: "User Management",
       url: "/users-management/manage-users",
-      icon: ManagementIcon,
+      icon: <ManagementIcon />,
     },
   ];
 
@@ -54,7 +54,7 @@ const Index = ({children, title, currentPage}) => {
                 className={currentPage === index ? "li-active" : ""}
               >
                 <Link to={link.url}>
-                  <img src={link.icon} alt='' /> {link.title}{" "}
+                  {link.icon} {link.title}
                 </Link>
               </li>
             );

@@ -1,9 +1,9 @@
 import {Button, Input, Table, Select, Menu, Dropdown} from "antd";
-import Layout from "../../Layout/Index";
-import SearchIcon from "../../Assets/icons/saerch.svg";
-import PlusIcon from "../../Assets/icons/plus.svg";
-import FilterArrowDown from "../../Assets/icons/filterArrowDown.svg";
-import ActionIcon from "../../Assets/icons/action.svg";
+import Layout from "Layout/Index";
+import SearchIcon from "Assets/icons/saerch.svg";
+import PlusIcon from "Assets/icons/plus.svg";
+import FilterArrowDown from "Assets/icons/filterArrowDown.svg";
+import ActionIcon from "Assets/icons/action.svg";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 
