@@ -8,6 +8,7 @@ import ManageTenants from "./Pages/ManageTenants/Index";
 import DemoRequests from "./Pages/DemoRequests/Index";
 import UserManagement from "./Pages/UsersManagement/Index";
 import CreateTenant from "./Pages/ManageTenants/Create";
+import View from "./Pages/DemoRequests/View";
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
 
           <PrivateRoute path='/demo-requests' exact>
             <DemoRequests />
+          </PrivateRoute>
+          <PrivateRoute path='/demo-requests/:id' exact>
+            <View />
           </PrivateRoute>
 
           <PrivateRoute path='/users-management/manage-users' exact>

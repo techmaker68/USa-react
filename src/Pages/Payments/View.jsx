@@ -2,6 +2,7 @@ import Layout from "Layout/Index";
 import ArrowBack from "Assets/icons/arrow-back.svg";
 import {Link} from "react-router-dom";
 import {Button, Switch} from "antd";
+import PaymentCard from "./../../Components/Payments/PaymentCard";
 
 const View = () => {
   // dummy data
@@ -22,11 +23,11 @@ const View = () => {
   return (
     <Layout title='Payments Overview' currentPage={1}>
       <div className='main-wrapper'>
-        <div className='view-payment-wrapper'>
+        <div className='view-payment-wrapper view-page'>
           {
             // header
           }
-          <div className='view-payment-wrapper__header d-flex  justify-content-between align-item-center'>
+          <div className='view-page-header d-flex  justify-content-between align-item-center'>
             {
               // breadcrumbs
             }
@@ -124,18 +125,11 @@ const View = () => {
               </ul>
             </section>
 
+            {
+              // payment card
+            }
             <section>
-              <div className='payment-details-card'>
-                <div className='payment-details-card__header'>
-                  <h1 className='f-16 fw-700'>Payment details</h1>
-                  <h2 className='f-14 fw-400 color-gray'>
-                    Payment Mode
-                    <span className='fw-700 text-black ml-8'>Cash</span>
-                  </h2>
-                </div>
-                <div className='horizontal-divider' />
-                <div className='payment-details-card__content'></div>
-              </div>
+              <PaymentCard />
             </section>
           </div>
         </div>

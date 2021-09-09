@@ -206,3 +206,43 @@ html {
 .ant-switch-checked .ant-switch-handle {
   left: calc(100% - 15px) !important;
 }
+
+// divider between text
+.divider-between {
+  flex: 1;
+  border-bottom: 1px dashed #bebebe;
+  margin-bottom: 10px;
+}
+// payment detail card color
+.color-paid {
+  color: #40af3c !important;
+}
+.color-payment {
+  color: #ff7904 !important;
+}
+.color-received {
+  color: #1768ac !important;
+}
+
+// status blinking dot
+.status-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #40af3c;
+  border-radius: 50%;
+  animation: blinkAnimation infinite 1500ms ease-in;
+  vertical-align: middle;
+}
+
+@keyframes blinkAnimation {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}

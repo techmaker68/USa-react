@@ -12,6 +12,7 @@ const {Option} = Select;
 const Index = () => {
   const dataSource = [
     {
+      id: 0,
       key: "1",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -23,6 +24,7 @@ const Index = () => {
       status: "Approved",
     },
     {
+      id: 1,
       key: "2",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -34,6 +36,7 @@ const Index = () => {
       status: "Declined",
     },
     {
+      id: 2,
       key: "3",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -45,6 +48,7 @@ const Index = () => {
       status: "Pending",
     },
     {
+      id: 3,
       key: "4",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -56,6 +60,7 @@ const Index = () => {
       status: "Approved",
     },
     {
+      id: 4,
       key: "5",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -67,6 +72,7 @@ const Index = () => {
       status: "Approved",
     },
     {
+      id: 5,
       key: "6",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -78,6 +84,7 @@ const Index = () => {
       status: "Approved",
     },
     {
+      id: 6,
       key: "7",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -89,6 +96,7 @@ const Index = () => {
       status: "Approved",
     },
     {
+      id: 7,
       key: "8",
       fullName: "Muzamil Afridi",
       email: "muzamil@gmail.com",
@@ -151,7 +159,7 @@ const Index = () => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: (value) => <TableAction />,
+      render: (value, row) => <TableAction row={row} />,
     },
   ];
 
@@ -209,11 +217,11 @@ const Index = () => {
 
 export default Index;
 
-const TableAction = () => {
+const TableAction = ({row}) => {
   const menu = (
     <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
-        <Link to=''>View</Link>
+        <Link to={`/demo-requests/${row.id}`}>View</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>

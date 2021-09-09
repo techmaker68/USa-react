@@ -104,11 +104,21 @@ body {
 //                          Margins/Paddings
 // =========================================================
 
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.ml-5 {
+  margin-left: 5px !important;
+}
 .mr-7 {
   margin-right: 7px !important;
 }
 .ml-8 {
   margin-left: 8px !important;
+}
+.ml-9 {
+  margin-left: 9px !important;
 }
 .mr-10 {
   margin-right: 10px !important;
@@ -128,6 +138,12 @@ body {
 .mr-16 {
   margin-right: 16px !important;
 }
+.mt-16 {
+  margin-top: 16px !important;
+}
+.mb-22 {
+  margin-bottom: 22px !important;
+}
 .mt-24 {
   margin-top: 24px !important;
 }
@@ -136,6 +152,12 @@ body {
 }
 .mb-24 {
   margin-bottom: 24px !important;
+}
+.mb-25 {
+  margin-bottom: 25px !important;
+}
+.mt-30 {
+  margin-top: 30px !important;
 }
 .ml-37 {
   margin-left: 37px !important;
@@ -146,8 +168,18 @@ body {
 .mb-44 {
   margin-bottom: 44px !important;
 }
+.ml-49 {
+  margin-left: 49px !important;
+}
+.mx-49 {
+  margin-left: 49px !important;
+  margin-right: 49px !important;
+}
 .mr-95 {
   margin-right: 95px !important;
+}
+.mr-170 {
+  margin-right: 170px !important;
 }
 
 // =========================================================
