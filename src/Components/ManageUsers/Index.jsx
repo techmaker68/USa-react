@@ -1,7 +1,6 @@
 import {Button, Table, Menu, Dropdown} from "antd";
 import PlusIcon from "../../Assets/icons/plus.svg";
 import ActionIcon from "../../Assets/icons/action.svg";
-import {useState} from "react";
 import {Link} from "react-router-dom";
 
 // Render Manage Tenants Tab

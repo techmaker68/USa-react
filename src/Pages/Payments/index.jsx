@@ -280,11 +280,11 @@ const TableAction = () => {
   const menu = (
     <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
-        <Link href=''>View</Link>
+        <Link to='/manage-tenants/view'>View</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
-        <Link href=''>Active</Link>
+        <Link to=''>Active</Link>
       </Menu.Item>
     </Menu>
   );

@@ -243,15 +243,15 @@ const TableAction = () => {
   const menu = (
     <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
-        <Link href=''>View</Link>
+        <Link to=''>View</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
-        <Link href=''>Update</Link>
+        <Link to=''>Update</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
-        <Link href=''>Reset Password</Link>
+        <Link to=''>Reset Password</Link>
       </Menu.Item>
     </Menu>
   );

@@ -2,7 +2,7 @@ import "./App.scss";
 import {BrowserRouter as Router, Switch} from "react-router-dom";
 import PrivateRoute from "./Routes/PrivateRoute";
 import Dashboard from "./Pages/Dashboard/Index";
-import Payments from "./Pages/Payments/index";
+import Payments from "./Pages/Payments/Index";
 import ManageTenants from "./Pages/ManageTenants/Index";
 import DemoRequests from "./Pages/DemoRequests/Index";
 import UserManagement from "./Pages/UsersManagement/Index";
