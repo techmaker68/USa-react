@@ -21,8 +21,8 @@ const View = () => {
   return (
     <Layout title='Demo Requests' currentPage={3}>
       <div className='main-wrapper'>
-        <div className='view-requests-wrapper view-page'>
-          <div className='view-page-header d-flex justify-content-between align-item-center'>
+        <div className='view-requests-wrapper page-card'>
+          <div className='page-card-header d-flex justify-content-between align-item-center'>
             {
               // breadcrumbs
             }
@@ -123,31 +123,35 @@ const View = () => {
           {
             // Request Date Information
           }
-          <section className='demo-request-details mt-30'>
+          <section className='demo-request-details mt-30 mb-50'>
             <h1 className='f-16 fw-500 mb-25'>Request Date Information</h1>
-            <div className='d-flex justify-content-between mx-49'>
-              <div className='mb-24 '>
+            <div className='d-flex mx-49'>
+              <div className='mb-24 mr-170'>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
-                  Company
+                  Demo Request
                 </h2>
-                <p className='fw-500'>Tresco Industries</p>
+                <p className='fw-500'>29 July, 2021</p>
               </div>
 
-              <div className='mb-24 '>
+              <div className='mb-24 mr-170'>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
-                  Numbet of Branches
+                  Demo Start
                 </h2>
-                <p className='fw-500'>02</p>
+                <p className='fw-500'>30 July, 2021</p>
               </div>
-
               <div>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
-                  Number Of Users
+                  Demo End
                 </h2>
-                <p className='fw-500'>10</p>
+                <p className='fw-500 d-inline-block'>14 August, 2021</p>
+                <u className='color-info f-12 fw-700 ml-16'>Extend Date</u>
               </div>
             </div>
           </section>
+
+          <div className='alert-trial'>
+            Note : Only 10 days left on your trial
+          </div>
         </div>
       </div>
     </Layout>

@@ -107,7 +107,6 @@ body {
 .mr-5 {
   margin-right: 5px !important;
 }
-
 .ml-5 {
   margin-left: 5px !important;
 }
@@ -137,6 +136,9 @@ body {
 }
 .mr-16 {
   margin-right: 16px !important;
+}
+.ml-16 {
+  margin-left: 16px !important;
 }
 .mt-16 {
   margin-top: 16px !important;
@@ -175,6 +177,15 @@ body {
   margin-left: 49px !important;
   margin-right: 49px !important;
 }
+.mb-50 {
+  margin-bottom: 50px !important;
+}
+.mr-80 {
+  margin-right: 80px !important;
+}
+.mb-83 {
+  margin-bottom: 83px !important;
+}
 .mr-95 {
   margin-right: 95px !important;
 }
@@ -185,6 +196,10 @@ body {
 // =========================================================
 //                          width/height
 // =========================================================
+
+.w-60-p {
+  width: 60%;
+}
 
 // =========================================================
 //                          Color

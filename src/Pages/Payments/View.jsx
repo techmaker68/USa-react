@@ -1,5 +1,7 @@
 import Layout from "Layout/Index";
 import ArrowBack from "Assets/icons/arrow-back.svg";
+import EyeIcon from "Assets/icons/eye.svg";
+import DownloadIcons from "Assets/icons/download.svg";
 import {Link} from "react-router-dom";
 import {Button, Switch} from "antd";
 import PaymentCard from "./../../Components/Payments/PaymentCard";
@@ -23,11 +25,11 @@ const View = () => {
   return (
     <Layout title='Payments Overview' currentPage={1}>
       <div className='main-wrapper'>
-        <div className='view-payment-wrapper view-page'>
+        <div className='view-payment-wrapper page-card'>
           {
             // header
           }
-          <div className='view-page-header d-flex  justify-content-between align-item-center'>
+          <div className='page-card-header d-flex  justify-content-between align-item-center'>
             {
               // breadcrumbs
             }
@@ -37,10 +39,11 @@ const View = () => {
 
             <div>
               <Button className='default-button btn-v-invoice mr-16'>
-                View Invoice
+                <img className='mr-7' src={EyeIcon} alt='' /> View Invoice
               </Button>
               <Button className='primary-button btn-d-invoice'>
-                Download Invoice
+                <img className='mr-7' src={DownloadIcons} alt='' /> Download
+                Invoice
               </Button>
             </div>
           </div>
@@ -49,7 +52,7 @@ const View = () => {
             // content
           }
           <div className='d-flex justify-content-between'>
-            <section>
+            <section className='w-60-p mr-80'>
               {
                 // status
               }
@@ -78,51 +81,51 @@ const View = () => {
                 // business details
               }
               <h2 className='f-16 fw-500 mb-24'>Business Details</h2>
-              <ul className='list-inline business-details'>
-                <li className='list-inline-item'>
+              <div className='d-flex justify-content-between business-details'>
+                <div>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Business Name
                   </h3>
                   <p className='fw-500'>Tashoba Industries</p>
-                </li>
-                <li className='list-inline-item'>
+                </div>
+                <div>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Amount
                   </h3>
                   <p className='fw-500'>100 SAR</p>
-                </li>
-                <li className='list-inline-item'>
+                </div>
+                <div>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Credit Card
                   </h3>
                   <p className='fw-500'>24607288162582</p>
-                </li>
-              </ul>
+                </div>
+              </div>
 
               {
                 // Plan details
               }
-              <h2 className='f-16 fw-500 mb-24'>Business Details</h2>
-              <ul className='list-inline'>
-                <li className='list-inline-item'>
+              <h2 className='f-16 fw-500 mb-24'>Plan Details</h2>
+              <div className='d-flex justify-content-between'>
+                <div className='list-inline-item'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Plan Name
                   </h3>
                   <p className='fw-500'>Business plan</p>
-                </li>
-                <li className='list-inline-item'>
+                </div>
+                <div className='list-inline-item'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Billing Type
                   </h3>
-                  <p className='fw-500'>Bank Transfer</p>
-                </li>
-                <li className='list-inline-item'>
+                  <p className='fw-500'>Annuall</p>
+                </div>
+                <div className='list-inline-item'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Domain Name
                   </h3>
                   <p className='fw-500'>Toshiba@jmm.xyz</p>
-                </li>
-              </ul>
+                </div>
+              </div>
             </section>
 
             {

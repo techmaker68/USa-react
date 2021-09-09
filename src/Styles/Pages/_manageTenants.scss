@@ -1,6 +1,17 @@
 .manage-tenants-wrapper {
 }
 
-.p-49 {
-  padding: 49px;
+.manage-tenants-create {
+  hr {
+    background-color: #c5c5c5 !important;
+  }
+
+  &__content {
+    padding: 0 10px;
+  }
+
+  label {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
 }
