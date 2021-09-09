@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch} from "react-router-dom";
 import PrivateRoute from "./Routes/PrivateRoute";
 import Dashboard from "./Pages/Dashboard/Index";
 import Payments from "./Pages/Payments/Index";
+import ViewPayments from "./Pages/Payments/View";
 import ManageTenants from "./Pages/ManageTenants/Index";
 import DemoRequests from "./Pages/DemoRequests/Index";
 import UserManagement from "./Pages/UsersManagement/Index";
@@ -22,6 +23,9 @@ function App() {
 
           <PrivateRoute path='/payments' exact>
             <Payments />
+          </PrivateRoute>
+          <PrivateRoute path='/payments/:id' exact>
+            <ViewPayments />
           </PrivateRoute>
 
           <PrivateRoute path='/manage-tenants' exact>

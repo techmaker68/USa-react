@@ -1,0 +1,52 @@
+.view-payment-wrapper {
+  width: 1025px;
+  height: 638px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 10px 20px #5b5b5b26;
+  border: 1px solid #f2f2f2;
+  border-radius: 8px;
+  padding: 25px 36px;
+
+  &__header {
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 13px;
+    margin-bottom: 23px;
+  }
+
+  .btn-d-invoice {
+    width: 140px !important;
+  }
+  .btn-v-invoice {
+    width: 118px !important;
+  }
+  .list-inline-item:not(:last-child) {
+    margin-right: 60px !important;
+  }
+  ul,
+  p {
+    margin-bottom: 0 !important;
+  }
+
+  .business-details {
+    margin-bottom: 44px !important;
+  }
+
+  .payment-details-card {
+    width: 399px;
+    height: 247px;
+    background: #f9f9f9 0% 0% no-repeat padding-box;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    padding: 0 5px;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 11px;
+    }
+    &__content {
+      margin-top: 15px !important;
+    }
+  }
+}

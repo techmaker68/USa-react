@@ -17,6 +17,7 @@ const {RangePicker} = DatePicker;
 const Index = () => {
   const dataSource = [
     {
+      id: 0,
       key: "1",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -29,6 +30,7 @@ const Index = () => {
       accessStatus: "InActive",
     },
     {
+      id: 1,
       key: "2",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -41,6 +43,7 @@ const Index = () => {
       accessStatus: "Active",
     },
     {
+      id: 2,
       key: "3",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -53,6 +56,7 @@ const Index = () => {
       accessStatus: "InActive",
     },
     {
+      id: 3,
       key: "4",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -65,6 +69,7 @@ const Index = () => {
       accessStatus: "InActive",
     },
     {
+      id: 4,
       key: "5",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -77,6 +82,7 @@ const Index = () => {
       accessStatus: "InActive",
     },
     {
+      id: 5,
       key: "6",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -89,6 +95,7 @@ const Index = () => {
       accessStatus: "InActive",
     },
     {
+      id: 6,
       key: "7",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -101,6 +108,7 @@ const Index = () => {
       accessStatus: "InActive",
     },
     {
+      id: 7,
       key: "8",
       invoiceId: "ERP - 26 July - 102",
       bushinessName: "Tashoba Industries",
@@ -182,7 +190,7 @@ const Index = () => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: (value) => <TableAction />,
+      render: (value, row) => <TableAction row={row} />,
     },
   ];
 
@@ -276,11 +284,12 @@ const Index = () => {
 
 export default Index;
 
-const TableAction = () => {
+// render table action dropdown menu
+const TableAction = ({row}) => {
   const menu = (
     <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
-        <Link to='/manage-tenants/view'>View</Link>
+        <Link to={`/payments/${row.id}`}>View</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
@@ -288,6 +297,7 @@ const TableAction = () => {
       </Menu.Item>
     </Menu>
   );
+
   return (
     <Dropdown
       placement='bottomRight'

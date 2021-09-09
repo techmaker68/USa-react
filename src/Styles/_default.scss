@@ -177,3 +177,32 @@ html {
   color: #ff9e00;
   background-color: #fff7e9;
 }
+
+////////////// breadcrumb
+.breadcrumb {
+  font-size: 16px;
+  margin-bottom: 0 !important;
+  img {
+    margin-right: 9px;
+  }
+  span {
+    margin-top: 6px;
+    font-weight: 700;
+  }
+}
+
+.primary-switch {
+  min-width: 32px !important;
+  height: 18px !important;
+  .ant-switch-handle {
+    width: 12px !important;
+    height: 12px !important;
+    top: 3px !important;
+  }
+  span {
+    vertical-align: middle !important;
+  }
+}
+.ant-switch-checked .ant-switch-handle {
+  left: calc(100% - 15px) !important;
+}

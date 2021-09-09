@@ -61,6 +61,9 @@ body {
 .f-12 {
   font-size: 12px !important;
 }
+.f-14 {
+  font-size: 14px !important;
+}
 .f-16 {
   font-size: 16px !important;
 }
@@ -101,14 +104,29 @@ body {
 //                          Margins/Paddings
 // =========================================================
 
+.mr-7 {
+  margin-right: 7px !important;
+}
+.ml-8 {
+  margin-left: 8px !important;
+}
 .mr-10 {
   margin-right: 10px !important;
 }
 .ml-10 {
   margin-left: 10px !important;
 }
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+.mb-11 {
+  margin-bottom: 11px !important;
+}
 .mb-16 {
   margin-bottom: 16px !important;
+}
+.mr-16 {
+  margin-right: 16px !important;
 }
 .mt-24 {
   margin-top: 24px !important;
@@ -116,8 +134,20 @@ body {
 .mr-24 {
   margin-right: 24px !important;
 }
+.mb-24 {
+  margin-bottom: 24px !important;
+}
 .ml-37 {
   margin-left: 37px !important;
+}
+.mb-40 {
+  margin-bottom: 40px !important;
+}
+.mb-44 {
+  margin-bottom: 44px !important;
+}
+.mr-95 {
+  margin-right: 95px !important;
 }
 
 // =========================================================
@@ -129,7 +159,7 @@ body {
 // =========================================================
 
 .color-danger {
-  color: #fb1139 !important;
+  color: #ff0000 !important;
 }
 .color-success {
   color: #089752 !important;
@@ -142,6 +172,9 @@ body {
 }
 .color-gray {
   color: #a1a1a1 !important;
+}
+.color-silver-chalice {
+  color: #9f9f9f !important;
 }
 .color-primary {
   color: #1768ac !important;
@@ -186,4 +219,9 @@ body {
   to {
     height: 100%;
   }
+}
+
+.horizontal-divider {
+  width: 100%;
+  border: 1px solid #e6e6e6;
 }

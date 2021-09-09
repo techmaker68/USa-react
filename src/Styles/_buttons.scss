@@ -7,7 +7,23 @@
   border-radius: 4px !important;
   color: #ffffff !important;
   font-size: 12px !important;
-  font-weight: 700 !important;
   box-shadow: none !important;
   border: 0 !important;
+  span {
+    font-weight: 700 !important;
+  }
+}
+
+// default button
+.default-button {
+  width: 134px !important;
+  height: 36px !important;
+  border: 1px solid #1768ac !important;
+  border-radius: 4px !important;
+  color: #1768ac !important;
+  font-size: 12px !important;
+  box-shadow: none !important;
+  span {
+    font-weight: 700 !important;
+  }
 }
