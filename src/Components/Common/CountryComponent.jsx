@@ -1,6 +1,8 @@
 import React, {useMemo, useState} from "react";
 import {Select} from "antd";
 import countryList from "react-select-country-list";
+import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
+
 const CountryComponent = ({setValueHandler, ...rest}) => {
   const [value, setValue] = useState("");
   const options = useMemo(() => countryList().getData(), []);
@@ -14,6 +16,7 @@ const CountryComponent = ({setValueHandler, ...rest}) => {
   return (
     <Select
       className='primary-select-option country-list-dropdown'
+      suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
       value={value}
       onChange={changeHandler}
       {...rest}

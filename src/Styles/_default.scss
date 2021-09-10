@@ -11,13 +11,25 @@ html {
 
 // antd reset radio dot & border color
 .ant-radio-inner::after {
-  background-color: #089752 !important;
+  background-color: #337ddc !important;
 }
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner,
 .ant-radio-input:focus + .ant-radio-inner {
-  border-color: #089752 !important;
+  border-color: #337ddc !important;
 }
+.ant-radio-inner {
+  width: 23px !important;
+  height: 23px !important;
+  border-width: 2px !important;
+}
+.ant-radio-inner::after {
+  width: 11px !important;
+  height: 11px !important;
+  top: 4px !important;
+  left: 4px !important;
+}
+
 .select-option-filter {
   color: #3e98ff !important;
   .ant-select-selector,
@@ -169,8 +181,24 @@ html {
   }
 }
 
-.country-list-dropdown {
+/// primary radio group
+
+.primary-radio-group {
+  label span {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    margin-bottom: -2px !important;
+  }
 }
+
+.input-domain-suffix {
+  color: #a8a8a8;
+  font-size: 16px !important;
+  border-left: 1px solid #d2d2d2;
+  display: inline-block;
+  padding-left: 10px;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //                                CUSTOM COMPONENTS
 //////////////////////////////////////////////////////////////////////////

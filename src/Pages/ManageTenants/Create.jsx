@@ -1,13 +1,17 @@
 import Layout from "Layout/Index";
-import {Form, Input, Row, Col, InputNumber, Radio} from "antd";
+import {Form, Input, Row, Col, InputNumber, Radio, Select} from "antd";
 import {Link} from "react-router-dom";
 import ArrowBack from "Assets/icons/arrow-back.svg";
 import PhoneInput from "react-phone-input-2";
-import CountryComponent from "Components/CountryComponent";
+import CountryComponent from "Components/Common/CountryComponent";
+import CitySelect from "Components/Common/CitySelect";
 import {Upload, message} from "antd";
 import {InboxOutlined} from "@ant-design/icons";
+import StateSelect from "Components/Common/StateSelect";
+import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 
 const {Dragger} = Upload;
+const {Option} = Select;
 
 const props = {
   name: "file",
@@ -46,9 +50,9 @@ const CreateTenant = () => {
           <div className='manage-tenants-create__content'>
             <Form layout='vertical' initialValues={{payment_mode: 1}}>
               {/*Personal Details*/}
-              <section>
-                <p className='f-16 fw-500'>Personal Information</p>
-                <hr />
+              <section className='mb-24'>
+                <p className='f-16 fw-500 mb-0'>Personal Information</p>
+                <hr className='mt-1' />
                 <div className='mx-49'>
                   <Row gutter={[24, 16]}>
                     <Col xs={24} lg={8}>
@@ -79,9 +83,9 @@ const CreateTenant = () => {
                 </div>
               </section>
               {/*Business Details*/}
-              <section>
-                <p className='f-16 fw-500'>Business Detail</p>
-                <hr />
+              <section className='mb-24'>
+                <p className='f-16 fw-500 mb-0'>Business Detail</p>
+                <hr className='mt-1' />
                 <div className='mx-49'>
                   <Row gutter={[24, 16]}>
                     <Col xs={24} lg={8}>
@@ -108,17 +112,14 @@ const CreateTenant = () => {
                 </div>
               </section>
               {/*Billing Address*/}
-              <section>
-                <p className='f-16 fw-500'>Billing Address</p>
-                <hr />
+              <section className='mb-24'>
+                <p className='f-16 fw-500 mb-0'>Billing Address</p>
+                <hr className='mt-1' />
                 <div className='mx-49'>
                   <Row gutter={[24, 16]}>
                     <Col xs={24} lg={8}>
                       <Form.Item label='Country'>
-                        <CountryComponent
-                          size='large'
-                          style={{width: "100%"}}
-                        />
+                        <CountryComponent />
                       </Form.Item>
                     </Col>
                     <Col xs={24} lg={8}>
@@ -128,12 +129,12 @@ const CreateTenant = () => {
                     </Col>
                     <Col xs={24} lg={8}>
                       <Form.Item label='City'>
-                        <InputNumber min={0} className='primary-input-number' />
+                        <CitySelect />
                       </Form.Item>
                     </Col>
                     <Col xs={24} lg={8}>
                       <Form.Item label='State'>
-                        <Input className='primary-input' />
+                        <StateSelect />
                       </Form.Item>
                     </Col>
                     <Col xs={24} lg={8}>
@@ -145,14 +146,15 @@ const CreateTenant = () => {
                 </div>
               </section>
               {/*Payment Information*/}
-              <section>
-                <p className='f-16 fw-500'>Payment Information</p>
-                <hr />
+              <section className='mb-24'>
+                <p className='f-16 fw-500 mb-0'>Payment Information</p>
+                <hr className='mt-1' />
                 <div className='mx-49'>
+                  <h2 className='f-14 fw-700 mb-24'>Payment Mode</h2>
                   <Row gutter={[24, 16]}>
                     <Col xs={24}>
-                      <Form.Item label='Payment Mode' name='payment_mode'>
-                        <Radio.Group>
+                      <Form.Item name='payment_mode'>
+                        <Radio.Group className='primary-radio-group'>
                           <Radio value={1}>Cash</Radio>
                           <Radio value={2}>Cheque</Radio>
                           <Radio value={3}>Bank Transfer</Radio>
@@ -173,6 +175,46 @@ const CreateTenant = () => {
                         </Dragger>
                         <div></div>
                       </div>
+                    </Col>
+                  </Row>
+                </div>
+              </section>
+
+              {/*Plan detail*/}
+              <section>
+                <p className='f-16 fw-500 mb-0'>Plan Detail</p>
+                <hr className='mt-1' />
+                <div className='mx-49'>
+                  <Row gutter={[24, 16]}>
+                    <Col xs={24} lg={8}>
+                      <Form.Item label='Plan Name'>
+                        <Select
+                          suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
+                          className='primary-select-option'
+                        >
+                          <Option value='0'>Business</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} lg={8}>
+                      <Form.Item label='Billing Type'>
+                        <Select
+                          suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
+                          className='primary-select-option'
+                        >
+                          <Option value='0'>Annually</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col xs={24} lg={8}>
+                      <Form.Item label='Domain Name'>
+                        <Input
+                          className='primary-input'
+                          suffix={
+                            <span className='input-domain-suffix'>.XYZ</span>
+                          }
+                        />
+                      </Form.Item>
                     </Col>
                   </Row>
                 </div>
