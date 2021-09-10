@@ -15,7 +15,7 @@ import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 
 const {Option} = Select;
 const {Dragger} = Upload;
-function Cash() {
+function BankTransfer() {
   const props = {
     name: "file",
     onChange(info) {
@@ -40,7 +40,7 @@ function Cash() {
     <>
       <Row gutter={24}>
         <Col xs={24} lg={8}>
-          <Form.Item label='Receipt Picture'>
+          <Form.Item label='Invoice Upload'>
             <Dragger {...props} className='primary-upload-dragger'>
               <p className='ant-upload-drag-icon'></p>
               <p className='ant-upload-text f-12 fw-500'>
@@ -54,11 +54,13 @@ function Cash() {
         <Col xs={24} lg={16}>
           <Row gutter={24}>
             <Col xs={24} lg={12}>
-              <Form.Item label='Amount'>
-                <Input
-                  className='primary-input'
-                  suffix={<span className='input-domain-suffix'>SAR</span>}
-                />
+              <Form.Item label='From Account Number'>
+                <InputNumber className='primary-input-number' />
+              </Form.Item>
+            </Col>
+            <Col xs={24} lg={12}>
+              <Form.Item label='To Account Number'>
+                <Input className='primary-input' />
               </Form.Item>
             </Col>
             <Col xs={24} lg={12}>
@@ -72,13 +74,11 @@ function Cash() {
               </Form.Item>
             </Col>
             <Col xs={24} lg={12}>
-              <Form.Item label='Payee Name'>
-                <Input className='primary-input' />
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='Cheque Number'>
-                <Input className='primary-input' />
+              <Form.Item label='Amount'>
+                <Input
+                  className='primary-input'
+                  suffix={<span className='input-domain-suffix'>SAR</span>}
+                />
               </Form.Item>
             </Col>
             <Col xs={24} lg={12}>
@@ -92,7 +92,7 @@ function Cash() {
               </Form.Item>
             </Col>
             <Col xs={24} lg={12}>
-              <Form.Item label='Cheque Date'>
+              <Form.Item label='Payment Date'>
                 <DatePicker
                   clearIcon={false}
                   suffixIcon={<img src={DatePickerIcon} alt='' />}
@@ -107,4 +107,4 @@ function Cash() {
   );
 }
 
-export default Cash;
+export default BankTransfer;

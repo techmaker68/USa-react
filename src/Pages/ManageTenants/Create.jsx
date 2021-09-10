@@ -5,36 +5,21 @@ import ArrowBack from "Assets/icons/arrow-back.svg";
 import PhoneInput from "react-phone-input-2";
 import CountryComponent from "Components/Common/CountryComponent";
 import CitySelect from "Components/Common/CitySelect";
-import {Upload, message} from "antd";
-import {InboxOutlined} from "@ant-design/icons";
 import StateSelect from "Components/Common/StateSelect";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
+import Cash from "Components/ManageTenants/PaymentModes/Cash";
+import Cheque from "Components/ManageTenants/PaymentModes/Cheque";
+import {useState} from "react";
+import BankTransfer from "Components/ManageTenants/PaymentModes/BankTransfer";
 
-const {Dragger} = Upload;
 const {Option} = Select;
 
-const props = {
-  name: "file",
-  onChange(info) {
-    const {status} = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-  beforeUpload: (file) => {
-    return false;
-  },
-};
-
 const CreateTenant = () => {
+  const [paymentMethod, setPaymentMethod] = useState(0);
+
+  const handlePaymentMethod = ({target}) => {
+    setPaymentMethod(target.value);
+  };
   return (
     <Layout title='Manage Tenants' currentPage={2}>
       <div className='main-wrapper'>
@@ -43,7 +28,7 @@ const CreateTenant = () => {
             {
               // breadcrumbs
             }
-            <Link to='/manage-requests' className='breadcrumb'>
+            <Link to='/manage-tenants' className='breadcrumb'>
               <img src={ArrowBack} alt='' /> <span className='mt-0'>Back</span>
             </Link>
           </div>
@@ -154,29 +139,22 @@ const CreateTenant = () => {
                   <Row gutter={[24, 16]}>
                     <Col xs={24}>
                       <Form.Item name='payment_mode'>
-                        <Radio.Group className='primary-radio-group'>
-                          <Radio value={1}>Cash</Radio>
-                          <Radio value={2}>Cheque</Radio>
-                          <Radio value={3}>Bank Transfer</Radio>
+                        <Radio.Group
+                          onChange={handlePaymentMethod}
+                          className='primary-radio-group'
+                          defaultValue={paymentMethod}
+                        >
+                          <Radio value={0}>Cash</Radio>
+                          <Radio value={1}>Cheque</Radio>
+                          <Radio value={2}>Bank Transfer</Radio>
                         </Radio.Group>
                       </Form.Item>
                     </Col>
-                    <Col xs={24}>
-                      <div className='d-flex align-items-center'>
-                        <Dragger {...props} className='p-3'>
-                          <p className='ant-upload-drag-icon'>
-                            <InboxOutlined />
-                          </p>
-                          <p className='ant-upload-text'>
-                            Drag & drop file to upload
-                          </p>
-                          <p className='ant-upload-text'>Or</p>
-                          <p className='ant-upload-text'>Browser</p>
-                        </Dragger>
-                        <div></div>
-                      </div>
-                    </Col>
                   </Row>
+
+                  {/* <Cash /> */}
+                  {/* <Cheque /> */}
+                  <BankTransfer />
                 </div>
               </section>
 

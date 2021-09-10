@@ -1,23 +1,28 @@
 import {Col, Row, Form, Input, InputNumber, DatePicker} from "antd";
 import React from "react";
+import DatePickerIcon from "Assets/icons/datepicker.svg";
 
 function Cash() {
   return (
     <>
       <Row gutter={24}>
-        <Col xs={24} lg={12}>
+        <Col xs={24} lg={8}>
           <Form.Item label='Amount'>
-            <InputNumber className='w-100' size='large' />
+            <InputNumber className='primary-input-number' />
           </Form.Item>
         </Col>
-        <Col xs={24} lg={12}>
-          <Form.Item label='Recieved By'>
-            <Input className='w-100' size='large' />
+        <Col xs={24} lg={8}>
+          <Form.Item label='Received By'>
+            <Input className='primary-input' size='large' />
           </Form.Item>
         </Col>
-        <Col xs={24} lg={12}>
+        <Col xs={24} lg={8}>
           <Form.Item label='Payment Date'>
-            <DatePicker className='w-100' size='large' />
+            <DatePicker
+              clearIcon={false}
+              suffixIcon={<img src={DatePickerIcon} alt='' />}
+              className='primary-date-picker'
+            />
           </Form.Item>
         </Col>
       </Row>

@@ -199,6 +199,25 @@ html {
   padding-left: 10px;
 }
 
+// primary date-picker
+.primary-date-picker {
+  width: 269px !important;
+  height: 48px !important;
+  background: #ffffff 0% 0% no-repeat padding-box !important;
+  border: 1px solid #cfcfcf !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+// primary upload dragger
+.primary-upload-dragger {
+  width: 269px !important;
+  height: 188px !important;
+  background-color: #f5f9ff !important;
+  border: 1px dashed #337ddc !important;
+  border-radius: 4px !important;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //                                CUSTOM COMPONENTS
 //////////////////////////////////////////////////////////////////////////

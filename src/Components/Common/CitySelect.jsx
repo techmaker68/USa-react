@@ -8,7 +8,7 @@ const CitySelect = () => {
     <>
       <Select
         className='primary-select-option'
-        suffixIcon={<img src={SelectArrowDownIcon} />}
+        suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
       >
         <Option value='0'>City 1</Option>
       </Select>
