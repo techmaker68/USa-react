@@ -254,11 +254,11 @@ const TableAction = ({row}) => {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
-        <Link to=''>Update Tenants</Link>
+        <Link to={`/manage-tenants/${row.id}/update`}>Update Tenants</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='2'>
-        <Link to=''>Upgrade Plan</Link>
+        <Link to='/manage-tenants/upgrade-plan'>Upgrade Plan</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='3'>

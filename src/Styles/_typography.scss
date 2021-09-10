@@ -110,6 +110,9 @@ body {
 .ml-5 {
   margin-left: 5px !important;
 }
+.m-t-5 {
+  margin-top: 5px !important;
+}
 .mr-7 {
   margin-right: 7px !important;
 }
@@ -160,6 +163,9 @@ body {
 }
 .mt-30 {
   margin-top: 30px !important;
+}
+.mr-30 {
+  margin-right: 30px !important;
 }
 .ml-37 {
   margin-left: 37px !important;
@@ -235,6 +241,9 @@ body {
 .color-inActive {
   color: red !important;
 }
+.color-apple {
+  color: #40af3c !important;
+}
 // =========================================================
 //                          Line height
 // =========================================================
@@ -275,4 +284,8 @@ body {
 
 .line-36 {
   line-height: 36px !important;
+}
+
+.gap-24 {
+  gap: 24px;
 }

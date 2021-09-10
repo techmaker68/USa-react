@@ -1,4 +1,5 @@
 import {Button} from "antd";
+import {Link} from "react-router-dom";
 
 const TenantInfo = () => {
   return (
@@ -12,7 +13,9 @@ const TenantInfo = () => {
           <Button className='default-button btn-reset-cred mr-16'>
             Reset Credentials
           </Button>
-          <Button className='primary-button btn-edit '>Edit</Button>
+          <Link to='/manage-tenants/0/update'>
+            <Button className='primary-button btn-edit'>Edit</Button>
+          </Link>
         </div>
       </div>
 

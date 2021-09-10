@@ -1,14 +1,4 @@
-import {
-  Col,
-  Row,
-  Form,
-  Input,
-  InputNumber,
-  DatePicker,
-  Select,
-  Upload,
-  message,
-} from "antd";
+import {Form, Input, DatePicker, Select, Upload, message} from "antd";
 import React from "react";
 import DatePickerIcon from "Assets/icons/datepicker.svg";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
@@ -38,50 +28,31 @@ function Cash() {
   };
   return (
     <>
-      <Row gutter={24}>
-        <Col xs={24} lg={8}>
+      <div className='d-flex gap-24'>
+        <div>
           <Form.Item label='Receipt Picture'>
             <Dragger {...props} className='primary-upload-dragger'>
               <p className='ant-upload-drag-icon'></p>
               <p className='ant-upload-text f-12 fw-500'>
                 Drag & drop file to upload
-                <p className=' f-12'>Or</p>
+                <span className='d-block f-12'>Or</span>
                 <u className='f-12 fw-500 color-info'>Browse</u>
               </p>
             </Dragger>
           </Form.Item>
-        </Col>
-        <Col xs={24} lg={16}>
-          <Row gutter={24}>
-            <Col xs={24} lg={12}>
+        </div>
+        <div>
+          <div className='d-flex gap-24'>
+            <div>
               <Form.Item label='Amount'>
                 <Input
                   className='primary-input'
                   suffix={<span className='input-domain-suffix'>SAR</span>}
                 />
               </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='Bank Name'>
-                <Select
-                  suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
-                  className='primary-select-option'
-                >
-                  <Option>Ahmad bilaar bin Abdul Aziz</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
               <Form.Item label='Payee Name'>
                 <Input className='primary-input' />
               </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='Cheque Number'>
-                <Input className='primary-input' />
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
               <Form.Item label='Received By'>
                 <Select
                   suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
@@ -90,8 +61,21 @@ function Cash() {
                   <Option>Ahmad bilaar bin Abdul Aziz</Option>
                 </Select>
               </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
+            </div>
+
+            <div>
+              <Form.Item label='Bank Name'>
+                <Select
+                  suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
+                  className='primary-select-option'
+                >
+                  <Option>Ahmad bilaar bin Abdul Aziz</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label='Cheque Number'>
+                <Input className='primary-input' />
+              </Form.Item>
+
               <Form.Item label='Cheque Date'>
                 <DatePicker
                   clearIcon={false}
@@ -99,10 +83,10 @@ function Cash() {
                   className='primary-date-picker'
                 />
               </Form.Item>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

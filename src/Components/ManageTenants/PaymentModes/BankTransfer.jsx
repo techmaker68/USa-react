@@ -38,71 +38,64 @@ function BankTransfer() {
   };
   return (
     <>
-      <Row gutter={24}>
-        <Col xs={24} lg={8}>
+      <div className='d-flex gap-24'>
+        <div>
           <Form.Item label='Invoice Upload'>
             <Dragger {...props} className='primary-upload-dragger'>
               <p className='ant-upload-drag-icon'></p>
               <p className='ant-upload-text f-12 fw-500'>
                 Drag & drop file to upload
-                <p className=' f-12'>Or</p>
+                <span className='d-block f-12'>Or</span>
                 <u className='f-12 fw-500 color-info'>Browse</u>
               </p>
             </Dragger>
           </Form.Item>
-        </Col>
-        <Col xs={24} lg={16}>
-          <Row gutter={24}>
-            <Col xs={24} lg={12}>
-              <Form.Item label='From Account Number'>
-                <InputNumber className='primary-input-number' />
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='To Account Number'>
-                <Input className='primary-input' />
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='Bank Name'>
-                <Select
-                  suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
-                  className='primary-select-option'
-                >
-                  <Option>Ahmad bilaar bin Abdul Aziz</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='Amount'>
-                <Input
-                  className='primary-input'
-                  suffix={<span className='input-domain-suffix'>SAR</span>}
-                />
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='Received By'>
-                <Select
-                  suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
-                  className='primary-select-option'
-                >
-                  <Option>Ahmad bilaar bin Abdul Aziz</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} lg={12}>
-              <Form.Item label='Payment Date'>
-                <DatePicker
-                  clearIcon={false}
-                  suffixIcon={<img src={DatePickerIcon} alt='' />}
-                  className='primary-date-picker'
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+        </div>
+
+        <div className='d-flex gap-24'>
+          <div>
+            <Form.Item label='From Account Number'>
+              <InputNumber className='primary-input-number' />
+            </Form.Item>
+
+            <Form.Item label='Bank Name'>
+              <Select
+                suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
+                className='primary-select-option'
+              >
+                <Option>Ahmad bilaar bin Abdul Aziz</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label='Received By'>
+              <Select
+                suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
+                className='primary-select-option'
+              >
+                <Option>Ahmad bilaar bin Abdul Aziz</Option>
+              </Select>
+            </Form.Item>
+          </div>
+          <div>
+            <Form.Item label='To Account Number'>
+              <Input className='primary-input' />
+            </Form.Item>
+            <Form.Item label='Amount'>
+              <Input
+                className='primary-input'
+                suffix={<span className='input-domain-suffix'>SAR</span>}
+              />
+            </Form.Item>
+
+            <Form.Item label='Payment Date'>
+              <DatePicker
+                clearIcon={false}
+                suffixIcon={<img src={DatePickerIcon} alt='' />}
+                className='primary-date-picker'
+              />
+            </Form.Item>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

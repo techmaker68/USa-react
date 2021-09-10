@@ -1,18 +1,10 @@
 .manage-tenants-wrapper {
 }
 
-.manage-tenants-create {
-  hr {
-    background-color: #c5c5c5 !important;
-  }
-
-  &__content {
-    padding: 0 10px;
-  }
-
-  label {
-    font-size: 12px !important;
-    font-weight: 500 !important;
+.update-tenant {
+  // switch color for update screen
+  .ant-switch-checked {
+    background-color: #40af3c !important;
   }
 }
 

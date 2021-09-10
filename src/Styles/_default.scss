@@ -46,7 +46,8 @@ html {
   }
 }
 
-.ant-input {
+.ant-input,
+.ant-input-number {
   border-radius: 4px !important;
 }
 
@@ -359,6 +360,18 @@ html {
   border: 1px solid #f2f2f2;
   border-radius: 8px;
   padding: 25px 36px;
+  hr {
+    background-color: #c5c5c5 !important;
+  }
+
+  &__content {
+    padding: 0 10px;
+  }
+
+  label {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
 }
 
 .page-card-header {

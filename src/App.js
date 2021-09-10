@@ -9,7 +9,9 @@ import ManageTenantsView from "./Pages/ManageTenants/View";
 import DemoRequests from "./Pages/DemoRequests/Index";
 import UserManagement from "./Pages/UsersManagement/Index";
 import CreateTenant from "./Pages/ManageTenants/Create";
-import View from "./Pages/DemoRequests/View";
+import ViewDemoRequest from "./Pages/DemoRequests/View";
+import UpdateTenant from "./Components/ManageTenants/UpdateTenant";
+import UpgradePlan from "./Pages/ManageTenants/Upgrade";
 
 function App() {
   return (
@@ -17,19 +19,23 @@ function App() {
       <div>
         <Switch>
           {
-            // private routes
+            // Dashboard
           }
           <PrivateRoute path='/dashboard' exact>
             <Dashboard />
           </PrivateRoute>
-
+          {
+            // Payments
+          }
           <PrivateRoute path='/payments' exact>
             <Payments />
           </PrivateRoute>
           <PrivateRoute path='/payments/:id' exact>
             <ViewPayments />
           </PrivateRoute>
-
+          {
+            // Manage Tenants
+          }
           <PrivateRoute path='/manage-tenants' exact>
             <ManageTenants />
           </PrivateRoute>
@@ -42,14 +48,24 @@ function App() {
           <PrivateRoute path='/manage-tenants/create' exact>
             <CreateTenant />
           </PrivateRoute>
-
+          <PrivateRoute path='/manage-tenants/:id/update' exact>
+            <UpdateTenant />
+          </PrivateRoute>
+          <PrivateRoute path='/manage-tenants/upgrade-plan' exact>
+            <UpgradePlan />
+          </PrivateRoute>
+          {
+            // Demo Requests
+          }
           <PrivateRoute path='/demo-requests' exact>
             <DemoRequests />
           </PrivateRoute>
           <PrivateRoute path='/demo-requests/:id' exact>
-            <View />
+            <ViewDemoRequest />
           </PrivateRoute>
-
+          {
+            // User Management
+          }
           <PrivateRoute path='/users-management/manage-users' exact>
             <UserManagement />
           </PrivateRoute>
