@@ -71,15 +71,15 @@ const View = () => {
               <div className='mr-170'>
                 <div className='mb-24'>
                   <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
-                    First Name
+                    Last Name
                   </h2>
                   <p className='fw-500'>Muzamil</p>
                 </div>
                 <div>
                   <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
-                    Mobile Number
+                    Country
                   </h2>
-                  <p className='fw-500'>+92 345 2738 273</p>
+                  <p className='fw-500'>Saudi Arabia</p>
                 </div>
               </div>
               <div>
@@ -88,8 +88,6 @@ const View = () => {
                 </h2>
                 <p className='fw-500'>muzamil@gmail.com</p>
               </div>
-              <div></div>
-              <div></div>
             </div>
           </section>
           {

@@ -4,7 +4,9 @@ import EyeIcon from "Assets/icons/eye.svg";
 import DownloadIcons from "Assets/icons/download.svg";
 import {Link} from "react-router-dom";
 import {Button, Switch} from "antd";
-import PaymentCard from "./../../Components/Payments/PaymentCard";
+import PaymentCard from "Components/Payments/PaymentCard";
+import CheckCard from "Components/Payments/CheckCard";
+import BankCard from "Components/Payments/BankCard";
 
 const View = () => {
   // dummy data
@@ -132,7 +134,10 @@ const View = () => {
               // payment card
             }
             <section>
-              <PaymentCard />
+              {/* <PaymentCard /> */}
+
+              {/* <CheckCard /> */}
+              <BankCard />
             </section>
           </div>
         </div>

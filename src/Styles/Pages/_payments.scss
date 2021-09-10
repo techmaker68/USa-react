@@ -22,7 +22,7 @@
   .payment-details-wrapper {
     .payment-details-card {
       width: 399px;
-      height: 247px;
+      min-height: 281px;
       background: #f9f9f9 0% 0% no-repeat padding-box;
       border: 1px solid #f2f2f2;
       border-radius: 8px;
@@ -32,12 +32,24 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 18px 11px;
+        padding: 18px 16px;
       }
       &__content {
-        margin-top: 15px;
-        padding: 22px 24px;
+        background: #f1f1f1;
+        padding: 16px 24px;
+        margin: 16px;
+        border-radius: 8px;
       }
+
+      .ant-image {
+        .anticon {
+          vertical-align: 0rem !important;
+        }
+      }
+    }
+    .card-type-cheque {
+      font-size: 14px !important;
+      font-weight: 500 !important;
     }
   }
 }

@@ -1,5 +1,5 @@
 import Layout from "Layout/Index";
-import {Card, Form, Input, Row, Col, InputNumber, Radio} from "antd";
+import {Form, Input, Row, Col, InputNumber, Radio} from "antd";
 import {Link} from "react-router-dom";
 import ArrowBack from "Assets/icons/arrow-back.svg";
 import PhoneInput from "react-phone-input-2";
