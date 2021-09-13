@@ -1,0 +1,47 @@
+.business-info-wrapper {
+  .business-profile {
+    display: flex;
+    justify-content: center;
+    height: 150px !important;
+  }
+
+  .profile {
+    width: 128px;
+    height: 128px;
+    background: #f1f1f1;
+    border-radius: 50%;
+    text-align: center;
+    img {
+      margin-top: 40px;
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      color: #186bb1 !important;
+    }
+  }
+
+  .primary-input {
+    width: 220px !important;
+  }
+
+  .general-details {
+    max-height: 500px;
+    overflow-y: scroll;
+
+    h1 {
+      margin-bottom: 24px !important;
+    }
+  }
+
+  .general-details::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge add Firefox */
+  .general-details {
+    -ms-overflow-style: none;
+    scrollbar-width: none; /* Firefox */
+  }
+}

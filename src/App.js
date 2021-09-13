@@ -16,12 +16,19 @@ import CreateRole from "./Components/UsersManagement/ManageRoles/CreateRole";
 import UpdateRole from "./Components/UsersManagement/ManageRoles/UpdateRole";
 import ViewRole from "./Components/UsersManagement/ManageRoles/ViewRole";
 import BusinessInfo from "./Pages/BusinessInformation/Index";
+import Login from "./Pages/Auth/Login";
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
+          {
+            // login
+          }
+          <PrivateRoute path='/' exact>
+            <Login />
+          </PrivateRoute>
           {
             // Dashboard
           }

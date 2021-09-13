@@ -1,0 +1,81 @@
+.dashboard-wrapper {
+  .stats-card {
+    height: 156px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 20px #5b5b5b26;
+    border-radius: 8px;
+    padding: 12px;
+
+    h1 {
+      font-size: 16px !important;
+      font-weight: 700 !important;
+      margin-bottom: 30px;
+    }
+    p {
+      font-size: 12px !important;
+      font-weight: 400 !important;
+    }
+  }
+
+  .line-chart-wrapper {
+    width: 100%;
+    height: 286px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 20px #5b5b5b26;
+    border-radius: 8px;
+    margin-top: 21px;
+    padding: 16px;
+
+    h1 {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .heat-map-wrapper {
+    height: 446px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 20px #5b5b5b26;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+  }
+
+  .rate-wrapper {
+    height: 171px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 20px #5b5b5b26;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    padding: 16px;
+    &__header {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  .customer-overview {
+    height: 252px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 20px #5b5b5b26;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    margin-top: 21px;
+    &__header {
+      padding: 14px 12px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  .cities-wrapper {
+    height: 252px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 20px #5b5b5b26;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    margin-top: 21px;
+    &__header {
+      padding: 14px 12px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}
