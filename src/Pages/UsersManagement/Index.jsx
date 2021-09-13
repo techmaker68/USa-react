@@ -1,8 +1,8 @@
 import {Tabs} from "antd";
 import Layout from "Layout/Index";
 import {useState} from "react";
-import ManageUsers from "Components/UsersManagement/ManageUsers";
-import ManageRoles from "Components/UsersManagement/ManageRoles";
+import ManageUsers from "Components/UsersManagement/ManageUsers/ManageUsers";
+import ManageRoles from "Components/UsersManagement/ManageRoles/ManageRoles";
 import {useHistory} from "react-router";
 
 const {TabPane} = Tabs;

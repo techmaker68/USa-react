@@ -12,6 +12,10 @@ import CreateTenant from "./Pages/ManageTenants/Create";
 import ViewDemoRequest from "./Pages/DemoRequests/View";
 import UpdateTenant from "./Components/ManageTenants/UpdateTenant";
 import UpgradePlan from "./Pages/ManageTenants/Upgrade";
+import CreateRole from "./Components/UsersManagement/ManageRoles/CreateRole";
+import UpdateRole from "./Components/UsersManagement/ManageRoles/UpdateRole";
+import ViewRole from "./Components/UsersManagement/ManageRoles/ViewRole";
+import BusinessInfo from "./Pages/BusinessInformation/Index";
 
 function App() {
   return (
@@ -71,6 +75,22 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path='/users-management/manage-roles' exact>
             <UserManagement />
+          </PrivateRoute>
+          <PrivateRoute path='/users-management/create-role' exact>
+            <CreateRole />
+          </PrivateRoute>
+          <PrivateRoute path='/users-management/update-role' exact>
+            <UpdateRole />
+          </PrivateRoute>
+          <PrivateRoute path='/users-management/view-role' exact>
+            <ViewRole />
+          </PrivateRoute>
+
+          {
+            // User info
+          }
+          <PrivateRoute path='/business-info' exact>
+            <BusinessInfo />
           </PrivateRoute>
         </Switch>
       </div>

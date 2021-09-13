@@ -32,6 +32,11 @@ const Index = ({children, title, currentPage}) => {
       url: "/users-management/manage-users",
       icon: <ManagementIcon />,
     },
+    {
+      title: "Business Information",
+      url: "/business-info",
+      icon: <ManagementIcon />,
+    },
   ];
 
   return (

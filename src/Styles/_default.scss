@@ -190,6 +190,10 @@ html {
     box-shadow: none !important;
     padding: 5px 11px !important;
   }
+  .ant-select-selection-item {
+    font-weight: 500 !important;
+    margin-top: 3px !important;
+  }
 }
 
 /// primary radio group
@@ -229,13 +233,71 @@ html {
   border-radius: 4px !important;
 }
 
+// Primary Modal
+.primary-modal {
+  .ant-modal-content {
+    width: 738px;
+    height: 343px;
+  }
+  .ant-modal-title {
+    font-weight: 700 !important;
+  }
+  .ant-modal-header {
+    padding: 20px 24px;
+  }
+}
+
+// form primary
+.form-primary {
+  label {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+}
+
+// primary text area
+.primary-textarea {
+  width: 543px !important;
+  height: 159px !important;
+  background: #ffffff 0% 0% no-repeat padding-box !important;
+  border: 1px solid #cfcfcf !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  resize: none !important;
+}
+
+// primary-checkbox
+
+.primary-checkbox {
+  span {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+}
+.primary-checkbox-group {
+  span {
+    font-size: 12px !important;
+  }
+}
+
+.primary-tree {
+  background-color: transparent !important;
+  .ant-tree-switcher img {
+    margin-bottom: 2px !important;
+  }
+  .ant-tree-title {
+    font-size: 14px !important;
+    // font-weight: 500 !important;
+  }
+}
+
 //////////////////////////////////////////////////////////////////////////
 //                                CUSTOM COMPONENTS
 //////////////////////////////////////////////////////////////////////////
 
 .main-wrapper {
   padding: 24px 60px 24px 37px;
-  margin-left: 241px;
+  margin-left: 251px;
   margin-top: 72px;
 }
 
