@@ -464,3 +464,22 @@ html {
     box-shadow: none !important;
   }
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+.no-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+// rechart pie chart
+
+.map-wrapper .recharts-wrapper {
+  top: -125px;
+  left: 55%;
+  transform: translateX(-50%);
+}
