@@ -1,5 +1,6 @@
 import SelectArrowDownIcon from "Assets/icons/arrowDownBlue.svg";
 import {Select} from "antd";
+import PieMap from "./PieMap";
 
 const {Option} = Select;
 
@@ -30,7 +31,9 @@ const TicketHeatMap = () => {
       {
         // heat map
       }
-      <div className='map-wrapper'></div>
+      <div className='map-wrapper position-relative'>
+        <PieMap />
+      </div>
       {
         //conte-header
       }

@@ -56,5 +56,24 @@ const PieMap = () => {
 export default PieMap;
 
 const CustomPieTooltip = ({payload}) => {
-  return <span> {payload[0] && payload[0].payload.value}</span>;
+  return (
+    <div className='custom-pie-tooltip'>
+      <div className='d-flex justify-content-between'>
+        <h1 className='f-14 fw-500'>Dashboard</h1>
+        <div className='f-14 fw-500 color-success'>30%</div>
+      </div>
+      <p className='f-12 color-gray mb-2'>Breakdown</p>
+      <div className='d-flex justify-content-between'>
+        <div>
+          <p className='f-12 m-0'>Delivery</p>
+          <p className='f-12 mb-1'>PowerBI</p>
+        </div>
+        <div>
+          <p className='f-12 m-0  color-success'>20%</p>
+          <p className='f-12 m-0  color-danger'>10%</p>
+        </div>
+      </div>
+      {/* <span>{payload[0] && payload[0].payload.value}</span> */}
+    </div>
+  );
 };
