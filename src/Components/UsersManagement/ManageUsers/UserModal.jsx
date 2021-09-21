@@ -31,6 +31,7 @@ const UserModal = ({
             </Form.Item>
             <Form.Item label='First Name'>
               <Select
+                dropdownMatchSelectWidth={false}
                 suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                 className='primary-select-option'
               >
@@ -44,6 +45,7 @@ const UserModal = ({
             </Form.Item>
             <Form.Item label='Gender'>
               <Select
+                dropdownMatchSelectWidth={false}
                 suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                 className='primary-select-option'
               >
@@ -57,6 +59,7 @@ const UserModal = ({
             </Form.Item>
             <Form.Item label='Status'>
               <Select
+                dropdownMatchSelectWidth={false}
                 suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                 className='primary-select-option status-select-option'
               >

@@ -7,22 +7,27 @@ import {Button, Switch} from "antd";
 import PaymentCard from "Components/Payments/PaymentCard";
 import CheckCard from "Components/Payments/CheckCard";
 import BankCard from "Components/Payments/BankCard";
+import {UseAxios} from "Hooks/useAxios";
+import {useParams} from "react-router-dom";
+import {AccessStatus, BillingType} from "Constants/Global";
 
 const View = () => {
-  // dummy data
-  const data = {
-    id: 0,
-    key: "1",
-    invoiceId: "ERP - 26 July - 102",
-    bushinessName: "Tashoba Industries",
-    billingType: "Bank Transfer",
-    amount: "100 SAR",
-    paymentDate: "26 July, 2022",
-    dueDate: "26 July, 2022",
-    autoRenew: "yes",
-    paymentStatus: "Paid",
-    accessStatus: "InActive",
-  };
+  const {id} = useParams();
+
+  // Fetch Data - http request
+  const {
+    response: data,
+    isLoading,
+    error,
+  } = UseAxios({
+    endpoint: `/Payments/${id}`, // setup base URL in UseAxios file.
+    method: "get", // http request method
+    errorsMessage: {404: "Page not exist."}, // error message for expected errors - string
+    successMessage: "", // success message
+  });
+
+  // update active status
+  const handleAccessStatus = () => {};
 
   return (
     <Layout title='Payments Overview' currentPage={1}>
@@ -36,7 +41,7 @@ const View = () => {
               // breadcrumbs
             }
             <Link to='/payments' className='breadcrumb'>
-              <img src={ArrowBack} alt='' /> <span>{data?.invoiceId}</span>
+              <img src={ArrowBack} alt='' /> <span>{data?.displayId}</span>
             </Link>
 
             <div>
@@ -49,7 +54,6 @@ const View = () => {
               </Button>
             </div>
           </div>
-
           {
             // content
           }
@@ -63,7 +67,7 @@ const View = () => {
                   <p className='f-12 fw-500 color-silver-chalice mb-11'>
                     Payment Status
                   </p>
-                  <Switch className='primary-switch mr-7' />
+
                   <span className='f-16 fw-600 color-danger align-middle'>
                     Unpaid
                   </span>
@@ -72,7 +76,11 @@ const View = () => {
                   <p className='f-12 fw-500 color-silver-chalice mb-11'>
                     Access Status
                   </p>
-                  <Switch className='primary-switch mr-7' />
+                  <Switch
+                    checked={AccessStatus?.accessStatus}
+                    className='primary-switch mr-7'
+                    onChange={handleAccessStatus}
+                  />
                   <span className='f-16 fw-600 color-danger align-middle'>
                     In Active
                   </span>
@@ -83,61 +91,68 @@ const View = () => {
                 // business details
               }
               <h2 className='f-16 fw-500 mb-24'>Business Details</h2>
-              <div className='d-flex justify-content-between business-details'>
-                <div>
+              <div className='d-flex business-details'>
+                <div className='mr-250'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Business Name
                   </h3>
-                  <p className='fw-500'>Tashoba Industries</p>
+                  <p className='fw-500'>{data?.businessName}</p>
                 </div>
                 <div>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Amount
                   </h3>
-                  <p className='fw-500'>100 SAR</p>
+                  <p className='fw-500'>{data?.amount} SAR</p>
                 </div>
-                <div>
-                  <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
-                    Credit Card
-                  </h3>
-                  <p className='fw-500'>24607288162582</p>
-                </div>
+                {data?.paymentMethod !== 0 && (
+                  <div className='mr-250'>
+                    <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
+                      Credit Card
+                    </h3>
+                    <p className='fw-500'>24607288162582</p>
+                  </div>
+                )}
               </div>
 
               {
                 // Plan details
               }
               <h2 className='f-16 fw-500 mb-24'>Plan Details</h2>
-              <div className='d-flex justify-content-between'>
-                <div className='list-inline-item'>
+              <div className='d-flex'>
+                <div className='mr-250 text-nowrap'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Plan Name
                   </h3>
-                  <p className='fw-500'>Business plan</p>
+                  <p className='fw-500'>{data?.planName}</p>
                 </div>
-                <div className='list-inline-item'>
+                <div className='mr-250 text-nowrap'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Billing Type
                   </h3>
-                  <p className='fw-500'>Annuall</p>
+                  <p className='fw-500'>{BillingType[data?.billingType]}</p>
                 </div>
-                <div className='list-inline-item'>
+                <div className='mr-250 text-nowrap'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Domain Name
                   </h3>
-                  <p className='fw-500'>Toshiba@jmm.xyz</p>
+                  <p className='fw-500'>{data?.domain}</p>
                 </div>
               </div>
             </section>
 
             {
-              // payment card
+              // Return payment method card.
             }
             <section>
-              {/* <PaymentCard /> */}
-
-              {/* <CheckCard /> */}
-              <BankCard />
+              {data?.paymentMethod === 1 ? (
+                <CheckCard />
+              ) : data?.paymentMethod === 2 ? (
+                <BankCard />
+              ) : data?.paymentMethod === 3 ? (
+                <PaymentCard />
+              ) : (
+                ""
+              )}
             </section>
           </div>
         </div>

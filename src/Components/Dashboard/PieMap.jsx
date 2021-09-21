@@ -1,5 +1,5 @@
-import {PieChart, Pie, Cell, Tooltip, ResponsiveContainer} from "recharts";
-import {useState, useEffect} from "react";
+import {PieChart, Pie, Cell, Tooltip} from "recharts";
+import {useState} from "react";
 
 const data = [
   {name: "Dashboard", value: 30},
@@ -33,8 +33,8 @@ const PieMap = () => {
           data={data}
           cx={120}
           cy={200}
-          innerRadius={55}
-          outerRadius={70}
+          innerRadius={45}
+          outerRadius={60}
           fill='#8884d8'
           paddingAngle={5}
           dataKey='value'

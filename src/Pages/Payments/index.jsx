@@ -6,132 +6,62 @@ import Separator from "Assets/icons/seperator.svg";
 import DateIcon from "Assets/icons/datepicker.svg";
 import ActionIcon from "Assets/icons/action.svg";
 import AutoRenewIcon from "Assets/icons/autoRenew.svg";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {DatePicker} from "antd";
+import {UseAxios} from "Hooks/useAxios";
+import {AutoRenew, PaymentMethod, PaymentStatus} from "Constants/Global";
+import moment from "moment";
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;
 
 // Render Manage Tenants Tab
 const Index = () => {
-  const dataSource = [
-    {
-      id: 0,
-      key: "1",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "yes",
-      paymentStatus: "Paid",
-      accessStatus: "InActive",
-    },
-    {
-      id: 1,
-      key: "2",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "Yes",
-      paymentStatus: "unPaid",
-      accessStatus: "Active",
-    },
-    {
-      id: 2,
-      key: "3",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "yes",
-      paymentStatus: "Paid",
-      accessStatus: "InActive",
-    },
-    {
-      id: 3,
-      key: "4",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "yes",
-      paymentStatus: "Paid",
-      accessStatus: "InActive",
-    },
-    {
-      id: 4,
-      key: "5",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "yes",
-      paymentStatus: "Paid",
-      accessStatus: "InActive",
-    },
-    {
-      id: 5,
-      key: "6",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "yes",
-      paymentStatus: "Paid",
-      accessStatus: "InActive",
-    },
-    {
-      id: 6,
-      key: "7",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "yes",
-      paymentStatus: "Paid",
-      accessStatus: "InActive",
-    },
-    {
-      id: 7,
-      key: "8",
-      invoiceId: "ERP - 26 July - 102",
-      bushinessName: "Tashoba Industries",
-      billingType: "Bank Transfer",
-      amount: "100 SAR",
-      paymentDate: "26 July, 2022",
-      dueDate: "26 July, 2022",
-      autoRenew: "yes",
-      paymentStatus: "Paid",
-      accessStatus: "InActive",
-    },
-  ];
+  const [pagination, setPagination] = useState({
+    currentPage: 0,
+    pageSize: 10,
+    total: 10,
+  });
+
+  const [filters, setFilters] = useState({
+    paymentStatus: "",
+    billingType: "",
+    paymentMethod: "",
+  });
+
+  // Data for Table - []
+  const [dataSource, setDataSource] = useState([]);
+
+  // Fetch Data - http request
+  const {response, isLoading, error} = UseAxios({
+    endpoint: `/Payments`, // setup base URL in UseAxios file.
+    query: filters, // all the query strings in - {} object
+    method: "get", // http request method
+    deps: [filters], // dependency state variable which trigger re-render.
+    successMessage: "", // success message
+  });
+
+  // use effect
+  useEffect(() => {
+    // setting data - fetched from hook
+    if (response !== null) {
+      setDataSource(response.data);
+    }
+  }, [response]);
+
+  // Table cols
 
   const columns = [
     {
       title: "Invoice ID",
-      dataIndex: "invoiceId",
-      key: "invoiceId",
+      dataIndex: "id",
+      key: "id",
     },
     {
       title: "Bushiness Name",
-      dataIndex: "bushinessName",
-      key: "bushinessName",
+      dataIndex: "businessName",
+      key: "businessName",
     },
     {
       title: "Billing Type",
@@ -147,11 +77,19 @@ const Index = () => {
       title: "Payment Date",
       dataIndex: "paymentDate",
       key: "paymentDate",
+      render: (e, row) => (
+        <span>{moment(row?.paymentDate).format("DD MMMM, YYYY")}</span>
+      ),
     },
     {
       title: "Due Date",
       dataIndex: "dueDate",
       key: "dueDate",
+      render: (e, row) => (
+        <span>
+          {row?.dueDate ? moment(row?.dueDate).format("DD MMMM, YYYY") : "N/A"}
+        </span>
+      ),
     },
     {
       title: "Auto Renew",
@@ -160,7 +98,7 @@ const Index = () => {
       render: (value) => (
         <span>
           <img className='auto-renew-icon' src={AutoRenewIcon} alt='' />
-          <span className='fw-500 text-capitalize'>{value}</span>
+          <span className='fw-500 text-capitalize'>{AutoRenew[value]}</span>
         </span>
       ),
     },
@@ -170,19 +108,19 @@ const Index = () => {
       key: "paymentStatus",
       render: (value) => (
         <span
-          className={`status-${value.toLowerCase()} col-status fw-500 text-capitalize`}
+          className={`status-${PaymentStatus[value]} col-status fw-500 text-capitalize`}
         >
-          {value}
+          {PaymentStatus[value]}
         </span>
       ),
     },
     {
-      title: "Access Status",
-      dataIndex: "accessStatus",
-      key: "accessStatus",
+      title: "Payment Method",
+      dataIndex: "paymentMethod",
+      key: "paymentMethod",
       render: (value) => (
-        <span className={`status-${value.toLowerCase()} col-status fw-500`}>
-          {value}
+        <span className={`status-${PaymentMethod[value]} col-status fw-500`}>
+          {PaymentMethod[value]}
         </span>
       ),
     },
@@ -194,7 +132,14 @@ const Index = () => {
     },
   ];
 
-  const [pagination, setPagination] = useState({currentPage: 0, total: 10});
+  //////////////////////////////////////////////////////// Methods
+  // handle filters
+  const handleFilters = (name, value) => {
+    const data = {...filters};
+    data[name] = value;
+
+    setFilters(data);
+  };
 
   return (
     <Layout title='Manage Tenants' currentPage={1}>
@@ -233,13 +178,17 @@ const Index = () => {
               <li className='list-inline-item color-gray mr-24'>
                 <span className='d-inline-block mr-10'>Payment Status :</span>
                 <Select
+                  dropdownMatchSelectWidth={false}
                   className='select-option-filter'
-                  defaultValue={0}
+                  defaultValue={filters.paymentStatus}
                   suffixIcon={
                     <img className='ml-10' src={FilterArrowDown} alt='' />
                   }
+                  onChange={(value) => handleFilters("paymentStatus", value)}
                 >
-                  <Option value={0}>All</Option>
+                  <Option value=''>All</Option>
+                  <Option value={0}>Unpaid</Option>
+                  <Option value={1}>Paid</Option>
                 </Select>
               </li>
               {
@@ -248,28 +197,38 @@ const Index = () => {
               <li className='list-inline-item color-gray mr-24'>
                 <span className='d-inline-block mr-10'>Billing Type :</span>
                 <Select
+                  dropdownMatchSelectWidth={false}
                   className='select-option-filter'
-                  defaultValue={0}
+                  defaultValue={filters.billingType}
                   suffixIcon={
                     <img className='ml-10' src={FilterArrowDown} alt='' />
                   }
+                  onChange={(value) => handleFilters("billingType", value)}
                 >
-                  <Option value={0}>All</Option>
+                  <Option value=''>All</Option>
+                  <Option value={0}>Annually</Option>
+                  <Option value={1}>Monthly</Option>
                 </Select>
               </li>
               {
-                // Access Status
+                // Payment Method
               }
               <li className='list-inline-item color-gray mr-24'>
-                <span className='d-inline-block mr-10'>Access Status :</span>
+                <span className='d-inline-block mr-10'>Payment Method :</span>
                 <Select
+                  dropdownMatchSelectWidth={false}
                   className='select-option-filter'
-                  defaultValue={0}
+                  defaultValue={filters.paymentMethod}
                   suffixIcon={
                     <img className='ml-10' src={FilterArrowDown} alt='' />
                   }
+                  onChange={(value) => handleFilters("paymentMethod", value)}
                 >
-                  <Option value={0}>All</Option>
+                  <Option value=''>All</Option>
+                  <Option value={0}>Cash</Option>
+                  <Option value={1}>Check</Option>
+                  <Option value={2}>Bank Transfer</Option>
+                  <Option value={3}>Credit Card</Option>
                 </Select>
               </li>
             </ul>

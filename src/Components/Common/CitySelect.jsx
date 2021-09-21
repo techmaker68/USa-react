@@ -7,6 +7,7 @@ const CitySelect = () => {
   return (
     <>
       <Select
+        dropdownMatchSelectWidth={false}
         className='primary-select-option'
         suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
       >

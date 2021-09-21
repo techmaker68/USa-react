@@ -5,32 +5,24 @@ import {Tabs} from "antd";
 import {useState} from "react";
 import {useHistory} from "react-router";
 import TenantInfo from "Components/ManageTenants/TenantInfo";
+import {useParams} from "react-router-dom";
 import InvoicesHistory from "Components/ManageTenants/InvoicesHistory";
 
 const {TabPane} = Tabs;
 
 const View = () => {
-  // dummy data
-  const data = {
-    id: 0,
-    key: "8",
-    fullName: "Muzamil Afridi",
-    email: "muzamil@gmail.com",
-    phoneNumber: "+ 92 346 1728 826",
-    country: "Saudi Arabia",
-    company: "Teshwa Tech",
-    noOfUsers: "10",
-    requestDate: "20 July, 2021",
-    status: "Approved",
-  };
+  const {id} = useParams();
 
+  // get current tab state on reload
   const [currentTab, setCurrentTab] = useState(
     window.location.pathname.split("/")[3]
   );
 
+  // handle tabs url
   let history = useHistory();
+
   const handleTabChange = (tab) => {
-    history.push(`/manage-tenants/${data.id}/${tab}`);
+    history.push(`/manage-tenants/${id}/${tab}`);
     setCurrentTab(tab);
   };
 
@@ -49,10 +41,10 @@ const View = () => {
           onChange={handleTabChange}
         >
           <TabPane tab='Tenants Information' key='tenants-info'>
-            <TenantInfo />
+            <TenantInfo tenantID={id} />
           </TabPane>
           <TabPane tab='Invoices History' key='invoices-history'>
-            <InvoicesHistory />
+            <InvoicesHistory tenantID={id} />
           </TabPane>
         </Tabs>
       </div>

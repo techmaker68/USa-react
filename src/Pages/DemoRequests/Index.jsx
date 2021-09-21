@@ -196,6 +196,7 @@ const Index = () => {
               <li className='list-inline-item color-gray mr-24'>
                 <span className='d-inline-block mr-10'>Request Status :</span>
                 <Select
+                  dropdownMatchSelectWidth={false}
                   className='select-option-filter'
                   defaultValue={0}
                   suffixIcon={

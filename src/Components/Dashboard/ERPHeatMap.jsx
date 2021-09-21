@@ -14,6 +14,7 @@ const ERPHeatMap = () => {
         }
         <div>
           <Select
+            dropdownMatchSelectWidth={false}
             defaultValue={0}
             className='dashboard-select-option'
             suffixIcon={

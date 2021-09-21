@@ -1,7 +1,22 @@
 import {Button} from "antd";
 import {Link} from "react-router-dom";
+import {UseAxios} from "Hooks/useAxios";
+import {BillingType} from "Constants/Global";
 
-const TenantInfo = () => {
+// render tenant details
+const TenantInfo = ({tenantID}) => {
+  // Fetch Data - http request
+  const {
+    response: data,
+    isLoading,
+    error,
+  } = UseAxios({
+    endpoint: `/Tenants/${tenantID}`, // setup base URL in UseAxios file.
+    method: "get", // http request method
+    errorsMessage: {404: "Page not exist."}, // error message for expected errors - string
+    successMessage: "", // success message
+  });
+
   return (
     <div className='view-requests-wrapper page-card'>
       <div className='page-card-header d-flex justify-content-between align-item-center'>
@@ -30,13 +45,13 @@ const TenantInfo = () => {
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 First Name
               </h2>
-              <p className='fw-500'>Muzamil</p>
+              <p className='fw-500'>{data?.firstName}</p>
             </div>
             <div>
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 Mobile Number
               </h2>
-              <p className='fw-500'>+92 345 2738 273</p>
+              <p className='fw-500'>{data?.phoneNumber}</p>
             </div>
           </div>
           <div className='mr-170'>
@@ -44,12 +59,12 @@ const TenantInfo = () => {
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 Last Name
               </h2>
-              <p className='fw-500'>Afridi</p>
+              <p className='fw-500'>{data?.lastName}</p>
             </div>
           </div>
           <div>
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>Email</h2>
-            <p className='fw-500'>muzamil@gmail.com</p>
+            <p className='fw-500'>{data?.email}</p>
           </div>
         </div>
       </section>
@@ -64,28 +79,28 @@ const TenantInfo = () => {
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 Business Name
               </h2>
-              <p className='fw-500'>Tresco Industries</p>
+              <p className='fw-500'>{data?.businessName}</p>
             </div>
             <div>
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 Position (Title)
               </h2>
-              <p className='fw-500'>Tech Position</p>
+              <p className='fw-500'>{data?.position}</p>
             </div>
           </div>
 
           <div className='mb-24 mr-170'>
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
-              Numbet of Branches
+              Number of Branches
             </h2>
-            <p className='fw-500'>02</p>
+            <p className='fw-500'>{data?.numberOfBranches}</p>
           </div>
 
           <div>
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
               Number Of Users
             </h2>
-            <p className='fw-500'>10</p>
+            <p className='fw-500'>{data?.numberOfUsers}</p>
           </div>
         </div>
       </section>
@@ -100,11 +115,11 @@ const TenantInfo = () => {
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 Country
               </h2>
-              <p className='fw-500'>Saudi Arabia</p>
+              <p className='fw-500'>{data?.country}</p>
             </div>
             <div>
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>State</h2>
-              <p className='fw-500'>Arabia</p>
+              <p className='fw-500'>{data?.state}</p>
             </div>
           </div>
 
@@ -113,19 +128,19 @@ const TenantInfo = () => {
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 Address
               </h2>
-              <p className='fw-500'>Riyadh City</p>
+              <p className='fw-500'>{data?.address}</p>
             </div>
             <div>
               <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                 Postal / Zip code
               </h2>
-              <p className='fw-500'>29347</p>
+              <p className='fw-500'>{data?.postalCode}</p>
             </div>
           </div>
 
           <div>
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>City</h2>
-            <p className='fw-500'>Riyadh City</p>
+            <p className='fw-500'>{data?.city}</p>
           </div>
         </div>
       </section>
@@ -171,7 +186,7 @@ const TenantInfo = () => {
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
               Billing Type
             </h2>
-            <p className='fw-500'>Annually</p>
+            <p className='fw-500'>{BillingType[data?.billingType]}</p>
           </div>
         </div>
       </section>

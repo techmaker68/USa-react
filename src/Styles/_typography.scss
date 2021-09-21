@@ -6,6 +6,7 @@
 * {
   scrollbar-color: #dbdbdb transparent;
   scrollbar-width: thin;
+  text-transform: capitalize;
 }
 
 .custom-scroll::-webkit-scrollbar,
@@ -58,6 +59,9 @@ body {
 //                          Font sizes
 // =========================================================
 
+.f-10 {
+  font-size: 10px !important;
+}
 .f-12 {
   font-size: 12px !important;
 }
@@ -227,6 +231,9 @@ body {
 }
 .mr-170 {
   margin-right: 170px !important;
+}
+.mr-250 {
+  margin-right: 250px !important;
 }
 
 // =========================================================

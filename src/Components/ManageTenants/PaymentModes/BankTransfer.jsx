@@ -1,6 +1,4 @@
 import {
-  Col,
-  Row,
   Form,
   Input,
   InputNumber,
@@ -60,6 +58,7 @@ function BankTransfer() {
 
             <Form.Item label='Bank Name'>
               <Select
+                dropdownMatchSelectWidth={false}
                 suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                 className='primary-select-option'
               >
@@ -68,6 +67,7 @@ function BankTransfer() {
             </Form.Item>
             <Form.Item label='Received By'>
               <Select
+                dropdownMatchSelectWidth={false}
                 suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                 className='primary-select-option'
               >

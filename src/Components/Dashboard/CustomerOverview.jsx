@@ -80,6 +80,7 @@ const CustomerOverview = () => {
         <h1>Top 5 Customers Overview</h1>
         <div>
           <Select
+            dropdownMatchSelectWidth={false}
             defaultValue={0}
             className='dashboard-select-option'
             suffixIcon={

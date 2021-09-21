@@ -15,6 +15,7 @@ const CountryComponent = ({setValueHandler, ...rest}) => {
   };
   return (
     <Select
+      dropdownMatchSelectWidth={false}
       className='primary-select-option country-list-dropdown'
       suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
       value={value}

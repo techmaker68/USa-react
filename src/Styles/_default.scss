@@ -31,6 +31,7 @@ html {
 }
 
 .select-option-filter {
+  font-size: 12px !important;
   color: #3e98ff !important;
   .ant-select-selector,
   .ant-select-selector:hover,
@@ -38,11 +39,6 @@ html {
     border: 0 !important;
     box-shadow: none !important;
     font-size: 12px !important;
-  }
-
-  .ant-select-arrow {
-    margin-top: -8px !important;
-    right: 14px !important;
   }
 }
 
@@ -479,7 +475,7 @@ html {
 // rechart pie chart
 
 .map-wrapper .recharts-wrapper {
-  top: -125px;
+  top: -130px;
   left: 55%;
   transform: translateX(-50%);
 }

@@ -148,6 +148,7 @@ const CreateTenant = () => {
                 <div className='mx-49 d-flex gap-24'>
                   <Form.Item label='Plan Name'>
                     <Select
+                      dropdownMatchSelectWidth={false}
                       suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                       className='primary-select-option'
                     >
@@ -157,6 +158,7 @@ const CreateTenant = () => {
 
                   <Form.Item label='Billing Type'>
                     <Select
+                      dropdownMatchSelectWidth={false}
                       suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                       className='primary-select-option'
                     >
