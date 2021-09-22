@@ -1,6 +1,6 @@
 import {Image} from "antd";
 
-const CheckCard = () => {
+const CheckCard = ({data}) => {
   return (
     <div className='payment-details-wrapper'>
       <div className='payment-details-card card-type-cheque'>
@@ -27,7 +27,7 @@ const CheckCard = () => {
           <div className='d-flex justify-content-between mb-22'>
             <i className='mr-5 fw-500 color-paid '>Paid</i>
             <div className='divider-between' />
-            <div className='ml-5 fw-700 '>SAR 200</div>
+            <div className='ml-5 fw-700 '>SAR {data?.amount ?? "N/A"}</div>
           </div>
           {
             // Bank Name
@@ -35,7 +35,7 @@ const CheckCard = () => {
           <div className='d-flex justify-content-between mb-22'>
             <i className='mr-5 fw-500'>Bank Name</i>
             <div className='divider-between' />
-            <div className='ml-5 fw-700 '>Abdul Aziz Saudi Bank</div>
+            <div className='ml-5 fw-700 '>{data?.bankName ?? "N/A"}</div>
           </div>
           {
             // Payee Name
@@ -43,7 +43,7 @@ const CheckCard = () => {
           <div className='d-flex justify-content-between mb-22'>
             <i className='mr-5 fw-500'>Payee Name</i>
             <div className='divider-between' />
-            <div className='ml-5 fw-700 '>Abdul Aziz Saudi Bank</div>
+            <div className='ml-5 fw-700 '>{data?.payeeName ?? "N/A"}</div>
           </div>
           {
             // Check Number
@@ -51,7 +51,7 @@ const CheckCard = () => {
           <div className='d-flex justify-content-between mb-22'>
             <i className='mr-5 fw-500'>Check Number</i>
             <div className='divider-between' />
-            <div className='ml-5 fw-700 '>120954201972175979</div>
+            <div className='ml-5 fw-700 '>{data?.chequeNumber ?? "N/A"}</div>
           </div>
           {
             // payment due
@@ -59,7 +59,7 @@ const CheckCard = () => {
           <div className='d-flex justify-content-between mb-22'>
             <i className='mr-5 fw-500 color-payment'>Payment Date</i>
             <div className='divider-between' />
-            <div className='ml-5 fw-700 '>20 July, 2021</div>
+            <div className='ml-5 fw-700 '>{data?.chequeDate ?? "N/A"} </div>
           </div>
           {
             // received by
@@ -67,7 +67,7 @@ const CheckCard = () => {
           <div className='d-flex justify-content-between mb-22'>
             <i className='mr-5 fw-500 color-received'>Received By</i>
             <div className='divider-between' />
-            <div className='ml-5 fw-700 '>Zarak Akbar Khan</div>
+            <div className='ml-5 fw-700 '>{data?.recievedBy ?? "N/A"}</div>
           </div>
 
           {

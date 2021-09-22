@@ -9,8 +9,8 @@ import StateSelect from "Components/Common/StateSelect";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 import Cash from "Components/ManageTenants/PaymentModes/Cash";
 import Cheque from "Components/ManageTenants/PaymentModes/Cheque";
-import {useState} from "react";
 import BankTransfer from "Components/ManageTenants/PaymentModes/BankTransfer";
+import {useState} from "react";
 
 const {Option} = Select;
 

@@ -27,6 +27,7 @@ const Index = () => {
   const [filters, setFilters] = useState({
     accessStatus: "",
     billingType: "",
+    search: "",
   });
 
   // Data for Table - []
@@ -119,6 +120,10 @@ const Index = () => {
     setFilters(data);
   };
 
+  const handleSearch = ({target}) => {
+    setFilters({...filters, search: target.value});
+  };
+
   return (
     <Layout title='Manage Tenants' currentPage={2}>
       <div className='main-wrapper manage-tenants-wrapper'>
@@ -127,6 +132,7 @@ const Index = () => {
             className='primary-search'
             prefix={<img src={SearchIcon} alt='' />}
             placeholder='Search tenants'
+            onChange={handleSearch}
           />
           <Link to={"/manage-tenants/create"}>
             <Button className='primary-button'>

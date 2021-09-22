@@ -28,6 +28,7 @@ const Index = () => {
     paymentStatus: "",
     billingType: "",
     paymentMethod: "",
+    search: "",
   });
 
   // Data for Table - []
@@ -35,7 +36,7 @@ const Index = () => {
 
   // Fetch Data - http request
   const {response, isLoading, error} = UseAxios({
-    endpoint: `/Payments`, // setup base URL in UseAxios file.
+    endpoint: `/payments`, // setup base URL in UseAxios file.
     query: filters, // all the query strings in - {} object
     method: "get", // http request method
     deps: [filters], // dependency state variable which trigger re-render.
@@ -55,8 +56,8 @@ const Index = () => {
   const columns = [
     {
       title: "Invoice ID",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "displayId",
+      key: "displayId",
     },
     {
       title: "Bushiness Name",
@@ -141,6 +142,11 @@ const Index = () => {
     setFilters(data);
   };
 
+  // handle input search
+  const handleSearch = ({target}) => {
+    setFilters({...filters, search: target.value});
+  };
+
   return (
     <Layout title='Manage Tenants' currentPage={1}>
       <div className='main-wrapper manage-tenants-wrapper'>
@@ -149,6 +155,7 @@ const Index = () => {
             className='primary-search'
             prefix={<img src={SearchIcon} alt='' />}
             placeholder='Business Name or Invoice ID'
+            onChange={handleSearch}
           />
           <RangePicker
             className='primary-range-picker'
@@ -235,6 +242,9 @@ const Index = () => {
           </div>
 
           <Table size='middle' dataSource={dataSource} columns={columns} />
+        </div>
+        <div className='rectangle'>
+          <div class='circle'> </div>
         </div>
       </div>
     </Layout>

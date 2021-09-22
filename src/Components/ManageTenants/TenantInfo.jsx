@@ -1,7 +1,8 @@
 import {Button} from "antd";
 import {Link} from "react-router-dom";
 import {UseAxios} from "Hooks/useAxios";
-import {BillingType} from "Constants/Global";
+import {BillingType, PaymentMethod} from "Constants/Global";
+import moment from "moment";
 
 // render tenant details
 const TenantInfo = ({tenantID}) => {
@@ -16,6 +17,8 @@ const TenantInfo = ({tenantID}) => {
     errorsMessage: {404: "Page not exist."}, // error message for expected errors - string
     successMessage: "", // success message
   });
+
+  console.log("data", data);
 
   return (
     <div className='view-requests-wrapper page-card'>
@@ -145,27 +148,40 @@ const TenantInfo = ({tenantID}) => {
         </div>
       </section>
       {
-        // Request Date Information
+        // Initial Payment Info
       }
       <section className='demo-request-details mt-30 mb-50'>
-        <h1 className='f-16 fw-500 mb-25'>Payment Information</h1>
+        <h1 className='f-16 fw-500 mb-25'>Initial Payment Information</h1>
+        <div className='mx-49 mb-20 color-silver-chalice '>
+          Payment Mode
+          <span className='ml-8 color-black fw-500'>
+            {PaymentMethod[data?.initialPayment?.initialPaymentMethod]}
+          </span>
+        </div>
         <div className='d-flex mx-49'>
           <div className='mb-24 mr-170'>
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>Amount</h2>
-            <p className='fw-500'>200 SAR</p>
+            <p className='fw-500'>{data?.initialPayment?.initialAmount} SAR</p>
           </div>
 
           <div className='mb-24 mr-170'>
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
               Payment Date
             </h2>
-            <p className='fw-500'>26 July, 2021</p>
+            <p className='fw-500'>
+              {data?.initialPayment?.initialPaymentDate &&
+                moment(data?.initialPayment?.initialPaymentDate).format(
+                  "DD MMMM, YYYY"
+                )}
+            </p>
           </div>
           <div>
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
               Recieved By
             </h2>
-            <p className='fw-500 d-inline-block'>Hassan Jamal</p>
+            <p className='fw-500 d-inline-block'>
+              {data?.initialPayment?.initialReceivedBy ?? "N/A"}
+            </p>
           </div>
         </div>
       </section>
@@ -179,7 +195,7 @@ const TenantInfo = ({tenantID}) => {
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
               Plan Name
             </h2>
-            <p className='fw-500'>Business</p>
+            <p className='fw-500'>{data?.planName}</p>
           </div>
 
           <div className='mb-24 mr-170'>
@@ -200,7 +216,7 @@ const TenantInfo = ({tenantID}) => {
             <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
               Domain Name
             </h2>
-            <p className='fw-500'>techrus@erp.com</p>
+            <p className='fw-500'> {data?.domainIdentifier}</p>
           </div>
 
           <div className='mb-24 mr-170'>

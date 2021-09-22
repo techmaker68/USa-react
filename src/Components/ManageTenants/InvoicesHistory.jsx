@@ -1,115 +1,54 @@
 import {Input, Table, Menu, Dropdown} from "antd";
 import SearchIcon from "Assets/icons/saerch.svg";
 import ActionIcon from "Assets/icons/action.svg";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+import {UseAxios} from "Hooks/useAxios";
+import {useParams} from "react-router-dom";
+import {PaymentMethod, PaymentStatus} from "Constants/Global";
+import {BillingType} from "./../../Constants/Global";
+import moment from "moment";
 
 // Render Manage Tenants Tab
 const InvoicesHistory = () => {
-  const dataSource = [
-    {
-      id: 0,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "-",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-    {
-      id: 1,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "26 July, 2021",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-    {
-      id: 2,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "26 July, 2021",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-    {
-      id: 3,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "26 July, 2021",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-    {
-      id: 4,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "26 July, 2021",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-    {
-      id: 5,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "26 July, 2021",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-    {
-      id: 6,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "26 July, 2021",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-    {
-      id: 7,
-      key: "1",
-      invoiceID: "123123",
-      planName: "Business",
-      billingType: "Annuall",
-      amount: "SAR 200",
-      paymentMode: "Cash",
-      paymentDate: "26 July, 2021",
-      dueDate: "27 July, 2021",
-      paymentStatus: "unpaid",
-    },
-  ];
+  const {id} = useParams();
+  const [pagination, setPagination] = useState({
+    currentPage: 0,
+    pageSize: 10,
+    total: 10,
+  });
+
+  const [filters, setFilters] = useState({
+    search: "",
+  });
+
+  // Data for Table - []
+  const [dataSource, setDataSource] = useState([]);
+
+  // Fetch Data - http request
+  const {response, isLoading, error} = UseAxios({
+    endpoint: `/Tenants/${id}/payments`, // setup base URL in UseAxios file.
+    query: filters, // all the query strings in - {} object
+    method: "get", // http request method
+    deps: [filters], // dependency state variable which trigger re-render.
+    successMessage: "", // success message
+  });
+
+  // use effect
+  useEffect(() => {
+    // setting data - fetched from hook
+    if (response !== null) {
+      setDataSource(response.data);
+    }
+  }, [response]);
+
+  // Table cols
 
   const columns = [
     {
       title: "Invoice ID",
-      dataIndex: "invoiceID",
-      key: "invoiceID",
+      dataIndex: "displayId",
+      key: "displayId",
     },
     {
       title: "Plan Name",
@@ -120,6 +59,7 @@ const InvoicesHistory = () => {
       title: "Billing Type",
       dataIndex: "billingType",
       key: "billingType",
+      render: (value) => <span>{BillingType[value]}</span>,
     },
     {
       title: "Amount",
@@ -128,25 +68,34 @@ const InvoicesHistory = () => {
     },
     {
       title: "Payment Mode",
-      dataIndex: "paymentMode",
-      key: "paymentMode",
+      dataIndex: "billingType",
+      key: "billingType",
+      render: (value) => <span>{PaymentMethod[value]}</span>,
     },
     {
       title: "Payment Date",
       dataIndex: "paymentDate",
       key: "paymentDate",
+      render: (value) => (
+        <span>{value ? moment(value).format("DD MMMM, YYYY") : "-"}</span>
+      ),
     },
     {
       title: "Due Date",
       dataIndex: "dueDate",
       key: "dueDate",
+      render: (value) => (
+        <span>{value ? moment(value).format("DD MMMM, YYYY") : "-"}</span>
+      ),
     },
     {
       title: "Payment Status",
       dataIndex: "paymentStatus",
       key: "paymentStatus",
       render: (value) => (
-        <span className={`color-${value} fw-500`}>{value}</span>
+        <span className={`color-${PaymentStatus[value]} fw-500`}>
+          {PaymentStatus[value]}
+        </span>
       ),
     },
     {
@@ -157,7 +106,10 @@ const InvoicesHistory = () => {
     },
   ];
 
-  const [pagination, setPagination] = useState({currentPage: 0, total: 10});
+  ////////////////////////////////////////// Methods
+  const handleSearch = ({target}) => {
+    setFilters({search: target.value});
+  };
 
   return (
     <div className='view-page manage-tenants-wrapper'>
@@ -175,6 +127,7 @@ const InvoicesHistory = () => {
             className='primary-search'
             prefix={<img src={SearchIcon} alt='' />}
             placeholder='Search Invoices ID'
+            onChange={handleSearch}
           />
         </div>
 

@@ -165,6 +165,12 @@ body {
 .mb-18 {
   margin-bottom: 18px !important;
 }
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+.mt-20 {
+  margin-top: 20px !important;
+}
 .mb-22 {
   margin-bottom: 22px !important;
 }
@@ -203,6 +209,9 @@ body {
 }
 .mb-40 {
   margin-bottom: 40px !important;
+}
+.ml-40 {
+  margin-left: 40px !important;
 }
 .mb-44 {
   margin-bottom: 44px !important;
@@ -293,6 +302,9 @@ body {
 .color-dodge-blue {
   color: #3e98ff !important;
 }
+.color-black {
+  color: #000000 !important;
+}
 // =========================================================
 //                          Line height
 // =========================================================
@@ -337,4 +349,26 @@ body {
 
 .gap-24 {
   gap: 24px;
+}
+
+/////////////// test
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: black;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -100px;
+  shape-outside: circle();
+  clip-path: circle();
+}
+
+.rectangle {
+  margin-top: 100px;
+  width: 400px;
+  height: 500px;
+  background-color: teal;
+  position: relative;
 }

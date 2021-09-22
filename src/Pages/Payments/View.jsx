@@ -3,17 +3,21 @@ import ArrowBack from "Assets/icons/arrow-back.svg";
 import EyeIcon from "Assets/icons/eye.svg";
 import DownloadIcons from "Assets/icons/download.svg";
 import {Link} from "react-router-dom";
-import {Button, Switch} from "antd";
+import {Button, Switch, Radio, Form} from "antd";
 import PaymentCard from "Components/Payments/PaymentCard";
 import CheckCard from "Components/Payments/CheckCard";
 import BankCard from "Components/Payments/BankCard";
 import {UseAxios} from "Hooks/useAxios";
 import {useParams} from "react-router-dom";
-import {AccessStatus, BillingType} from "Constants/Global";
+import {AccessStatus, BillingType, PaymentStatus} from "Constants/Global";
+import {useState} from "react";
+import Cash from "Components/ManageTenants/PaymentModes/Cash";
+import Cheque from "Components/ManageTenants/PaymentModes/Cheque";
+import BankTransfer from "Components/ManageTenants/PaymentModes/BankTransfer";
 
 const View = () => {
   const {id} = useParams();
-
+  const [paymentMethod, setPaymentMethod] = useState(0);
   // Fetch Data - http request
   const {
     response: data,
@@ -28,7 +32,10 @@ const View = () => {
 
   // update active status
   const handleAccessStatus = () => {};
-
+  // handle payment method toggle
+  const handlePaymentMethod = ({target}) => {
+    setPaymentMethod(target.value);
+  };
   return (
     <Layout title='Payments Overview' currentPage={1}>
       <div className='main-wrapper'>
@@ -58,7 +65,7 @@ const View = () => {
             // content
           }
           <div className='d-flex justify-content-between'>
-            <section className='w-60-p mr-80'>
+            <section className='w-60-p mr-80 '>
               {
                 // status
               }
@@ -68,8 +75,12 @@ const View = () => {
                     Payment Status
                   </p>
 
-                  <span className='f-16 fw-600 color-danger align-middle'>
-                    Unpaid
+                  <span
+                    className={`f-16 fw-600 color-${
+                      PaymentStatus[data?.paymentStatus]
+                    } align-middle`}
+                  >
+                    {PaymentStatus[data?.paymentStatus]}
                   </span>
                 </div>
                 <div>
@@ -98,19 +109,35 @@ const View = () => {
                   </h3>
                   <p className='fw-500'>{data?.businessName}</p>
                 </div>
-                <div>
+                <div className='mr-250'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Amount
                   </h3>
                   <p className='fw-500'>{data?.amount} SAR</p>
                 </div>
-                {data?.paymentMethod !== 0 && (
-                  <div className='mr-250'>
+                {data?.paymentMethod === 1 ? (
+                  <div>
                     <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
-                      Credit Card
+                      Cheque Number
+                    </h3>
+                    <p className='fw-500'>{data?.chequeNumber}</p>
+                  </div>
+                ) : data?.paymentMethod === 2 ? (
+                  <div>
+                    <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
+                      Transaction ID
                     </h3>
                     <p className='fw-500'>24607288162582</p>
                   </div>
+                ) : (
+                  data?.paymentMethod === 3 && (
+                    <div>
+                      <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
+                        Credit Card Number
+                      </h3>
+                      <p className='fw-500'>24607288162582</p>
+                    </div>
+                  )
                 )}
               </div>
 
@@ -143,18 +170,56 @@ const View = () => {
             {
               // Return payment method card.
             }
-            <section>
-              {data?.paymentMethod === 1 ? (
-                <CheckCard />
-              ) : data?.paymentMethod === 2 ? (
-                <BankCard />
-              ) : data?.paymentMethod === 3 ? (
-                <PaymentCard />
-              ) : (
-                ""
-              )}
-            </section>
+            {data?.paymentStatus && (
+              <section>
+                {data?.paymentMethod === 1 ? (
+                  <CheckCard data={data} />
+                ) : data?.paymentMethod === 2 ? (
+                  <BankCard />
+                ) : data?.paymentMethod === 3 ? (
+                  <PaymentCard />
+                ) : (
+                  ""
+                )}
+              </section>
+            )}
           </div>
+
+          {
+            // payment details section for unpaid payments.
+          }
+          {!data?.paymentStatus && (
+            <section className='mt-20 unpaid-payment-section'>
+              <h1 className='f-16 fw-500 mb-15'>Payment Details</h1>
+              <Form
+                layout='vertical'
+                className='ml-40'
+                initialValues={{payment_mode: 0}}
+              >
+                <Form.Item name='payment_mode'>
+                  <Radio.Group
+                    onChange={handlePaymentMethod}
+                    className='primary-radio-group'
+                  >
+                    <Radio value={0}>Cash</Radio>
+                    <Radio value={1}>Cheque</Radio>
+                    <Radio value={2}>Bank Transfer</Radio>
+                  </Radio.Group>
+                </Form.Item>
+                {paymentMethod === 1 ? (
+                  <Cheque />
+                ) : paymentMethod === 2 ? (
+                  <BankTransfer />
+                ) : (
+                  <Cash />
+                )}
+                <div className='text-end'>
+                  <Button className='default-button mr-16'>Cancel</Button>
+                  <Button className='primary-button'>Confirm Payment</Button>
+                </div>
+              </Form>
+            </section>
+          )}
         </div>
       </div>
     </Layout>

@@ -15,7 +15,7 @@ const UseAxios = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
-  axios.defaults.baseURL = "https://192.168.0.163:45456/api";
+  axios.defaults.baseURL = "https://192.168.0.163:45455/api";
   // axios.defaults.headers.common["Authorization"] = "AUTH_TOKEN";
   // axios.defaults.headers.post["Content-Type"] =
   // "application/x-www-form-urlencoded";
@@ -29,6 +29,7 @@ const UseAxios = ({
 
     if (!expectedError) {
       message.error("An unexpected error occurred");
+      console.log("error", error);
     }
     return Promise.reject(error);
   });
