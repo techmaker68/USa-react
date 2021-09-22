@@ -4,6 +4,7 @@ import {ReactComponent as PaymentsIcon} from "Assets/icons/payments.svg";
 import {ReactComponent as TenantsIcon} from "Assets/icons/tenants.svg";
 import {ReactComponent as RequestsIcon} from "Assets/icons/requests.svg";
 import {ReactComponent as ManagementIcon} from "Assets/icons/management.svg";
+import {ReactComponent as SettingsIcon} from "Assets/icons/setting.svg";
 import ProfileIcon from "Assets/icons/profile.svg";
 import DownIcon from "Assets/icons/downIcon.svg";
 import {Menu, Dropdown} from "antd";
@@ -33,9 +34,9 @@ const Index = ({children, title, currentPage}) => {
       icon: <ManagementIcon />,
     },
     {
-      title: "Business Information",
-      url: "/business-info",
-      icon: <ManagementIcon />,
+      title: "Settings",
+      url: "/settings/general-settings",
+      icon: <SettingsIcon />,
     },
   ];
 

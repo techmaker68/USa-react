@@ -2,8 +2,12 @@ import {Button, Table, Menu, Dropdown} from "antd";
 import PlusIcon from "Assets/icons/plus.svg";
 import ActionIcon from "Assets/icons/action.svg";
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import UserModal from "./UserModal";
+import {UseAxios} from "Hooks/useAxios";
+import {Gender} from "./../../../Constants/Global";
+import {AccessStatus} from "Constants/Global";
+import moment from "moment";
 
 // Render Manage Tenants Tab
 const ManageUsers = () => {
@@ -12,89 +16,40 @@ const ManageUsers = () => {
   const handleCreateUser = () => {
     setIsCreateUserModal(true);
   };
+  const [pagination, setPagination] = useState({
+    currentPage: 0,
+    pageSize: 10,
+    total: 10,
+  });
 
-  const dataSource = [
-    {
-      key: "1",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "Active",
-      createdDate: "20 July, 2021",
-    },
-    {
-      key: "2",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "InActive",
-      createdDate: "20 July, 2021",
-    },
-    {
-      key: "3",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "Active",
-      createdDate: "20 July, 2021",
-    },
-    {
-      key: "4",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "Active",
-      createdDate: "20 July, 2021",
-    },
-    {
-      key: "5",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "Active",
-      createdDate: "20 July, 2021",
-    },
-    {
-      key: "6",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "Active",
-      createdDate: "20 July, 2021",
-    },
-    {
-      key: "7",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "Active",
-      createdDate: "20 July, 2021",
-    },
-    {
-      key: "8",
-      fullName: "Muzamil Afridi",
-      userName: "Muzzikhan926",
-      email: "muzamil@erp.com",
-      role: "Support",
-      gender: "Male",
-      status: "Active",
-      createdDate: "20 July, 2021",
-    },
-  ];
+  const [filters, setFilters] = useState({
+    paymentStatus: "",
+    billingType: "",
+    paymentMethod: "",
+    search: "",
+  });
+
+  // Data for Table - []
+  const [dataSource, setDataSource] = useState([]);
+
+  // Fetch Data - http request
+  const {response, isLoading, error} = UseAxios({
+    endpoint: `/users`, // setup base URL in UseAxios file.
+    query: filters, // all the query strings in - {} object
+    method: "get", // http request method
+    deps: [filters], // dependency state variable which trigger re-render.
+    successMessage: "", // success message
+  });
+
+  // use effect
+  useEffect(() => {
+    // setting data - fetched from hook
+    if (response !== null) {
+      setDataSource(response.data);
+    }
+  }, [response]);
+
+  // Table cols
 
   const columns = [
     {
@@ -114,21 +69,22 @@ const ManageUsers = () => {
     },
     {
       title: "Role",
-      dataIndex: "role",
-      key: "role",
+      dataIndex: "roleName",
+      key: "roleName",
     },
     {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
+      render: (value) => Gender[value] ?? "-",
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "isActive",
+      key: "isActive",
       render: (value) => (
-        <span className={`status-${value.toLowerCase()} col-status fw-500`}>
-          {value}
+        <span className={`status-${AccessStatus[value]} col-status fw-500`}>
+          {AccessStatus[value]}
         </span>
       ),
     },
@@ -136,6 +92,8 @@ const ManageUsers = () => {
       title: "Created Date",
       dataIndex: "createdDate",
       key: "createdDate",
+      render: (value) =>
+        value ? moment(value).format("DDDD MM, YYYY") : "N/A",
     },
 
     {

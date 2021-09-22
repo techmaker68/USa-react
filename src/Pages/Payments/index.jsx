@@ -243,9 +243,6 @@ const Index = () => {
 
           <Table size='middle' dataSource={dataSource} columns={columns} />
         </div>
-        <div className='rectangle'>
-          <div class='circle'> </div>
-        </div>
       </div>
     </Layout>
   );

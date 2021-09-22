@@ -5,8 +5,25 @@ import {Button} from "antd";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 import {Tree} from "antd";
 import {useState} from "react";
+import {UseAxios} from "Hooks/useAxios";
+import {useParams} from "react-router-dom";
 
 const ViewRole = () => {
+  const {id} = useParams();
+
+  // Fetch Data - http request
+  const {
+    response: data,
+    isLoading,
+    error,
+  } = UseAxios({
+    endpoint: `/roles/${id}`, // setup base URL in UseAxios file.
+    query: {}, // all the query strings in - {} object
+    method: "get", // http request method
+    deps: [], // dependency state variable which trigger re-render.
+    successMessage: "", // success message
+  });
+
   const treeData = [
     {
       title: "Dashboard",
@@ -54,7 +71,7 @@ const ViewRole = () => {
           title: "Manage Users",
           key: "manageUsers",
           children: [
-            {title: "Create User", key: "CreateUser"},
+            {title: "Create User", key: "use.create"},
             {title: "Update User", key: "updateUser"},
             {title: "Inactive", key: "inactive"},
             {title: "Reset", key: "reset"},
@@ -75,6 +92,7 @@ const ViewRole = () => {
       ],
     },
   ];
+
   return (
     <Layout currentPage={4} title='User Management'>
       <div className='main-wrapper'>
@@ -96,14 +114,11 @@ const ViewRole = () => {
               <h6 className='f-12 fw-500 color color-green-spring'>
                 Role Name
               </h6>
-              <p className='f-14 fw-500 mb-24'>Support Manager</p>
+              <p className='f-14 fw-500 mb-24'>{data?.name}</p>
               <h6 className='f-12 fw-500 color color-green-spring'>
                 Description
               </h6>
-              <p className='f-14 fw-500'>
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting.
-              </p>
+              <p className='f-14 fw-500'>{data?.description}</p>
             </div>
 
             {

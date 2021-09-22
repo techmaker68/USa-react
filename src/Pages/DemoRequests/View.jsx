@@ -2,21 +2,25 @@ import Layout from "Layout/Index";
 import {Link} from "react-router-dom";
 import ArrowBack from "Assets/icons/arrow-back.svg";
 import {Button} from "antd";
+import {UseAxios} from "Hooks/useAxios";
+import {useParams} from "react-router-dom";
+import moment from "moment";
 
 const View = () => {
-  // dummy data
-  const data = {
-    id: 7,
-    key: "8",
-    fullName: "Muzamil Afridi",
-    email: "muzamil@gmail.com",
-    phoneNumber: "+ 92 346 1728 826",
-    country: "Saudi Arabia",
-    company: "Teshwa Tech",
-    noOfUsers: "10",
-    requestDate: "20 July, 2021",
-    status: "Approved",
-  };
+  const {id} = useParams();
+
+  // Fetch Data - http request
+  const {
+    response: data,
+    isLoading,
+    error,
+  } = UseAxios({
+    endpoint: `/demo/${id}`, // setup base URL in UseAxios file.
+    query: {}, // all the query strings in - {} object
+    method: "get", // http request method
+    deps: [], // dependency state variable which trigger re-render.
+    successMessage: "", // success message
+  });
 
   return (
     <Layout title='Demo Requests' currentPage={3}>
@@ -59,13 +63,13 @@ const View = () => {
                   <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                     First Name
                   </h2>
-                  <p className='fw-500'>Muzamil</p>
+                  <p className='fw-500'>{data?.firstName}</p>
                 </div>
                 <div>
                   <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Mobile Number
                   </h2>
-                  <p className='fw-500'>+92 345 2738 273</p>
+                  <p className='fw-500'>{data?.phoneNumber}</p>
                 </div>
               </div>
               <div className='mr-170'>
@@ -73,20 +77,20 @@ const View = () => {
                   <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Last Name
                   </h2>
-                  <p className='fw-500'>Muzamil</p>
+                  <p className='fw-500'>{data?.lastName}</p>
                 </div>
                 <div>
                   <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Country
                   </h2>
-                  <p className='fw-500'>Saudi Arabia</p>
+                  <p className='fw-500'>{data?.country}</p>
                 </div>
               </div>
               <div>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                   Email
                 </h2>
-                <p className='fw-500'>muzamil@gmail.com</p>
+                <p className='fw-500'>{data?.email}</p>
               </div>
             </div>
           </section>
@@ -100,21 +104,21 @@ const View = () => {
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                   Company
                 </h2>
-                <p className='fw-500'>Tresco Industries</p>
+                <p className='fw-500'>{data?.businessName}</p>
               </div>
 
               <div className='mb-24 mr-170'>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
-                  Numbet of Branches
+                  Number of Branches
                 </h2>
-                <p className='fw-500'>02</p>
+                <p className='fw-500'>{data?.numberOfBranches}</p>
               </div>
 
               <div>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                   Number Of Users
                 </h2>
-                <p className='fw-500'>10</p>
+                <p className='fw-500'>{data?.numberOfUsers}</p>
               </div>
             </div>
           </section>
@@ -128,20 +132,32 @@ const View = () => {
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                   Demo Request
                 </h2>
-                <p className='fw-500'>29 July, 2021</p>
+                <p className='fw-500'>
+                  {data?.requestDate
+                    ? moment(data?.requestDate).format("DD MMMM, YYYY")
+                    : "N/A"}
+                </p>
               </div>
 
               <div className='mb-24 mr-170'>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                   Demo Start
                 </h2>
-                <p className='fw-500'>30 July, 2021</p>
+                <p className='fw-500'>
+                  {data?.requestStartOn
+                    ? moment(data?.requestStartOn).format("DD MMMM, YYYY")
+                    : "N/A"}
+                </p>
               </div>
               <div>
                 <h2 className='f-12 fw-500 color-silver-chalice mb-10'>
                   Demo End
                 </h2>
-                <p className='fw-500 d-inline-block'>14 August, 2021</p>
+                <p className='fw-500 d-inline-block'>
+                  {data?.demoEndDate
+                    ? moment(data?.demoEndDate).format("DD MMMM, YYYY")
+                    : "N/A"}
+                </p>
                 <u className='color-info f-12 fw-700 ml-16'>Extend Date</u>
               </div>
             </div>

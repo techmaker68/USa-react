@@ -350,25 +350,3 @@ body {
 .gap-24 {
   gap: 24px;
 }
-
-/////////////// test
-.circle {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background-color: black;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -100px;
-  shape-outside: circle();
-  clip-path: circle();
-}
-
-.rectangle {
-  margin-top: 100px;
-  width: 400px;
-  height: 500px;
-  background-color: teal;
-  position: relative;
-}

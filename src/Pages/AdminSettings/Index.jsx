@@ -1,13 +1,12 @@
 import {Tabs} from "antd";
 import Layout from "Layout/Index";
 import {useState} from "react";
-import ManageUsers from "Components/UsersManagement/ManageUsers/ManageUsers";
-import ManageRoles from "Components/UsersManagement/ManageRoles/ManageRoles";
+import GeneralSettings from "Components/AdminSettings/GeneralSettings/index";
+import AllPlans from "Components/AdminSettings/AllPlans/index";
 import {useHistory} from "react-router";
 
 const {TabPane} = Tabs;
-
-// Render Manage Tenants Tabs
+// Render Settings Tabs
 const Index = () => {
   const [currentTab, setCurrentTab] = useState(
     window.location.pathname.split("/")[2]
@@ -15,23 +14,22 @@ const Index = () => {
 
   let history = useHistory();
   const handleTabChange = (tab) => {
-    history.push(`/users-management/${tab}`);
+    history.push(`/settings/${tab}`);
     setCurrentTab(tab);
   };
-
   return (
-    <Layout title='User Management' currentPage={4}>
+    <Layout currentPage={5} title='User Management'>
       <div className='main-wrapper'>
         <Tabs
           className='primary-tabs'
           defaultActiveKey={currentTab}
           onChange={handleTabChange}
         >
-          <TabPane tab='Manage Users' key='manage-users'>
-            <ManageUsers />
+          <TabPane tab='General Settings' key='general-settings'>
+            <GeneralSettings />
           </TabPane>
-          <TabPane tab='Manage Roles' key='manage-roles'>
-            <ManageRoles />
+          <TabPane tab='All Plans' key='all-plans'>
+            <AllPlans />
           </TabPane>
         </Tabs>
       </div>

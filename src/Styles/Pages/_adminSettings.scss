@@ -45,3 +45,16 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+.general-setting-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  .card-gs {
+    width: 278px;
+    height: 149px;
+    background: #fbfbfb 0% 0% no-repeat padding-box;
+    border: 1px solid #ebebeb;
+    border-radius: 2px;
+    padding: 14px 20px;
+  }
+}

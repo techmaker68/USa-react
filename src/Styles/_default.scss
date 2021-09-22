@@ -413,7 +413,7 @@ html {
 
 ///// trial alert
 .alert-trial {
-  width: 244px;
+  min-width: 244px;
   height: 42px;
   background: #eff8ff 0% 0% no-repeat padding-box;
   border-radius: 8px;
@@ -421,6 +421,7 @@ html {
   font-size: 12px;
   font-weight: 700;
   color: #1768ac;
+  display: inline-block;
 }
 
 //// page card

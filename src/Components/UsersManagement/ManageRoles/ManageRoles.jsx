@@ -2,31 +2,51 @@ import {Button, Table, Menu, Dropdown} from "antd";
 import PlusIcon from "Assets/icons/plus.svg";
 import ActionIcon from "Assets/icons/action.svg";
 import {Link} from "react-router-dom";
+import {useState, useEffect} from "react";
+import {UseAxios} from "Hooks/useAxios";
 
 // Render Manage Tenants Tab
 const ManageRoles = () => {
-  const dataSource = [
-    {
-      id: 0,
-      key: "1",
-      roleName: "Support Manager",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard...",
-    },
-    {
-      id: 1,
-      key: "2",
-      roleName: "Support Manager",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard...",
-    },
-  ];
+  const [pagination, setPagination] = useState({
+    currentPage: 0,
+    pageSize: 10,
+    total: 10,
+  });
+
+  const [filters, setFilters] = useState({
+    paymentStatus: "",
+    billingType: "",
+    paymentMethod: "",
+    search: "",
+  });
+
+  // Data for Table - []
+  const [dataSource, setDataSource] = useState([]);
+
+  // Fetch Data - http request
+  const {response, isLoading, error} = UseAxios({
+    endpoint: `/roles`, // setup base URL in UseAxios file.
+    query: filters, // all the query strings in - {} object
+    method: "get", // http request method
+    deps: [filters], // dependency state variable which trigger re-render.
+    successMessage: "", // success message
+  });
+
+  // use effect
+  useEffect(() => {
+    // setting data - fetched from hook
+    if (response !== null) {
+      setDataSource(response);
+    }
+  }, [response]);
+
+  // Table cols
 
   const columns = [
     {
       title: "Role Name",
-      dataIndex: "roleName",
-      key: "roleName",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Description",
@@ -37,7 +57,7 @@ const ManageRoles = () => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: (value) => <TableAction />,
+      render: (value, row) => <TableAction row={row} />,
     },
   ];
 
@@ -65,6 +85,7 @@ const ManageRoles = () => {
           size='middle'
           dataSource={dataSource}
           columns={columns}
+          rowKey='id'
         />
       </div>
     </div>
@@ -73,15 +94,15 @@ const ManageRoles = () => {
 
 export default ManageRoles;
 
-const TableAction = () => {
+const TableAction = ({row}) => {
   const menu = (
     <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
-        <Link to='/users-management/view-role'>View Role</Link>
+        <Link to={`/users-management/view-role/${row.id}`}>View Role</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
-        <Link to='/users-management/update-role'>Update Role</Link>
+        <Link to={`/users-management/update-role/${row.id}`}>Update Role</Link>
       </Menu.Item>
     </Menu>
   );
