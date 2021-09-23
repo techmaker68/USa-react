@@ -16,6 +16,8 @@ import CreateRole from "./Components/UsersManagement/ManageRoles/CreateRole";
 import UpdateRole from "./Components/UsersManagement/ManageRoles/UpdateRole";
 import ViewRole from "./Components/UsersManagement/ManageRoles/ViewRole";
 import Settings from "./Pages/AdminSettings/Index";
+import UpdatePlan from "./Components/AdminSettings/AllPlans/Edit";
+import CreatePlan from "./Components/AdminSettings/AllPlans/Create";
 import Login from "./Pages/Auth/Login";
 
 function App() {
@@ -101,6 +103,12 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path='/settings/all-plans' exact>
             <Settings />
+          </PrivateRoute>
+          <PrivateRoute path='/settings/plan/update/:id' exact>
+            <UpdatePlan />
+          </PrivateRoute>
+          <PrivateRoute path='/settings/plan/create' exact>
+            <CreatePlan />
           </PrivateRoute>
         </Switch>
       </div>

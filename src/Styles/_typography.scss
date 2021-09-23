@@ -6,7 +6,7 @@
 * {
   scrollbar-color: #dbdbdb transparent;
   scrollbar-width: thin;
-  text-transform: capitalize;
+  // text-transform: capitalize;
 }
 
 .custom-scroll::-webkit-scrollbar,
@@ -71,6 +71,9 @@ body {
 .f-16 {
   font-size: 16px !important;
 }
+.f-20 {
+  font-size: 20px !important;
+}
 .f-24 {
   font-size: 24px !important;
 }
@@ -111,6 +114,12 @@ body {
 //                          Margins/Paddings
 // =========================================================
 
+.mt-4-px {
+  margin-top: 4px !important;
+}
+.ml-4-px {
+  margin-left: 4px !important;
+}
 .mr-5 {
   margin-right: 5px !important;
 }
@@ -120,6 +129,10 @@ body {
 .m-t-5 {
   margin-top: 5px !important;
 }
+.mt-6 {
+  margin-top: 6px !important;
+}
+
 .mr-7 {
   margin-right: 7px !important;
 }
@@ -140,6 +153,9 @@ body {
 }
 .mb-11 {
   margin-bottom: 11px !important;
+}
+.mb-12 {
+  margin-bottom: 12px !important;
 }
 .mb-13 {
   margin-bottom: 13px !important;
@@ -179,6 +195,9 @@ body {
 }
 .mt-24 {
   margin-top: 24px !important;
+}
+.ml-24 {
+  margin-left: 24px !important;
 }
 .mr-24 {
   margin-right: 24px !important;
@@ -225,6 +244,9 @@ body {
 }
 .mb-50 {
   margin-bottom: 50px !important;
+}
+.mr-53 {
+  margin-right: 53px !important;
 }
 .ml-60 {
   margin-left: 60px !important;

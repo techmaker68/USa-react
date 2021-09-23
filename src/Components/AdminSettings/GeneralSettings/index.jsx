@@ -1,9 +1,14 @@
 import CameraIcon from "Assets/icons/camera.svg";
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, InputNumber} from "antd";
 
 const Index = () => {
+  const staticCardsData = [
+    {heading: "Trial Period", key: "trialPeriod", unit: "Days"},
+    {heading: "VAT %", key: "vat", unit: "%"},
+  ];
+
   return (
-    <div className='page-card business-info-wrapper'>
+    <div className='page-card business-info-wrapper mt-20'>
       <Form layout='vertical'>
         {
           // general settings
@@ -16,8 +21,15 @@ const Index = () => {
         </div>
 
         <div className='general-setting-wrapper'>
-          <div className='card-gs'></div>
-          <div className='card-gs'></div>
+          {staticCardsData.map((card, index) => (
+            <div className='card-gs'>
+              <h1 className='f-16 fw-600'>{card?.heading}</h1>
+              <p className='f-12 fw-500'>Change Trial Duration</p>
+              <InputNumber className='primary-input-number' min={0} />
+              <span className='ml-10 fw-500'>{card?.unit}</span>
+              <u className='color-primary f-16 fw-500'>Save Changes</u>
+            </div>
+          ))}
         </div>
 
         {
