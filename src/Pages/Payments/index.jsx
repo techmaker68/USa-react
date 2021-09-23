@@ -12,6 +12,7 @@ import {DatePicker} from "antd";
 import {UseAxios} from "Hooks/useAxios";
 import {AutoRenew, PaymentMethod, PaymentStatus} from "Constants/Global";
 import moment from "moment";
+import {handlePaginationChange} from "./../../Utilities/HandlePagination";
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;
@@ -19,9 +20,9 @@ const {RangePicker} = DatePicker;
 // Render Manage Tenants Tab
 const Index = () => {
   const [pagination, setPagination] = useState({
-    currentPage: 0,
     pageSize: 10,
-    total: 10,
+    current: 1,
+    total: 50,
   });
 
   const [filters, setFilters] = useState({
@@ -37,7 +38,7 @@ const Index = () => {
   // Fetch Data - http request
   const {response, isLoading, error} = UseAxios({
     endpoint: `/payments`, // setup base URL in UseAxios file.
-    query: filters, // all the query strings in - {} object
+    query: {...filters, ...pagination}, // all the query strings in - {} object
     method: "get", // http request method
     deps: [filters], // dependency state variable which trigger re-render.
     successMessage: "", // success message
@@ -45,6 +46,7 @@ const Index = () => {
 
   // use effect
   useEffect(() => {
+    setPagination({...pagination, total: response?.totalRecords});
     // setting data - fetched from hook
     if (response !== null) {
       setDataSource(response.data);
@@ -120,9 +122,7 @@ const Index = () => {
       dataIndex: "paymentMethod",
       key: "paymentMethod",
       render: (value) => (
-        <span className={`status-${PaymentMethod[value]} col-status fw-500`}>
-          {PaymentMethod[value]}
-        </span>
+        <span className={`col-status fw-500`}>{PaymentMethod[value]}</span>
       ),
     },
     {
@@ -145,6 +145,18 @@ const Index = () => {
   // handle input search
   const handleSearch = ({target}) => {
     setFilters({...filters, search: target.value});
+  };
+
+  // handle pagination
+  const handleTableChange = (obj) => {
+    let a = handlePaginationChange("a");
+    console.log("a", a);
+    setDataSource(response?.data);
+    // setPagination({
+    //   pageSize: obj.pageSize,
+    //   current: obj.current,
+    //   total: obj.total,
+    // });
   };
 
   return (
@@ -241,7 +253,17 @@ const Index = () => {
             </ul>
           </div>
 
-          <Table size='middle' dataSource={dataSource} columns={columns} />
+          <Table
+            size='middle'
+            dataSource={dataSource}
+            columns={columns}
+            pagination={{
+              showSizeChanger: false,
+              ...pagination,
+            }}
+            onChange={handleTableChange}
+            rowKey='id'
+          />
         </div>
       </div>
     </Layout>

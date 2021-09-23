@@ -3,6 +3,7 @@ import ArrowBack from "Assets/icons/arrow-back.svg";
 import {Link} from "react-router-dom";
 import PLanDetail from "./PlanDetail";
 import AllFeatures from "./AllFeatures";
+import {Button} from "antd";
 
 const Edit = () => {
   return (
@@ -31,6 +32,12 @@ const Edit = () => {
               // all features
             }
             <AllFeatures />
+          </div>
+          <div className='d-flex justify-content-end align-items-center mt-16'>
+            <Link to='/settings/all-plans'>
+              <Button className='default-button btn-role mr-16'>Cancel</Button>
+            </Link>
+            <Button className='primary-button  btn-role'>Create Plan</Button>
           </div>
         </div>
       </div>
