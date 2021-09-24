@@ -33,3 +33,32 @@ export const DemoRequestStatus = {
   1: "Approve",
   0: "Decline",
 };
+
+export const Rules = {
+  FirstName: [
+    {
+      required: true,
+      message: "FirstName is required",
+    },
+  ],
+  LastName: [
+    {
+      required: true,
+      message: "LastName is required",
+    },
+  ],
+  Email: [
+    {
+      required: true,
+      message: "Email is not valid valid email.",
+      type: "email",
+    },
+  ],
+  BusinessName: [
+    {
+      required: true,
+      message: "LastName is required",
+      type: "email",
+    },
+  ],
+};

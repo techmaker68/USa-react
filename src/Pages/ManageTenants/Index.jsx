@@ -197,7 +197,12 @@ const Index = () => {
             </ul>
           </div>
 
-          <Table size='middle' dataSource={dataSource} columns={columns} />
+          <Table
+            rowKey='tenantId'
+            size='middle'
+            dataSource={dataSource}
+            columns={columns}
+          />
         </div>
       </div>
     </Layout>

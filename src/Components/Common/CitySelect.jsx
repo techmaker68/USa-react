@@ -1,19 +1,19 @@
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
-import {Select} from "antd";
+import {Select, Form} from "antd";
 
 const {Option} = Select;
 
-const CitySelect = () => {
+const CitySelect = ({name}) => {
   return (
-    <>
+    <Form.Item label='City' name={name}>
       <Select
         dropdownMatchSelectWidth={false}
         className='primary-select-option'
         suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
       >
-        <Option value='0'>City 1</Option>
+        <Option value='CityCity 1'>CityCity 1</Option>
       </Select>
-    </>
+    </Form.Item>
   );
 };
 

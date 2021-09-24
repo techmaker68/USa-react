@@ -13,6 +13,7 @@ import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 
 const {Option} = Select;
 const {Dragger} = Upload;
+
 function BankTransfer() {
   const props = {
     name: "file",

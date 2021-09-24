@@ -21,15 +21,18 @@ import Cheque from "Components/ManageTenants/PaymentModes/Cheque";
 import BankTransfer from "Components/ManageTenants/PaymentModes/BankTransfer";
 import {useState, useEffect} from "react";
 import {UseAxios} from "Hooks/useAxios";
+import {Rules} from "Constants/Global";
+import {axios} from "axios";
+import Http from "Http";
+import moment from "moment";
+import {useHistory} from "react-router";
 
 const {Option} = Select;
 
 const CreateTenant = () => {
   const [paymentMethod, setPaymentMethod] = useState(0);
-
-  const handlePaymentMethod = ({target}) => {
-    setPaymentMethod(target.value);
-  };
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [attachment, setAttachment] = useState([]);
 
   const [planAmount, setPlanAmount] = useState({
     currentPlan: "",
@@ -56,9 +59,9 @@ const CreateTenant = () => {
     }
   }, [plans]);
 
-  // handle create tenant
-  const handleCreateTenant = (values) => {
-    console.log("values", values);
+  // payment method change
+  const handlePaymentMethod = ({target}) => {
+    setPaymentMethod(target.value);
   };
 
   const handlePlanChange = (id) => {
@@ -90,6 +93,67 @@ const CreateTenant = () => {
     }
   };
 
+  // phone change
+  const handlePhoneChange = (value) => {
+    if (value === "") {
+      setPhoneNumber(null);
+    } else setPhoneNumber(value);
+  };
+
+  const history = useHistory();
+
+  // handle create tenant
+  const handleCreateTenant = (values) => {
+    console.log("values", values);
+    const formData = new FormData();
+
+    formData.append("FirstName", values.FirstName);
+    formData.append("LastName", values.LastName);
+    formData.append("Email", values.Email);
+    formData.append("PhoneNumber", phoneNumber);
+    formData.append("BusinessName", values.BusinessName);
+    formData.append("NumberOfBranches", values.NumberOfBranches);
+    formData.append("NumberOfUsers", values.NumberOfUsers);
+    formData.append("Position", values.Position);
+    formData.append("Country", values.Country);
+    formData.append("Address", values.Address);
+    formData.append("City", values.City);
+    formData.append("State", values.State);
+    formData.append("PostalCode", values.PostalCode);
+    formData.append("PaymentMethod", values.PaymentMethod);
+    formData.append("Amount", planAmount?.amount);
+    if (attachment.length > 0) {
+      formData.append("Attachement", attachment[0]);
+    }
+    formData.append("BankName", values.BankName);
+    formData.append("PayeeName", values.PayeeName);
+    formData.append("ChequeNumber", values.ChequeNumber);
+    if (values?.PaymentMethod === 1) {
+      formData.append(
+        "ChequeDate",
+        values?.ChequeDate && moment(values.ChequeDate).format("YYYY-MM-D")
+      );
+    } else if (values?.PaymentMethod === 0) {
+      formData.append(
+        "PaymentDate",
+        values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")
+      );
+    }
+    formData.append("FromAccountNumber", values.FromAccountNumber);
+    formData.append("ToAccountNumber", values.ToAccountNumber);
+    formData.append("PlanId", planAmount?.currentPlan.id);
+    formData.append("BillingType", values.BillingType);
+    formData.append("DomainIdentifier", values.DomainIdentifier);
+
+    Http.post(`/Tenants`, formData)
+      .then((res) => {
+        console.log("success");
+        history.push("/manage-tenants");
+        message.success("Tenant Created Successfully");
+      })
+      .catch((err) => console.log("err", err));
+  };
+
   return (
     <Layout title='Manage Tenants' currentPage={2}>
       <div className='main-wrapper'>
@@ -107,7 +171,11 @@ const CreateTenant = () => {
               <Form
                 onFinish={handleCreateTenant}
                 layout='vertical'
-                initialValues={{planName: plans[0]?.planName, BillingType: 0}}
+                initialValues={{
+                  PlanName: plans[0]?.planName,
+                  BillingType: 0,
+                  Amount: planAmount?.amount,
+                }}
               >
                 {/*Personal Details*/}
                 <section className='mb-24'>
@@ -115,24 +183,43 @@ const CreateTenant = () => {
                   <hr className='mt-1' />
                   <div className='mx-49 d-flex gap-24'>
                     <div>
-                      <Form.Item label='First Name' name='FirstName'>
+                      <Form.Item
+                        label='First Name'
+                        name='FirstName'
+                        rules={Rules.FirstName}
+                      >
                         <Input className='primary-input' />
                       </Form.Item>
 
-                      <Form.Item label='Phone Number' name='PhoneNumber'>
+                      <Form.Item
+                        label='Phone Number'
+                        name='PhoneNumber'
+                        rules={[
+                          {
+                            required: phoneNumber ? false : true,
+                            message: "Phone is required",
+                          },
+                        ]}
+                      >
                         <PhoneInput
-                          country='sa'
                           placeholder='Enter phone number'
                           containerClass='primary-input-phone'
+                          onChange={handlePhoneChange}
+                          masks={{sa: "... ... ..."}}
+                          value={phoneNumber}
                         />
                       </Form.Item>
                     </div>
 
-                    <Form.Item label='Last Name' name='LastName'>
+                    <Form.Item
+                      label='Last Name'
+                      name='LastName'
+                      rules={Rules.FirstName}
+                    >
                       <Input className='primary-input' />
                     </Form.Item>
 
-                    <Form.Item label='Email' name='Email'>
+                    <Form.Item label='Email' name='Email' rules={Rules.Email}>
                       <Input className='primary-input' />
                     </Form.Item>
                   </div>
@@ -143,7 +230,11 @@ const CreateTenant = () => {
                   <hr className='mt-1' />
                   <div className='mx-49 d-flex gap-24'>
                     <div>
-                      <Form.Item label='Business Name' name='BusinessName'>
+                      <Form.Item
+                        label='Business Name'
+                        name='BusinessName'
+                        rules={Rules.FirstName}
+                      >
                         <Input className='primary-input' />
                       </Form.Item>
 
@@ -174,22 +265,18 @@ const CreateTenant = () => {
                         <CountryComponent />
                       </Form.Item>
 
-                      <Form.Item label='State' name='State'>
-                        <StateSelect />
-                      </Form.Item>
+                      <StateSelect name='State' />
                     </div>
                     <div>
                       <Form.Item label='Address' name='Address'>
-                        <InputNumber min={0} className='primary-input-number' />
-                      </Form.Item>
-                      <Form.Item label='Postal / Zip code'>
                         <Input className='primary-input' />
+                      </Form.Item>
+                      <Form.Item label='Postal / Zip code' name='PostalCode'>
+                        <InputNumber min={0} className='primary-input-number' />
                       </Form.Item>
                     </div>
 
-                    <Form.Item label='City' name='City'>
-                      <CitySelect />
-                    </Form.Item>
+                    <CitySelect name='City' />
                   </div>
                 </section>
                 {/*Payment Information*/}
@@ -210,9 +297,16 @@ const CreateTenant = () => {
                     </Form.Item>
 
                     {paymentMethod === 1 ? (
-                      <Cheque planAmount={planAmount} />
+                      <Cheque
+                        planAmount={planAmount}
+                        setAttachment={setAttachment}
+                        attachment={attachment}
+                      />
                     ) : paymentMethod === 2 ? (
-                      <BankTransfer planAmount={planAmount} />
+                      <BankTransfer
+                        planAmount={planAmount}
+                        setAttachment={setAttachment}
+                      />
                     ) : (
                       <Cash planAmount={planAmount} />
                     )}
@@ -224,7 +318,7 @@ const CreateTenant = () => {
                   <p className='f-16 fw-500 mb-0'>Plan Detail</p>
                   <hr className='mt-1' />
                   <div className='mx-49 d-flex gap-24'>
-                    <Form.Item label='Plan Name' name='planName'>
+                    <Form.Item label='Plan Name' name='PlanName'>
                       <Select
                         dropdownMatchSelectWidth={false}
                         suffixIcon={<img src={SelectArrowDownIcon} alt='' />}

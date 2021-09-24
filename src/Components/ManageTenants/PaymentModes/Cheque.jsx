@@ -5,13 +5,13 @@ import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 
 const {Option} = Select;
 const {Dragger} = Upload;
-function Cash() {
+function Cheque({planAmount, setAttachment, attachment}) {
   const props = {
     name: "file",
     onChange(info) {
       const {status} = info.file;
       if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+        // console.log(info.file, info.fileList);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
@@ -26,12 +26,27 @@ function Cash() {
       return false;
     },
   };
+  console.log("attachment", attachment);
+
+  const handleFileChange = (fileObj) => {
+    console.log("fileObj", fileObj);
+    if (fileObj && !fileObj.file.status) setAttachment([fileObj.file]);
+    else setAttachment([]);
+  };
+
   return (
     <>
       <div className='d-flex gap-24'>
         <div>
-          <Form.Item label='Receipt Picture'>
-            <Dragger {...props} className='primary-upload-dragger'>
+          <Form.Item label='Receipt Picture' name='Attachement'>
+            <Dragger
+              multiple={false}
+              {...props}
+              className='primary-upload-dragger'
+              onChange={handleFileChange}
+              fileList={attachment}
+              onRemove={() => handleFileChange(null)}
+            >
               <p className='ant-upload-drag-icon'></p>
               <p className='ant-upload-text f-12 fw-500'>
                 Drag & drop file to upload
@@ -44,16 +59,19 @@ function Cash() {
         <div>
           <div className='d-flex gap-24'>
             <div>
-              <Form.Item label='Amount'>
+              <Form.Item label='Amount' name='Amount'>
                 <Input
                   className='primary-input'
                   suffix={<span className='input-domain-suffix'>SAR</span>}
+                  value={planAmount?.amount}
+                  defaultValue={planAmount?.amount}
+                  disabled
                 />
               </Form.Item>
-              <Form.Item label='Payee Name'>
+              <Form.Item label='Payee Name' name='PayeeName'>
                 <Input className='primary-input' />
               </Form.Item>
-              <Form.Item label='Received By'>
+              <Form.Item label='Received By' name='ReceivedBy'>
                 <Select
                   dropdownMatchSelectWidth={false}
                   suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
@@ -65,7 +83,7 @@ function Cash() {
             </div>
 
             <div>
-              <Form.Item label='Bank Name'>
+              <Form.Item label='Bank Name' name='BankName'>
                 <Select
                   dropdownMatchSelectWidth={false}
                   suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
@@ -74,11 +92,11 @@ function Cash() {
                   <Option>Ahmad bilaar bin Abdul Aziz</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label='Cheque Number'>
+              <Form.Item label='Cheque Number' name='ChequeNumber'>
                 <Input className='primary-input' />
               </Form.Item>
 
-              <Form.Item label='Cheque Date'>
+              <Form.Item label='Cheque Date' name='ChequeDate'>
                 <DatePicker
                   clearIcon={false}
                   suffixIcon={<img src={DatePickerIcon} alt='' />}
@@ -93,4 +111,4 @@ function Cash() {
   );
 }
 
-export default Cash;
+export default Cheque;

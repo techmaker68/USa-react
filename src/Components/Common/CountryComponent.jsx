@@ -7,7 +7,6 @@ const CountryComponent = ({setValueHandler, ...rest}) => {
   const [value, setValue] = useState("");
   const options = useMemo(() => countryList().getData(), []);
   const changeHandler = (value) => {
-    console.log("value", countryList());
     setValue(value);
     if (setValueHandler) {
       setValueHandler(value);

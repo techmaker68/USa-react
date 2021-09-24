@@ -3,7 +3,6 @@ import React from "react";
 import DatePickerIcon from "Assets/icons/datepicker.svg";
 
 function Cash({planAmount}) {
-  console.log("asd", planAmount);
   return (
     <div className='d-flex gap-24'>
       <Form.Item label='Amount'>
@@ -19,7 +18,7 @@ function Cash({planAmount}) {
         <Input className='primary-input' size='large' />
       </Form.Item>
 
-      <Form.Item label='Payment Date' name='paymentDate'>
+      <Form.Item label='Payment Date' name='PaymentDate'>
         <DatePicker
           clearIcon={false}
           suffixIcon={<img src={DatePickerIcon} alt='' />}
