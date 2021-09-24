@@ -1,19 +1,25 @@
-import {Form, Input, InputNumber, DatePicker} from "antd";
+import {Form, Input, DatePicker} from "antd";
 import React from "react";
 import DatePickerIcon from "Assets/icons/datepicker.svg";
 
-function Cash() {
+function Cash({planAmount}) {
+  console.log("asd", planAmount);
   return (
     <div className='d-flex gap-24'>
       <Form.Item label='Amount'>
-        <InputNumber className='primary-input-number' />
+        <Input
+          className='primary-input'
+          value={planAmount?.amount}
+          defaultValue={planAmount?.amount}
+          disabled
+        />
       </Form.Item>
 
-      <Form.Item label='Received By'>
+      <Form.Item label='Received By' name='receivedBy'>
         <Input className='primary-input' size='large' />
       </Form.Item>
 
-      <Form.Item label='Payment Date'>
+      <Form.Item label='Payment Date' name='paymentDate'>
         <DatePicker
           clearIcon={false}
           suffixIcon={<img src={DatePickerIcon} alt='' />}

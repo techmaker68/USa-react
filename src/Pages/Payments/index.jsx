@@ -12,7 +12,7 @@ import {DatePicker} from "antd";
 import {UseAxios} from "Hooks/useAxios";
 import {AutoRenew, PaymentMethod, PaymentStatus} from "Constants/Global";
 import moment from "moment";
-import {handlePaginationChange} from "./../../Utilities/HandlePagination";
+import {handlePaginationChange} from "../../Utilities/HandlePagination";
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;
@@ -30,6 +30,8 @@ const Index = () => {
     billingType: "",
     paymentMethod: "",
     search: "",
+    to: "",
+    from: "",
   });
 
   // Data for Table - []
@@ -38,7 +40,11 @@ const Index = () => {
   // Fetch Data - http request
   const {response, isLoading, error} = UseAxios({
     endpoint: `/payments`, // setup base URL in UseAxios file.
-    query: {...filters, ...pagination}, // all the query strings in - {} object
+    query: {
+      ...filters,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+    }, // all the query strings in - {} object
     method: "get", // http request method
     deps: [filters], // dependency state variable which trigger re-render.
     successMessage: "", // success message
@@ -159,6 +165,24 @@ const Index = () => {
     // });
   };
 
+  // handle date change
+
+  const handleDateChange = (e) => {
+    let from = moment(e[0]?._d).format("YYYY-MM-D");
+    let to = moment(e[1]?._d).format("YYYY-MM-D");
+
+    setFilters({...filters, to, from});
+  };
+
+  // handle clear - date filter
+
+  const handleClearDateRange = () => {
+    setFilters({...filters, to: "", from: ""});
+  };
+
+  // date format
+  const dateFormat = "YYYY-MM-D";
+
   return (
     <Layout title='Manage Tenants' currentPage={1}>
       <div className='main-wrapper manage-tenants-wrapper'>
@@ -169,12 +193,27 @@ const Index = () => {
             placeholder='Business Name or Invoice ID'
             onChange={handleSearch}
           />
-          <RangePicker
-            className='primary-range-picker'
-            separator={<img width={70} src={Separator} alt='' />}
-            suffixIcon={<img src={DateIcon} alt='' />}
-            clearIcon={false}
-          />
+          <div>
+            {filters.to !== "" && filters.from !== "" && (
+              <span
+                onClick={handleClearDateRange}
+                className='color-primary f-12 fw-600 mr-8 cursor-pointer'
+              >
+                clear
+              </span>
+            )}
+            <RangePicker
+              className='primary-range-picker'
+              separator={<img width={70} src={Separator} alt='' />}
+              suffixIcon={<img src={DateIcon} alt='' />}
+              clearIcon={false}
+              onChange={handleDateChange}
+              value={[
+                filters.to ? moment(filters.to) : "",
+                filters.from ? moment(filters.from) : "",
+              ]}
+            />
+          </div>
         </div>
 
         {
