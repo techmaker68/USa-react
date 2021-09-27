@@ -112,7 +112,7 @@
       border-left: 1px solid #dedede;
       border-right: 1px solid #dedede;
       border-bottom: 1px solid #dedede;
-      min-height: 300px;
+      min-height: max-content;
 
       .feature-wrapper:not(:last-child) {
         margin-bottom: 12px;

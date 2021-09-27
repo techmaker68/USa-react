@@ -1,21 +1,9 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import PlusIcon from "Assets/icons/plus.svg";
 import {Checkbox, Input, Button, Form} from "antd";
+import {Rules} from "Constants/Global";
 
-const AllFeatures = () => {
-  const [features, setFeatures] = useState([
-    {id: 0, title: "30 days support"},
-    {id: 1, title: "Unlimited Storage"},
-    {id: 2, title: "Unlimited Storage"},
-    {id: 3, title: "Full Storage"},
-    {id: 4, title: "Trial"},
-  ]);
-
-  const [planFeatures, setPlanFeatures] = useState([
-    {id: 0, title: "30 days support"},
-    {id: 1, title: "Unlimited Storage"},
-    {id: 2, title: "Unlimited Storage"},
-  ]);
+const AllFeatures = ({features, setFeatures}) => {
   const [newFeatureModal, setNewFeatureModal] = useState(false);
 
   const handleFeatureToggle = () => {
@@ -28,7 +16,7 @@ const AllFeatures = () => {
 
   const handleFeatureSubmit = (values) => {
     setNewFeatureModal(false);
-    setPlanFeatures([...planFeatures, {title: values.feature, id: null}]);
+    setFeatures([...features, {title: values.feature, id: null}]);
   };
   return (
     <div className='all-features'>
@@ -50,8 +38,8 @@ const AllFeatures = () => {
         }
 
         <div className='row gap-4'>
-          {Array.isArray(planFeatures) &&
-            planFeatures.map((feature, index) => (
+          {Array.isArray(features) &&
+            features.map((feature, index) => (
               <div key={feature?.id || index} className='col-6 feature-box'>
                 <div className='d-flex'>
                   <Checkbox style={{marginTop: 2}} />
@@ -64,7 +52,7 @@ const AllFeatures = () => {
           <Form onFinish={handleFeatureSubmit}>
             <div className='feature-modal'>
               <h3 className='f-12 fw-500 mb-8'>Feature Name</h3>
-              <Form.Item name='feature'>
+              <Form.Item name='feature' rules={Rules.FirstName}>
                 <Input className='primary-input' />
               </Form.Item>
 

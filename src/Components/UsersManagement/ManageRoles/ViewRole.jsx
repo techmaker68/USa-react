@@ -35,14 +35,18 @@ const ViewRole = () => {
       key: "payments",
       children: [
         {
-          title: "View Payments",
+          title: "",
           key: "viewPayments",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='View Payments' />
+          ),
         },
         {
-          title: "Change Status",
+          title: "",
           key: "changeStatus",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='Change Status' />
+          ),
         },
       ],
     },
@@ -51,29 +55,39 @@ const ViewRole = () => {
       key: "manageTenants",
       children: [
         {
-          title: "Register Tenant",
+          title: "",
           key: "registerTenant",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='Register Tenant' />
+          ),
         },
         {
-          title: "View Tenant",
+          title: "",
           key: "viewTenant",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='View Tenant' />
+          ),
         },
         {
-          title: "Update Tenant",
+          title: "",
           key: "updateTenant",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='Update Tenant' />
+          ),
         },
         {
-          title: "Upgrade plan",
+          title: "",
           key: "upgradePlan",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='Upgrade Plan' />
+          ),
         },
         {
-          title: "Reset Password",
+          title: "",
           key: "resetPassword",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='Reset Password' />
+          ),
         },
       ],
     },
@@ -82,19 +96,25 @@ const ViewRole = () => {
       key: "demoRequests",
       children: [
         {
-          title: "View Request",
+          title: "",
           key: "viewRequest",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='View Request' />
+          ),
         },
         {
-          title: "Approve Request",
+          title: "",
           key: "approveRequest",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='Approve Request' />
+          ),
         },
         {
-          title: "Decline",
+          title: "",
           key: "decline",
-          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+          icon: ({selected}) => (
+            <TreeDataIcon selected={selected} title='Decline' />
+          ),
         },
       ],
     },
@@ -107,28 +127,32 @@ const ViewRole = () => {
           key: "manageUsers",
           children: [
             {
-              title: "Create User",
+              title: "",
               key: "user.create",
-              icon: ({selected}) =>
-                selected ? <img src={tickIcon} alt='' /> : "",
+              icon: ({selected}) => (
+                <TreeDataIcon selected={selected} title='Create User' />
+              ),
             },
             {
-              title: "Update User",
+              title: "",
               key: "updateUser",
-              icon: ({selected}) =>
-                selected ? <img src={tickIcon} alt='' /> : "",
+              icon: ({selected}) => (
+                <TreeDataIcon selected={selected} title='Update User' />
+              ),
             },
             {
-              title: "Inactive",
+              title: "",
               key: "inactive",
-              icon: ({selected}) =>
-                selected ? <img src={tickIcon} alt='' /> : "",
+              icon: ({selected}) => (
+                <TreeDataIcon selected={selected} title='InActive' />
+              ),
             },
             {
-              title: "Reset",
+              title: "",
               key: "reset",
-              icon: ({selected}) =>
-                selected ? <img src={tickIcon} alt='' /> : "",
+              icon: ({selected}) => (
+                <TreeDataIcon selected={selected} title='Reset' />
+              ),
             },
           ],
         },
@@ -137,22 +161,25 @@ const ViewRole = () => {
           key: "manageRoles",
           children: [
             {
-              title: "Create User",
+              title: "",
               key: "rolesCreateUser",
-              icon: ({selected}) =>
-                selected ? <img src={tickIcon} alt='' /> : "",
+              icon: ({selected}) => (
+                <TreeDataIcon selected={selected} title='Create Role' />
+              ),
             },
             {
-              title: "View Role",
+              title: "",
               key: "viewRole",
-              icon: ({selected}) =>
-                selected ? <img src={tickIcon} alt='' /> : "",
+              icon: ({selected}) => (
+                <TreeDataIcon selected={selected} title='View Role' />
+              ),
             },
             {
-              title: "Update Role",
+              title: "",
               key: "updateRole",
-              icon: ({selected}) =>
-                selected ? <img src={tickIcon} alt='' /> : "",
+              icon: ({selected}) => (
+                <TreeDataIcon selected={selected} title='Update Role' />
+              ),
             },
           ],
         },
@@ -229,5 +256,16 @@ const ViewModule = ({treeData, keys}) => {
         showIcon
       />
     </div>
+  );
+};
+
+const TreeDataIcon = ({selected, title}) => {
+  return selected ? (
+    <div className='d-flex'>
+      <img src={tickIcon} alt='' className='ml-20' />
+      <span className='text-nowrap f-12 ml-4-px'>{title}</span>
+    </div>
+  ) : (
+    <span className='text-nowrap ml-40 f-12 color-gray'>{title}</span>
   );
 };

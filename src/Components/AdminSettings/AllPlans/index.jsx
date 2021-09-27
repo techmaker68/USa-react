@@ -4,43 +4,21 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 import {Button} from "antd";
 import PlusIcon from "Assets/icons/plus.svg";
+import {UseAxios} from "Hooks/useAxios";
 
 const Index = () => {
-  const [data, setData] = useState([
-    {
-      id: 0,
-      title: "Starter",
-      monthlyCharges: 20,
-      YearlyCharges: 200,
-      noOfUsers: 20,
-      database: 10,
-      discount: 10,
-      vat: 15,
-      features: ["30 Day Support", "2 GB Storage", "2 GB Storage"],
-    },
-    {
-      id: 1,
-      title: "Business",
-      monthlyCharges: 20,
-      YearlyCharges: 200,
-      noOfUsers: 20,
-      database: 10,
-      discount: 10,
-      vat: 15,
-      features: ["30 Day Support", "2 GB Storage"],
-    },
-    {
-      id: 2,
-      title: "Enterprise",
-      monthlyCharges: 20,
-      YearlyCharges: 200,
-      noOfUsers: 20,
-      database: 10,
-      discount: 10,
-      vat: 15,
-      features: ["30 Day Support", "2 GB Storage"],
-    },
-  ]);
+  // Fetch Data - http request
+  const {
+    response: data,
+    isLoading,
+    error,
+  } = UseAxios({
+    endpoint: `/plans`, // setup base URL in UseAxios file.
+    query: {}, // all the query strings in - {} object
+    method: "get", // http request method
+    deps: [], // dependency state variable which trigger re-render.
+    successMessage: "", // success message
+  });
 
   return (
     <div className='all-plan-wrapper'>
@@ -77,7 +55,7 @@ const Index = () => {
         <div className='card-wrapper'>
           {Array.isArray(data) &&
             data?.map((card, index) => (
-              <div className='plan-card'>
+              <div key={index} className='plan-card'>
                 <div className='plan-card__header'>
                   <div className='f-20 fw-600'>{card?.title}</div>
                   <Link to={`/settings/plan/update/${card?.id}`}>
@@ -93,38 +71,44 @@ const Index = () => {
                     <div>
                       <div className='fw-300'>Monthly Charges</div>
                       <div className='fw-600 mb-16'>
-                        {card?.monthlyCharges} SAR
+                        {card?.monthlyChargesAmount} SAR
                       </div>
                       <div className='fw-300'>No of Users</div>
-                      <div className='fw-600 mb-16'>{card?.noOfUsers}</div>
+                      <div className='fw-600 mb-16'>{card?.numberOfUsers}</div>
                       <div className='fw-300'>Discount</div>
-                      <div className='fw-600 mb-16'>{card?.discount} %</div>
+                      <div className='fw-600 mb-16'>
+                        {card?.discountPercentage} %
+                      </div>
                     </div>
                     <div>
                       <div className='fw-300'>Yearly Charges</div>
                       <div className='fw-600 mb-16'>
-                        {card?.YearlyCharges} SAR
+                        {card?.annuallyChargesAmount} SAR
                         <span className='f-12 fw-600 color-primary ml-8'>
-                          (10% Off)
+                          ({card?.annuallyChargesDiscountPercentage ?? 0}% Off)
                         </span>
                       </div>
                       <div className='fw-300'>Database</div>
-                      <div className='fw-600 mb-16'>{card?.database} GB</div>
+                      <div className='fw-600 mb-16'>
+                        {card?.databaseSize} GB
+                      </div>
                       <div className='fw-300'>VAT %</div>
-                      <div className='fw-600 mb-16'>{card?.vat} %</div>
+                      <div className='fw-600 mb-16'>{card?.vat ?? 0} %</div>
                     </div>
                   </div>
                   {
                     // features
                   }
                   <div className='mt-4-px'>
-                    <h1 className='f-16 fw-600 mb-16'>Features</h1>
+                    {card?.features?.length > 0 && (
+                      <h1 className='f-16 fw-600 mb-16'>Features</h1>
+                    )}
                     {Array.isArray(card?.features) &&
                       card?.features?.map((feature, index) => (
-                        <div key={feature} className='feature-wrapper'>
+                        <div key={feature?.id} className='feature-wrapper'>
                           <img src={CheckStroke} alt='' />
                           <span className='align-middle ml-4-px'>
-                            {feature}
+                            {feature?.title}
                           </span>
                         </div>
                       ))}

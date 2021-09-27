@@ -31,7 +31,7 @@ const UserModal = ({
   });
 
   // create user - http request
-  const handleCreateUser = (values) => {
+  const handleFormSubmit = (values) => {
     const formData = new FormData();
     formData.append("fullName", values?.fullName);
     formData.append("userName", values?.userName);
@@ -41,9 +41,11 @@ const UserModal = ({
     formData.append("isActive", values?.isActive);
 
     Http[requestDetail?.method](`${requestDetail.apiEndPoint}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      // headers: {
+      //   "Accept-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Methods":
+      //     "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+      // },
     })
       .then((res) => {
         message.success("User created successfully");
@@ -65,7 +67,7 @@ const UserModal = ({
           initialValues={data}
           layout='vertical'
           className='form-primary'
-          onFinish={handleCreateUser}
+          onFinish={handleFormSubmit}
         >
           <div className='d-flex gap-24'>
             <div>
