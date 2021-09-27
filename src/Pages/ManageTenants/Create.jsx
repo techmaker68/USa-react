@@ -128,12 +128,17 @@ const CreateTenant = () => {
     formData.append("BankName", values.BankName);
     formData.append("PayeeName", values.PayeeName);
     formData.append("ChequeNumber", values.ChequeNumber);
-    if (values?.PaymentMethod === 1) {
+    if (!values?.PaymentMethod === 1) {
       formData.append(
         "ChequeDate",
         values?.ChequeDate && moment(values.ChequeDate).format("YYYY-MM-D")
       );
     } else if (values?.PaymentMethod === 0) {
+      formData.append(
+        "PaymentDate",
+        values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")
+      );
+    } else if (values?.PaymentMethod === 2) {
       formData.append(
         "PaymentDate",
         values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")
@@ -151,7 +156,7 @@ const CreateTenant = () => {
         history.push("/manage-tenants");
         message.success("Tenant Created Successfully");
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => console.log("err", err.response.data));
   };
 
   return (
@@ -298,17 +303,20 @@ const CreateTenant = () => {
 
                     {paymentMethod === 1 ? (
                       <Cheque
+                        disable={{amount: true}}
                         planAmount={planAmount}
                         setAttachment={setAttachment}
                         attachment={attachment}
                       />
                     ) : paymentMethod === 2 ? (
                       <BankTransfer
+                        disable={{amount: true}}
                         planAmount={planAmount}
                         setAttachment={setAttachment}
+                        attachment={attachment}
                       />
                     ) : (
-                      <Cash planAmount={planAmount} />
+                      <Cash disable={{amount: true}} planAmount={planAmount} />
                     )}
                   </div>
                 </section>

@@ -1,4 +1,5 @@
 import {Image} from "antd";
+import moment from "moment";
 
 const CheckCard = ({data}) => {
   return (
@@ -59,7 +60,11 @@ const CheckCard = ({data}) => {
           <div className='d-flex justify-content-between mb-22'>
             <i className='mr-5 fw-500 color-payment'>Payment Date</i>
             <div className='divider-between' />
-            <div className='ml-5 fw-700 '>{data?.chequeDate ?? "N/A"} </div>
+            <div className='ml-5 fw-700 '>
+              {data?.chequeDate
+                ? moment(data?.chequeDate).format("DD MM, YYYY")
+                : "N/A"}
+            </div>
           </div>
           {
             // received by

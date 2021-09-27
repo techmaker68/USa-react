@@ -14,9 +14,12 @@ import {useState} from "react";
 import Cash from "Components/ManageTenants/PaymentModes/Cash";
 import Cheque from "Components/ManageTenants/PaymentModes/Cheque";
 import BankTransfer from "Components/ManageTenants/PaymentModes/BankTransfer";
+import Http from "Http";
+import moment from "moment";
 
 const View = () => {
   const {id} = useParams();
+  const [attachment, setAttachment] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState(0);
   // Fetch Data - http request
   const {
@@ -35,6 +38,45 @@ const View = () => {
   // handle payment method toggle
   const handlePaymentMethod = ({target}) => {
     setPaymentMethod(target.value);
+  };
+
+  // pay payment
+  const handleUnpaidPayments = (values) => {
+    console.log("v", values);
+
+    const formData = new FormData();
+
+    formData.append("Amount", values.Amount);
+    if (attachment.length > 0) {
+      formData.append("Attachement", attachment[0]);
+    }
+    if (paymentMethod === 1) {
+      formData.append(
+        "ChequeDate",
+        values?.ChequeDate && moment(values.ChequeDate).format("YYYY-MM-D")
+      );
+    } else {
+      formData.append(
+        "PaymentDate",
+        values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")
+      );
+    }
+    formData.append("BankName", values.BankName);
+    formData.append("PayeeName", values.PayeeName);
+    formData.append("ChequeNumber", values.ChequeNumber);
+    formData.append("FromAccountNumber", values.FromAccountNumber);
+    formData.append("ToAccountNumber", values.ToAccountNumber);
+    formData.append("BillingType", data?.billingType);
+
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    Http.post(`/payments/${id}/makepaid`)
+      .then((res) => {
+        console.log("res", res.data);
+      })
+      .catch((err) => console.log("err", err));
   };
   return (
     <Layout title='Payments Overview' currentPage={1}>
@@ -109,8 +151,8 @@ const View = () => {
                   </h3>
                   <p className='fw-500'>{data?.businessName}</p>
                 </div>
-                <div className='mr-250'>
-                  <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
+                <div className='mr-250 text-nowrap'>
+                  <h3 className='f-12 fw-500 color-silver-chalice mb-10 '>
                     Amount
                   </h3>
                   <p className='fw-500'>{data?.amount} SAR</p>
@@ -170,18 +212,20 @@ const View = () => {
             {
               // Return payment method card.
             }
-            {data?.paymentStatus && (
+            {data?.paymentStatus ? (
               <section>
                 {data?.paymentMethod === 1 ? (
                   <CheckCard data={data} />
                 ) : data?.paymentMethod === 2 ? (
-                  <BankCard />
+                  <BankCard data={data} />
                 ) : data?.paymentMethod === 3 ? (
-                  <PaymentCard />
+                  <PaymentCard data={data} />
                 ) : (
                   ""
                 )}
               </section>
+            ) : (
+              ""
             )}
           </div>
 
@@ -195,6 +239,7 @@ const View = () => {
                 layout='vertical'
                 className='ml-40'
                 initialValues={{payment_mode: 0}}
+                onFinish={handleUnpaidPayments}
               >
                 <Form.Item name='payment_mode'>
                   <Radio.Group
@@ -207,15 +252,19 @@ const View = () => {
                   </Radio.Group>
                 </Form.Item>
                 {paymentMethod === 1 ? (
-                  <Cheque />
+                  <Cheque disable={{amount: false, max: data?.amount}} />
                 ) : paymentMethod === 2 ? (
-                  <BankTransfer />
+                  <BankTransfer disable={{amount: false, max: data?.amount}} />
                 ) : (
-                  <Cash />
+                  <Cash disable={{amount: false, max: data?.amount}} />
                 )}
                 <div className='text-end'>
-                  <Button className='default-button mr-16'>Cancel</Button>
-                  <Button className='primary-button'>Confirm Payment</Button>
+                  <Link to='/payments'>
+                    <Button className='default-button mr-16'>Cancel</Button>
+                  </Link>
+                  <Button htmlType='submit' className='primary-button'>
+                    Confirm Payment
+                  </Button>
                 </div>
               </Form>
             </section>

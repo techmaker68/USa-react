@@ -1,11 +1,19 @@
-import {Form, Input, DatePicker, Select, Upload, message} from "antd";
+import {
+  Form,
+  Input,
+  DatePicker,
+  Select,
+  Upload,
+  message,
+  InputNumber,
+} from "antd";
 import React from "react";
 import DatePickerIcon from "Assets/icons/datepicker.svg";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 
 const {Option} = Select;
 const {Dragger} = Upload;
-function Cheque({planAmount, setAttachment, attachment}) {
+function Cheque({planAmount, setAttachment, attachment, disable}) {
   const props = {
     name: "file",
     onChange(info) {
@@ -26,7 +34,6 @@ function Cheque({planAmount, setAttachment, attachment}) {
       return false;
     },
   };
-  console.log("attachment", attachment);
 
   const handleFileChange = (fileObj) => {
     console.log("fileObj", fileObj);
@@ -59,15 +66,23 @@ function Cheque({planAmount, setAttachment, attachment}) {
         <div>
           <div className='d-flex gap-24'>
             <div>
-              <Form.Item label='Amount' name='Amount'>
-                <Input
-                  className='primary-input'
-                  suffix={<span className='input-domain-suffix'>SAR</span>}
-                  value={planAmount?.amount}
-                  defaultValue={planAmount?.amount}
-                  disabled
-                />
-              </Form.Item>
+              {disable.amount ? (
+                <Form.Item label='Amount'>
+                  <Input
+                    className='primary-input'
+                    value={planAmount?.amount}
+                    defaultValue={planAmount?.amount}
+                    disabled={disable?.amount ? "disabled" : ""}
+                  />
+                </Form.Item>
+              ) : (
+                <Form.Item label='Amount' name='Amount'>
+                  <InputNumber
+                    className='primary-input-number'
+                    max={disable?.max}
+                  />
+                </Form.Item>
+              )}
               <Form.Item label='Payee Name' name='PayeeName'>
                 <Input className='primary-input' />
               </Form.Item>
