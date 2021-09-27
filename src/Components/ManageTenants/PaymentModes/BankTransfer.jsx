@@ -75,7 +75,9 @@ function BankTransfer({planAmount, setAttachment, attachment, disable}) {
               suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
               className='primary-select-option'
             >
-              <Option>Ahmad bilaar bin Abdul Aziz</Option>
+              <Option value='Ahmad bilaar bin Abdul Aziz'>
+                Ahmad bilaar bin Abdul Aziz
+              </Option>
             </Select>
           </Form.Item>
           <Form.Item label='Received By' name='ReceivedBy'>

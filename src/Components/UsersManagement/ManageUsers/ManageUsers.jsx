@@ -127,14 +127,14 @@ const ManageUsers = () => {
           size='middle'
           dataSource={dataSource}
           columns={columns}
-          rowKey='key'
+          rowKey='id'
         />
       </div>
       {isCreateUserModal && (
         <UserModal
           isModalVisible={isCreateUserModal}
           setIsModalVisible={setIsCreateUserModal}
-          apiEndPoint=''
+          requestDetail={{apiEndPoint: "/users", method: "post"}}
           primaryButtonTitle='Create'
         />
       )}
@@ -188,9 +188,9 @@ const TableAction = ({row}) => {
         <UserModal
           isModalVisible={isUpdateUserModal}
           setIsModalVisible={setIsUpdateUserModal}
-          apiEndPoint=''
+          requestDetail={{apiEndPoint: `/users/${row.id}`, method: "put"}}
           primaryButtonTitle='Update'
-          data={{firstName: "asd"}}
+          data={row}
         />
       )}
     </>

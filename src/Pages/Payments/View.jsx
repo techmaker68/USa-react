@@ -252,11 +252,23 @@ const View = () => {
                   </Radio.Group>
                 </Form.Item>
                 {paymentMethod === 1 ? (
-                  <Cheque disable={{amount: false, max: data?.amount}} />
+                  <Cheque
+                    setAttachment={setAttachment}
+                    attachment={attachment}
+                    disable={{amount: false, max: data?.amount}}
+                  />
                 ) : paymentMethod === 2 ? (
-                  <BankTransfer disable={{amount: false, max: data?.amount}} />
+                  <BankTransfer
+                    setAttachment={setAttachment}
+                    attachment={attachment}
+                    disable={{amount: false, max: data?.amount}}
+                  />
                 ) : (
-                  <Cash disable={{amount: false, max: data?.amount}} />
+                  <Cash
+                    setAttachment={setAttachment}
+                    attachment={attachment}
+                    disable={{amount: false, max: data?.amount}}
+                  />
                 )}
                 <div className='text-end'>
                   <Link to='/payments'>

@@ -291,6 +291,17 @@ html {
   margin-bottom: 8px !important;
 }
 
+// tree antd
+.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+  background-color: transparent !important;
+}
+.ant-tree .ant-tree-node-content-wrapper .ant-tree-iconEle {
+  width: 25px !important;
+  line-height: 22px !important  ;
+  position: absolute;
+  left: -21px;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //                                CUSTOM COMPONENTS
 //////////////////////////////////////////////////////////////////////////

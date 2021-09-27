@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import ArrowBack from "Assets/icons/arrow-back.svg";
 import {Button} from "antd";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
+import tickIcon from "Assets/icons/tickIcon.svg";
 import {Tree} from "antd";
 import {useState} from "react";
 import {UseAxios} from "Hooks/useAxios";
@@ -36,10 +37,12 @@ const ViewRole = () => {
         {
           title: "View Payments",
           key: "viewPayments",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
         },
         {
           title: "Change Status",
           key: "changeStatus",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
         },
       ],
     },
@@ -47,20 +50,52 @@ const ViewRole = () => {
       title: "Manage Tenants",
       key: "manageTenants",
       children: [
-        {title: "Register Tenant", key: "registerTenant"},
-        {title: "View Tenant", key: "viewTenant"},
-        {title: "Update Tenant", key: "updateTenant"},
-        {title: "Upgrade plan", key: "upgradePlan"},
-        {title: "Reset Password", key: "resetPassword"},
+        {
+          title: "Register Tenant",
+          key: "registerTenant",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
+        {
+          title: "View Tenant",
+          key: "viewTenant",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
+        {
+          title: "Update Tenant",
+          key: "updateTenant",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
+        {
+          title: "Upgrade plan",
+          key: "upgradePlan",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
+        {
+          title: "Reset Password",
+          key: "resetPassword",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
       ],
     },
     {
       title: "Demo Requests",
       key: "demoRequests",
       children: [
-        {title: "View Request", key: "viewRequest"},
-        {title: "Approve Request", key: "approveRequest"},
-        {title: "Decline", key: "decline"},
+        {
+          title: "View Request",
+          key: "viewRequest",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
+        {
+          title: "Approve Request",
+          key: "approveRequest",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
+        {
+          title: "Decline",
+          key: "decline",
+          icon: ({selected}) => (selected ? <img src={tickIcon} alt='' /> : ""),
+        },
       ],
     },
     {
@@ -71,22 +106,54 @@ const ViewRole = () => {
           title: "Manage Users",
           key: "manageUsers",
           children: [
-            {title: "Create User", key: "use.create"},
-            {title: "Update User", key: "updateUser"},
-            {title: "Inactive", key: "inactive"},
-            {title: "Reset", key: "reset"},
+            {
+              title: "Create User",
+              key: "user.create",
+              icon: ({selected}) =>
+                selected ? <img src={tickIcon} alt='' /> : "",
+            },
+            {
+              title: "Update User",
+              key: "updateUser",
+              icon: ({selected}) =>
+                selected ? <img src={tickIcon} alt='' /> : "",
+            },
+            {
+              title: "Inactive",
+              key: "inactive",
+              icon: ({selected}) =>
+                selected ? <img src={tickIcon} alt='' /> : "",
+            },
+            {
+              title: "Reset",
+              key: "reset",
+              icon: ({selected}) =>
+                selected ? <img src={tickIcon} alt='' /> : "",
+            },
           ],
         },
         {
           title: "Manage Roles",
           key: "manageRoles",
           children: [
-            {title: "Create User", key: "rolesCreateUser"},
+            {
+              title: "Create User",
+              key: "rolesCreateUser",
+              icon: ({selected}) =>
+                selected ? <img src={tickIcon} alt='' /> : "",
+            },
             {
               title: "View Role",
               key: "viewRole",
+              icon: ({selected}) =>
+                selected ? <img src={tickIcon} alt='' /> : "",
             },
-            {title: "Update Role", key: "updateRole"},
+            {
+              title: "Update Role",
+              key: "updateRole",
+              icon: ({selected}) =>
+                selected ? <img src={tickIcon} alt='' /> : "",
+            },
           ],
         },
       ],
@@ -131,7 +198,7 @@ const ViewRole = () => {
                 give access to users.
               </p>
 
-              <ViewModule treeData={treeData} />
+              {<ViewModule treeData={treeData} keys={data?.scopes} />}
             </div>
           </div>
           {
@@ -149,31 +216,7 @@ const ViewRole = () => {
 
 export default ViewRole;
 
-const ViewModule = ({treeData}) => {
-  const [expandedKeys, setExpandedKeys] = useState([]);
-  const [checkedKeys, setCheckedKeys] = useState([]);
-  const [selectedKeys, setSelectedKeys] = useState([]);
-  const [autoExpandParent, setAutoExpandParent] = useState(true);
-
-  const onExpand = (expandedKeysValue) => {
-    console.log("onExpand", expandedKeysValue);
-    // if not set autoExpandParent to false, if children expanded, parent can not collapse.
-    // or, you can remove all expanded children keys.
-
-    setExpandedKeys(expandedKeysValue);
-    setAutoExpandParent(true);
-  };
-
-  const onCheck = (checkedKeysValue) => {
-    console.log("onCheck", checkedKeysValue);
-    setCheckedKeys(checkedKeysValue);
-  };
-
-  const onSelect = (selectedKeysValue, info) => {
-    console.log("onSelect", info);
-    setSelectedKeys(selectedKeysValue);
-  };
-
+const ViewModule = ({treeData, keys}) => {
   return (
     <div className='mb-15'>
       <Tree
@@ -182,6 +225,8 @@ const ViewModule = ({treeData}) => {
         defaultSelectedKeys={["0-0-0"]}
         treeData={treeData}
         switcherIcon={<img src={SelectArrowDownIcon} alt='' />}
+        selectedKeys={keys}
+        showIcon
       />
     </div>
   );
