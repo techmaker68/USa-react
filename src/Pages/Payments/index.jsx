@@ -12,7 +12,7 @@ import {DatePicker} from "antd";
 import {UseAxios} from "Hooks/useAxios";
 import {AutoRenew, PaymentMethod, PaymentStatus} from "Constants/Global";
 import moment from "moment";
-import {handlePaginationChange} from "../../Utilities/HandlePagination";
+import {handleAntdTablePagination} from "../../Utilities/HandlePagination";
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;
@@ -52,9 +52,9 @@ const Index = () => {
 
   // use effect
   useEffect(() => {
-    setPagination({...pagination, total: response?.totalRecords});
     // setting data - fetched from hook
     if (response !== null) {
+      setPagination({...pagination, total: response?.totalRecords});
       setDataSource(response.data);
     }
   }, [response]);
@@ -154,15 +154,21 @@ const Index = () => {
   };
 
   // handle pagination
-  const handleTableChange = (obj) => {
-    let a = handlePaginationChange("a");
-    console.log("a", a);
-    setDataSource(response?.data);
-    // setPagination({
-    //   pageSize: obj.pageSize,
-    //   current: obj.current,
-    //   total: obj.total,
-    // });
+  const handleTableChange = (pagination) => {
+    let queryFilters = {
+      ...filters,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+    };
+    const apiEndPoint = "/payments";
+
+    handleAntdTablePagination(
+      apiEndPoint,
+      queryFilters,
+      setDataSource,
+      setPagination,
+      pagination
+    );
   };
 
   // handle date change

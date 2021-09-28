@@ -7,6 +7,7 @@ import ActionIcon from "Assets/icons/action.svg";
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {UseAxios} from "Hooks/useAxios";
+import {handleAntdTablePagination} from "./../../Utilities/HandlePagination";
 import {
   AccessStatus,
   AutoRenew,
@@ -19,9 +20,9 @@ const {Option} = Select;
 // Render Manage Tenants Tab
 const Index = () => {
   const [pagination, setPagination] = useState({
-    currentPage: 0,
     pageSize: 10,
-    total: 10,
+    current: 1,
+    total: 50,
   });
 
   const [filters, setFilters] = useState({
@@ -36,7 +37,11 @@ const Index = () => {
   // Fetch Data - http request
   const {response, isLoading, error} = UseAxios({
     endpoint: `/Tenants`, // setup base URL in UseAxios file.
-    query: filters, // all the query strings in - {} object
+    query: {
+      ...filters,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+    }, // all the query strings in - {} object
     method: "get", // http request method
     deps: [filters], // dependency state variable which trigger re-render.
     successMessage: "", // success message
@@ -46,6 +51,7 @@ const Index = () => {
   useEffect(() => {
     // setting data - fetched from hook
     if (response !== null) {
+      setPagination({...pagination, total: response?.totalRecords});
       setDataSource(response.data);
     }
   }, [response]);
@@ -123,6 +129,26 @@ const Index = () => {
   const handleSearch = ({target}) => {
     setFilters({...filters, search: target.value});
   };
+
+  // handle pagination
+  const handleTableChange = (pagination) => {
+    let queryFilters = {
+      ...filters,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+    };
+    const apiEndPoint = "/Tenants";
+
+    handleAntdTablePagination(
+      apiEndPoint,
+      queryFilters,
+      setDataSource,
+      setPagination,
+      pagination
+    );
+  };
+
+  console.log("asd", pagination);
 
   return (
     <Layout title='Manage Tenants' currentPage={2}>
@@ -202,6 +228,11 @@ const Index = () => {
             size='middle'
             dataSource={dataSource}
             columns={columns}
+            pagination={{
+              showSizeChanger: false,
+              ...pagination,
+            }}
+            onChange={handleTableChange}
           />
         </div>
       </div>

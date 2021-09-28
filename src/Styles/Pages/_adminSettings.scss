@@ -171,6 +171,13 @@
     border: 1px solid #b8dfff;
     border-radius: 4px;
     padding: 13px 6px;
+    position: relative;
+    img {
+      position: absolute;
+      right: 6px;
+      top: 6px;
+      cursor: pointer;
+    }
   }
   .feature-modal {
     width: 222px;

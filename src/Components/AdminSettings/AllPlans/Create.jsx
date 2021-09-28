@@ -26,6 +26,7 @@ const Edit = () => {
   });
 
   const [features, setFeatures] = useState([]);
+  const [featureChecked, setFeatureChecked] = useState([]);
 
   useEffect(() => {
     if (response !== null) {
@@ -68,16 +69,15 @@ const Edit = () => {
   const handleCharges = ({target}) => {
     let discount = 0;
     if (target.name === "monthlyCharges") {
-      discount = (
+      discount = Math.round(
         ((target.value * 12 - charges.annuallyCharges) /
           charges.annuallyCharges) *
-        100
-      ).toFixed(2);
+          100
+      );
     } else {
-      discount = (
-        ((charges.monthlyCharges * 12 - target.value) / target.value) *
-        100
-      ).toFixed(2);
+      discount = Math.round(
+        ((charges.monthlyCharges * 12 - target.value) / target.value) * 100
+      );
     }
 
     if (discount >= 0 && discount < Infinity)
@@ -112,7 +112,12 @@ const Edit = () => {
                 // all features
               }
               <Card loading={isLoading} bordered={false}>
-                <AllFeatures features={features} setFeatures={setFeatures} />
+                <AllFeatures
+                  features={features}
+                  setFeatures={setFeatures}
+                  featureChecked={featureChecked}
+                  setFeatureChecked={setFeatureChecked}
+                />
               </Card>
             </div>
             <div className='d-flex justify-content-end align-items-center mt-16'>

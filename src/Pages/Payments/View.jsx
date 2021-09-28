@@ -106,12 +106,12 @@ const View = () => {
           {
             // content
           }
-          <div className='d-flex justify-content-between'>
-            <section className='w-60-p mr-80 '>
+          <div className='d-flex justify-content-between flex-wrap'>
+            <section className='w-47-p mr-5 '>
               {
                 // status
               }
-              <div className='d-flex payment-status mb-40'>
+              <div className='d-flex payment-status mb-40 flex-wrap'>
                 <div className='mr-95'>
                   <p className='f-12 fw-500 color-silver-chalice mb-11'>
                     Payment Status
@@ -144,14 +144,14 @@ const View = () => {
                 // business details
               }
               <h2 className='f-16 fw-500 mb-24'>Business Details</h2>
-              <div className='d-flex business-details'>
-                <div className='mr-250'>
+              <div className='d-flex business-details justify-content-between flex-wrap'>
+                <div>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Business Name
                   </h3>
                   <p className='fw-500'>{data?.businessName}</p>
                 </div>
-                <div className='mr-250 text-nowrap'>
+                <div className=' text-nowrap'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10 '>
                     Amount
                   </h3>
@@ -187,20 +187,20 @@ const View = () => {
                 // Plan details
               }
               <h2 className='f-16 fw-500 mb-24'>Plan Details</h2>
-              <div className='d-flex'>
-                <div className='mr-250 text-nowrap'>
+              <div className='d-flex justify-content-between'>
+                <div className=' text-nowrap'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Plan Name
                   </h3>
                   <p className='fw-500'>{data?.planName}</p>
                 </div>
-                <div className='mr-250 text-nowrap'>
+                <div className=' text-nowrap'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Billing Type
                   </h3>
                   <p className='fw-500'>{BillingType[data?.billingType]}</p>
                 </div>
-                <div className='mr-250 text-nowrap'>
+                <div className=' text-nowrap'>
                   <h3 className='f-12 fw-500 color-silver-chalice mb-10'>
                     Domain Name
                   </h3>
@@ -213,7 +213,7 @@ const View = () => {
               // Return payment method card.
             }
             {data?.paymentStatus ? (
-              <section>
+              <section className='w-50'>
                 {data?.paymentMethod === 1 ? (
                   <CheckCard data={data} />
                 ) : data?.paymentMethod === 2 ? (

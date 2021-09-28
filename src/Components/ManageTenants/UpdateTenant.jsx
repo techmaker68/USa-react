@@ -40,7 +40,6 @@ const UpdateTenant = () => {
 
   // handle create tenant
   const handleUpdateTenant = (values) => {
-    console.log("values", values);
     const formData = new FormData();
     formData.append("id", id);
     formData.append("firstName", values.firstName);
@@ -61,7 +60,6 @@ const UpdateTenant = () => {
 
     Http.put(`/tenants/${id}`, formData)
       .then((res) => {
-        console.log("success");
         history.push("/manage-tenants");
         message.success("Tenant Created Successfully");
       })
@@ -94,7 +92,7 @@ const UpdateTenant = () => {
                     className='d-inline-block m-0 p-0'
                   >
                     <Switch
-                      checked={data?.accessAllowed}
+                      defaultChecked={data?.accessAllowed}
                       className='primary-switch mr-7 mb-7'
                     />
                   </Form.Item>
@@ -106,7 +104,7 @@ const UpdateTenant = () => {
                     className='d-inline-block m-0 p-0'
                   >
                     <Switch
-                      checked={data?.autoRenew}
+                      defaultChecked={data?.autoRenew}
                       className='primary-switch mr-7 mb-7'
                     />
                   </Form.Item>

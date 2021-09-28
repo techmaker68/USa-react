@@ -127,17 +127,16 @@ const CreateTenant = () => {
     formData.append("BankName", values.BankName);
     formData.append("PayeeName", values.PayeeName);
     formData.append("ChequeNumber", values.ChequeNumber);
-    if (!values?.PaymentMethod === 1) {
+
+    if (paymentMethod === 1) {
+      console.log("called");
       formData.append(
         "ChequeDate",
         values?.ChequeDate && moment(values.ChequeDate).format("YYYY-MM-D")
       );
-    } else if (values?.PaymentMethod === 0) {
-      formData.append(
-        "PaymentDate",
-        values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")
-      );
-    } else if (values?.PaymentMethod === 2) {
+    } else {
+      console.log("not called", values?.PaymentMethod);
+
       formData.append(
         "PaymentDate",
         values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")

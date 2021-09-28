@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import PlusIcon from "Assets/icons/plus.svg";
+import FeatureCloseIcon from "Assets/icons/featureCloseIcon.svg";
 import {Checkbox, Input, Button, Form} from "antd";
-import {Rules} from "Constants/Global";
 
 const AllFeatures = ({
   features,
@@ -36,6 +36,9 @@ const AllFeatures = ({
     }
   };
 
+  // handle feature delete
+  const handleFeatureDelete = () => {};
+
   return (
     <div className='all-features'>
       <div className='position-relative d-inline-block'>
@@ -67,6 +70,11 @@ const AllFeatures = ({
                   />
                   <span className='d-block f-16 ml-8'>{feature?.title}</span>
                 </div>
+                <img
+                  onClick={handleFeatureDelete}
+                  src={FeatureCloseIcon}
+                  alt=''
+                />
               </div>
             ))}
         </div>

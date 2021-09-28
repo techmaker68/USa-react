@@ -242,8 +242,7 @@ const Index = () => {
               // action
             }
             <div className='d-flex justify-content-end align-items-center mt-16'>
-              <Button className='default-button  btn-role mr-16'>Cancel</Button>
-              <Button className='primary-button  btn-role'>Create Role</Button>
+              <Button className='primary-button  btn-role'>Update</Button>
             </div>
           </div>
         </Form>

@@ -8,7 +8,7 @@ const TicketHeatMap = () => {
   return (
     <>
       <div className='heat-map-wrapper__header'>
-        <h1>Heat Map</h1>
+        <h1>Tickets Overview</h1>
         {
           // header
         }

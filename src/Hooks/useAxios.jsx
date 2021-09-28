@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {message} from "antd";
+import {GetQueryString} from "./../Utilities/GetQueryString";
 
 const UseAxios = ({
   method,
@@ -57,24 +58,6 @@ const UseAxios = ({
 };
 
 export {UseAxios};
-
-// • filtered the values (check undefined, null, empty string)
-// • return concatenated query string
-const GetQueryString = (query) => {
-  let string = "";
-  const keys = Object.keys(query);
-
-  keys.forEach((key, index) => {
-    if (query[key] !== "" && query[key] !== null && query[key] !== undefined) {
-      string = string.concat(`${key}=${query[key]}&`);
-    }
-  });
-
-  let queryString =
-    string && string !== "" && `?${string.substring(0, string.length - 1)}`;
-
-  return queryString;
-};
 
 // Expected errors (404: not found, 400 : bad request) - Client errors
 // - Display a specific error message

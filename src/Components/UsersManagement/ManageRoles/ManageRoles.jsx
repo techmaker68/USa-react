@@ -7,12 +7,6 @@ import {UseAxios} from "Hooks/useAxios";
 
 // Render Manage Tenants Tab
 const ManageRoles = () => {
-  const [pagination, setPagination] = useState({
-    currentPage: 0,
-    pageSize: 10,
-    total: 10,
-  });
-
   const [filters, setFilters] = useState({
     paymentStatus: "",
     billingType: "",

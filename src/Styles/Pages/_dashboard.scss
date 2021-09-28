@@ -143,16 +143,6 @@
     table tr:first-child td {
       padding: 0px !important;
     }
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .ant-table-body::-webkit-scrollbar {
-      display: none;
-    }
-
-    /* Hide scrollbar for IE, Edge add Firefox */
-    .ant-table-body {
-      -ms-overflow-style: none;
-      scrollbar-width: none; /* Firefox */
-    }
   }
   .cities-wrapper {
     height: 252px;

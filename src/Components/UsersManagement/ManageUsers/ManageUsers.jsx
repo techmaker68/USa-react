@@ -8,6 +8,7 @@ import {UseAxios} from "Hooks/useAxios";
 import {Gender} from "./../../../Constants/Global";
 import {AccessStatus} from "Constants/Global";
 import moment from "moment";
+import {handleAntdTablePagination} from "./../../../Utilities/HandlePagination";
 
 // Render Manage Tenants Tab
 const ManageUsers = () => {
@@ -17,9 +18,9 @@ const ManageUsers = () => {
     setIsCreateUserModal(true);
   };
   const [pagination, setPagination] = useState({
-    currentPage: 0,
     pageSize: 10,
-    total: 10,
+    current: 1,
+    total: 50,
   });
 
   const [filters, setFilters] = useState({
@@ -35,7 +36,11 @@ const ManageUsers = () => {
   // Fetch Data - http request
   const {response, isLoading, error} = UseAxios({
     endpoint: `/users`, // setup base URL in UseAxios file.
-    query: filters, // all the query strings in - {} object
+    query: {
+      ...filters,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+    }, // all the query strings in - {} object
     method: "get", // http request method
     deps: [filters], // dependency state variable which trigger re-render.
     successMessage: "", // success message
@@ -45,6 +50,7 @@ const ManageUsers = () => {
   useEffect(() => {
     // setting data - fetched from hook
     if (response !== null) {
+      setPagination({...pagination, total: response?.totalRecords});
       setDataSource(response.data);
     }
   }, [response]);
@@ -104,6 +110,24 @@ const ManageUsers = () => {
     },
   ];
 
+  // handle pagination
+  const handleTableChange = (pagination) => {
+    let queryFilters = {
+      ...filters,
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+    };
+    const apiEndPoint = "/payments";
+
+    handleAntdTablePagination(
+      apiEndPoint,
+      queryFilters,
+      setDataSource,
+      setPagination,
+      pagination
+    );
+  };
+
   return (
     <div className='manage-tenants-wrapper'>
       {
@@ -128,6 +152,11 @@ const ManageUsers = () => {
           dataSource={dataSource}
           columns={columns}
           rowKey='id'
+          pagination={{
+            showSizeChanger: false,
+            ...pagination,
+          }}
+          onChange={handleTableChange}
         />
       </div>
       {isCreateUserModal && (
