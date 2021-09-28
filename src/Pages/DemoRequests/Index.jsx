@@ -164,7 +164,12 @@ const Index = () => {
             </ul>
           </div>
 
-          <Table size='middle' dataSource={dataSource} columns={columns} />
+          <Table
+            size='middle'
+            dataSource={dataSource}
+            columns={columns}
+            rowKey='id'
+          />
         </div>
       </div>
     </Layout>
@@ -184,7 +189,7 @@ const TableAction = ({row}) => {
         <Link to=''>Approve</Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key='1'>
+      <Menu.Item key='2'>
         <Link to=''>Decline</Link>
       </Menu.Item>
     </Menu>

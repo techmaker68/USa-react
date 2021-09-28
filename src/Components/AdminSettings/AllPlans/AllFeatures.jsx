@@ -3,21 +3,39 @@ import PlusIcon from "Assets/icons/plus.svg";
 import {Checkbox, Input, Button, Form} from "antd";
 import {Rules} from "Constants/Global";
 
-const AllFeatures = ({features, setFeatures}) => {
+const AllFeatures = ({
+  features,
+  setFeatures,
+  featureChecked,
+  setFeatureChecked,
+}) => {
   const [newFeatureModal, setNewFeatureModal] = useState(false);
-
+  const [newFeature, setNewFeature] = useState("");
   const handleFeatureToggle = () => {
     setNewFeatureModal(!newFeatureModal);
   };
 
-  const handleAddNewFeature = () => {
+  const handleFeatureSubmit = () => {
     setNewFeatureModal(false);
+    setFeatures([...features, {title: newFeature, id: null, new: true}]);
+    setNewFeature("");
   };
 
-  const handleFeatureSubmit = (values) => {
-    setNewFeatureModal(false);
-    setFeatures([...features, {title: values.feature, id: null}]);
+  const handleFeatureChange = ({target}) => {
+    if (target.value !== "") setNewFeature(target.value);
   };
+
+  const isFeatureChecked = (id) => {
+    return featureChecked.some((feature) => feature.id === id || feature?.new);
+  };
+
+  const handleFeatureChecked = ({checked}) => {
+    if (checked) {
+      setFeatureChecked();
+    } else {
+    }
+  };
+
   return (
     <div className='all-features'>
       <div className='position-relative d-inline-block'>
@@ -42,36 +60,40 @@ const AllFeatures = ({features, setFeatures}) => {
             features.map((feature, index) => (
               <div key={feature?.id || index} className='col-6 feature-box'>
                 <div className='d-flex'>
-                  <Checkbox style={{marginTop: 2}} />
+                  <Checkbox
+                    onChange={handleFeatureChecked}
+                    checked={isFeatureChecked(feature?.id)}
+                    style={{marginTop: 2}}
+                  />
                   <span className='d-block f-16 ml-8'>{feature?.title}</span>
                 </div>
               </div>
             ))}
         </div>
         {newFeatureModal && (
-          <Form onFinish={handleFeatureSubmit}>
-            <div className='feature-modal'>
-              <h3 className='f-12 fw-500 mb-8'>Feature Name</h3>
-              <Form.Item name='feature' rules={Rules.FirstName}>
-                <Input className='primary-input' />
-              </Form.Item>
+          <div className='feature-modal'>
+            <h3 className='f-12 fw-500 mb-8'>Feature Name</h3>
+            <Input
+              className='primary-input'
+              value={newFeature}
+              onChange={handleFeatureChange}
+            />
 
-              <div className='d-flex justify-content-end align-items-center mt-16'>
-                <Button
-                  htmlType='reset'
-                  className='default-button mr-16'
-                  onClick={handleFeatureToggle}
-                >
-                  Cancel
-                </Button>
+            <div className='d-flex justify-content-end align-items-center mt-16'>
+              <Button
+                htmlType='reset'
+                className='default-button mr-16'
+                onClick={handleFeatureToggle}
+              >
+                Cancel
+              </Button>
 
-                <Button htmlType='submit' className='primary-button'>
-                  <img src={PlusIcon} alt='' /> Add
-                </Button>
-              </div>
-              <div className='triangle'></div>
+              <Button onClick={handleFeatureSubmit} className='primary-button'>
+                <img src={PlusIcon} alt='' /> Add
+              </Button>
             </div>
-          </Form>
+            <div className='triangle'></div>
+          </div>
         )}
       </div>
     </div>

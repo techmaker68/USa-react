@@ -126,7 +126,7 @@ const UpdateRole = () => {
               <span className='mt-0'>Update Role</span>
             </Link>
           </div>
-          <Card loading={isLoading}>
+          <Card bordered={false} loading={isLoading}>
             <Form
               layout='vertical'
               className='mr-30'

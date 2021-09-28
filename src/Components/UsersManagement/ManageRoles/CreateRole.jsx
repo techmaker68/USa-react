@@ -83,7 +83,7 @@ const CreateRole = () => {
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("name", values.description);
-    formData.append("scopes", ["user.create"]);
+    formData.append("scopes", checkedKeys);
 
     Http.post(`/roles`, formData, {
       headers: {

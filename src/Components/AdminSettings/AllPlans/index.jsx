@@ -57,7 +57,7 @@ const Index = () => {
             data?.map((card, index) => (
               <div key={index} className='plan-card'>
                 <div className='plan-card__header'>
-                  <div className='f-20 fw-600'>{card?.title}</div>
+                  <div className='f-20 fw-600'>{card?.planName}</div>
                   <Link to={`/settings/plan/update/${card?.id}`}>
                     <img
                       className='cursor-pointer'

@@ -71,7 +71,7 @@ const UpdateTenant = () => {
     <Layout title='Manage Tenants' currentPage={2}>
       <div className='main-wrapper'>
         <div className='page-card  update-tenant'>
-          <Card loading={isLoading}>
+          <Card bordered={false} loading={isLoading}>
             <Form
               layout='vertical'
               initialValues={data}

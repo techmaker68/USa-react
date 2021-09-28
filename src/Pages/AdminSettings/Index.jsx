@@ -17,6 +17,7 @@ const Index = () => {
     history.push(`/settings/${tab}`);
     setCurrentTab(tab);
   };
+
   return (
     <Layout currentPage={5} title='User Management'>
       <div className='main-wrapper'>

@@ -1,12 +1,20 @@
 import CameraIcon from "Assets/icons/camera.svg";
-import {Button, Form, Input, InputNumber, Card} from "antd";
+import {Button, Form, Input, InputNumber, Card, message} from "antd";
 import {UseAxios} from "Hooks/useAxios";
+import {useState} from "react";
+import Http from "Http";
 
 const Index = () => {
   const staticCardsData = [
     {heading: "Trial Period", key: "trialPeriod", unit: "Days"},
     {heading: "VAT %", key: "vat", unit: "%"},
   ];
+
+  const [configuration, setConfiguration] = useState([
+    {key: "trialPeriod", value: 0},
+    {key: "vat", value: 0},
+  ]);
+  const [profile, setProfile] = useState(null);
 
   // Fetch Data - http request
   const {
@@ -21,9 +29,33 @@ const Index = () => {
     successMessage: "", // success message
   });
 
+  // update conf in state
+  const handleConfChange = (value, index) => {
+    if (value) {
+      const data = [...configuration];
+      data[index].value = value;
+      setConfiguration(data);
+    }
+  };
+
+  // update conf in DB - http request
+  const handleConfUpdate = (index) => {
+    Http.put(`/configurations/${configuration[index].key}`)
+      .then((res) => {
+        message.success("Updated successfully");
+      })
+      .catch((err) => message.error("Something went wrong, please try again"));
+  };
+
+  // update profile image
+
+  const handleProfileChange = ({target}) => {
+    setProfile(target.files[0]);
+  };
+
   return (
     <div className='page-card business-info-wrapper mt-20'>
-      <Card loading={isLoading}>
+      <Card bordered={false} loading={isLoading}>
         <Form layout='vertical' initialValues={data}>
           {
             // general settings
@@ -37,12 +69,24 @@ const Index = () => {
 
           <div className='general-setting-wrapper'>
             {staticCardsData.map((card, index) => (
-              <div key={index} className='card-gs'>
+              <div key={card.key} className='card-gs'>
                 <h1 className='f-16 fw-600'>{card?.heading}</h1>
                 <p className='f-12 fw-500'>Change Trial Duration</p>
-                <InputNumber className='primary-input-number' min={0} />
-                <span className='ml-10 fw-500'>{card?.unit}</span>
-                <u className='color-primary f-16 fw-500'>Save Changes</u>
+                <div className='d-flex align-items-center'>
+                  <InputNumber
+                    className='primary-input-number'
+                    value={configuration[index].value}
+                    onChange={(value) => handleConfChange(value, index)}
+                  />
+                  <span className='ml-10 fw-500'>{card?.unit}</span>
+
+                  <u
+                    onClick={() => handleConfUpdate(index)}
+                    className='color-primary f-16 fw-500 d-inline-block'
+                  >
+                    Save Changes
+                  </u>
+                </div>
               </div>
             ))}
           </div>
@@ -61,11 +105,27 @@ const Index = () => {
           }
           <div className='business-profile'>
             <label htmlFor='profile'>
-              <div className='profile'>
-                <img src={CameraIcon} alt='' />
-                <p>Add Logo</p>
+              <div
+                className='profile'
+                style={{
+                  backgroundImage: `url(${
+                    profile ? URL.createObjectURL(profile) : ""
+                  })`,
+                }}
+              >
+                {!profile && (
+                  <>
+                    <img src={CameraIcon} alt='' />
+                    <p>Add Logo</p>
+                  </>
+                )}
               </div>
-              <input type='file' className='d-none' id='profile' />
+              <input
+                type='file'
+                className='d-none'
+                id='profile'
+                onChange={handleProfileChange}
+              />
             </label>
           </div>
 

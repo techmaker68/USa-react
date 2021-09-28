@@ -104,7 +104,6 @@ const CreateTenant = () => {
 
   // handle create tenant
   const handleCreateTenant = (values) => {
-    console.log("values", values);
     const formData = new FormData();
 
     formData.append("FirstName", values.FirstName);
@@ -156,7 +155,7 @@ const CreateTenant = () => {
         history.push("/manage-tenants");
         message.success("Tenant Created Successfully");
       })
-      .catch((err) => console.log("err", err.response.data));
+      .catch((err) => console.log("errrrrrrrrrrrr", err.response.data));
   };
 
   return (
@@ -172,7 +171,7 @@ const CreateTenant = () => {
             </Link>
           </div>
           <div className='page-card__content'>
-            <Card loading={isLoading}>
+            <Card bordered={false} loading={isLoading}>
               <Form
                 onFinish={handleCreateTenant}
                 layout='vertical'
