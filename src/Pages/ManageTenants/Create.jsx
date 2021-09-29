@@ -29,7 +29,7 @@ const {Option} = Select;
 const CreateTenant = () => {
   const [paymentMethod, setPaymentMethod] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState("default");
-  const [attachment, setAttachment] = useState([]);
+  const [attachment, setAttachment] = useState("default");
 
   const [planAmount, setPlanAmount] = useState({
     currentPlan: "",
@@ -101,8 +101,15 @@ const CreateTenant = () => {
 
   // handle create tenant
   const handleCreateTenant = (values) => {
-    if (!phoneNumber) {
-      message.error(`Form submission failed.`);
+    if (!phoneNumber || phoneNumber === "default") {
+      setPhoneNumber(null);
+      message.error(`Form submission failed. Field is required`);
+      return;
+    } else if (
+      paymentMethod &&
+      (attachment.length < 1 || attachment === "default")
+    ) {
+      message.error(`Form submission failed. Attachment/File is required`);
       return;
     }
 
@@ -131,7 +138,6 @@ const CreateTenant = () => {
     formData.append("ChequeNumber", values.ChequeNumber);
 
     if (paymentMethod === 1) {
-      console.log("called");
       formData.append(
         "ChequeDate",
         values?.ChequeDate && moment(values.ChequeDate).format("YYYY-MM-D")
@@ -161,8 +167,9 @@ const CreateTenant = () => {
 
   const handleFinishFailed = ({errorFields}) => {
     if (phoneNumber === "default") setPhoneNumber("");
+    if (attachment === "default") setAttachment([]);
     if (errorFields.length > 0) {
-      message.error(`Form submission failed.`);
+      message.error(`Form submission failed, ${errorFields[0].errors[0]}`);
     }
   };
 

@@ -10,6 +10,7 @@ import {
 import React from "react";
 import DatePickerIcon from "Assets/icons/datepicker.svg";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
+import {Rules} from "Constants/Global";
 
 const {Option} = Select;
 const {Dragger} = Upload;
@@ -36,7 +37,6 @@ function Cheque({planAmount, setAttachment, attachment, disable}) {
   };
 
   const handleFileChange = (fileObj) => {
-    console.log("fileObj", fileObj);
     if (fileObj && !fileObj.file.status) setAttachment([fileObj.file]);
     else setAttachment([]);
   };
@@ -44,14 +44,14 @@ function Cheque({planAmount, setAttachment, attachment, disable}) {
   return (
     <>
       <div className='d-flex gap-24'>
-        <div>
-          <Form.Item label='Receipt Picture' name='Attachement'>
+        <div className='w-270'>
+          <Form.Item label='Receipt Picture' rules={Rules.Required}>
             <Dragger
               multiple={false}
               {...props}
               className='primary-upload-dragger'
               onChange={handleFileChange}
-              fileList={attachment}
+              fileList={Array.isArray(attachment) ? attachment : []}
               onRemove={() => handleFileChange(null)}
             >
               <p className='ant-upload-drag-icon'></p>
@@ -61,6 +61,15 @@ function Cheque({planAmount, setAttachment, attachment, disable}) {
                 <u className='f-12 fw-500 color-info'>Browse</u>
               </p>
             </Dragger>
+            <p
+              className={
+                attachment.length > 0 || attachment === "default"
+                  ? "d-none"
+                  : "error-message"
+              }
+            >
+              Field is required.
+            </p>
           </Form.Item>
         </div>
         <div>
@@ -76,42 +85,54 @@ function Cheque({planAmount, setAttachment, attachment, disable}) {
                   />
                 </Form.Item>
               ) : (
-                <Form.Item label='Amount' name='Amount'>
+                <Form.Item label='Amount' name='Amount' rules={Rules.Required}>
                   <InputNumber
                     className='primary-input-number'
                     max={disable?.max}
                   />
                 </Form.Item>
               )}
-              <Form.Item label='Payee Name' name='PayeeName'>
+              <Form.Item label='Payee Name' name='PayeeName' rules={Rules.Name}>
                 <Input className='primary-input' />
               </Form.Item>
-              <Form.Item label='Received By' name='ReceivedBy'>
-                <Select
-                  dropdownMatchSelectWidth={false}
-                  suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
-                  className='primary-select-option'
-                >
-                  <Option>Ahmad bilaar bin Abdul Aziz</Option>
-                </Select>
+              <Form.Item
+                label='Received By'
+                name='receivedBy'
+                rules={Rules.Name}
+              >
+                <Input className='primary-input' size='large' />
               </Form.Item>
             </div>
 
             <div>
-              <Form.Item label='Bank Name' name='BankName'>
+              <Form.Item
+                label='Bank Name'
+                name='BankName'
+                rules={Rules.Required}
+              >
                 <Select
                   dropdownMatchSelectWidth={false}
                   suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
                   className='primary-select-option'
                 >
-                  <Option>Ahmad bilaar bin Abdul Aziz</Option>
+                  <Option value='Ahmad bilaar bin Abdul Aziz'>
+                    Ahmad bilaar bin Abdul Aziz
+                  </Option>
                 </Select>
               </Form.Item>
-              <Form.Item label='Cheque Number' name='ChequeNumber'>
-                <Input className='primary-input' />
+              <Form.Item
+                label='Cheque Number'
+                name='ChequeNumber'
+                rules={Rules.ChequeNumber}
+              >
+                <InputNumber className='primary-input-number hide-controls' />
               </Form.Item>
 
-              <Form.Item label='Cheque Date' name='ChequeDate'>
+              <Form.Item
+                label='Cheque Date'
+                name='ChequeDate'
+                rules={Rules.Required}
+              >
                 <DatePicker
                   clearIcon={false}
                   suffixIcon={<img src={DatePickerIcon} alt='' />}

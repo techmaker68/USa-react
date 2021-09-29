@@ -315,6 +315,15 @@ html {
   display: none !important;
 }
 
+// upload icon
+.ant-upload-list-text .ant-upload-text-icon .anticon {
+  margin-bottom: 5px;
+}
+
+.hide-controls .ant-input-number-handler-wrap {
+  visibility: hidden;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //                                CUSTOM COMPONENTS
 //////////////////////////////////////////////////////////////////////////

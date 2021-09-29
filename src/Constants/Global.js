@@ -80,4 +80,48 @@ export const Rules = {
       type: "number",
     },
   ],
+  ChequeNumber: [
+    {
+      required: true,
+      message: "Field is required.",
+    },
+
+    ({getFieldValue}) => ({
+      validator(_, value) {
+        if (!value) {
+          return Promise.resolve();
+        }
+        if (value) {
+          let numberDigits = value.toString().length;
+          if (numberDigits < 18 || numberDigits > 22) {
+            return Promise.reject(new Error("Min 16 & max 24 length."));
+          } else {
+            return Promise.resolve();
+          }
+        }
+      },
+    }),
+  ],
+  AccountNumber: [
+    {
+      required: true,
+      message: "Field is required.",
+    },
+
+    ({getFieldValue}) => ({
+      validator(_, value) {
+        if (!value) {
+          return Promise.resolve();
+        }
+        if (value) {
+          let valueLength = value.length;
+          if (valueLength < 16 || valueLength > 24) {
+            return Promise.reject(new Error("Min 16 & max 24 length."));
+          }
+        } else {
+          return Promise.resolve();
+        }
+      },
+    }),
+  ],
 };

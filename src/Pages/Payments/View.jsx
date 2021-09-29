@@ -3,7 +3,7 @@ import ArrowBack from "Assets/icons/arrow-back.svg";
 import EyeIcon from "Assets/icons/eye.svg";
 import DownloadIcons from "Assets/icons/download.svg";
 import {Link} from "react-router-dom";
-import {Button, Switch, Radio, Form} from "antd";
+import {Button, Switch, Radio, Form, message, Card} from "antd";
 import PaymentCard from "Components/Payments/PaymentCard";
 import CheckCard from "Components/Payments/CheckCard";
 import BankCard from "Components/Payments/BankCard";
@@ -19,7 +19,7 @@ import moment from "moment";
 
 const View = () => {
   const {id} = useParams();
-  const [attachment, setAttachment] = useState([]);
+  const [attachment, setAttachment] = useState("default");
   const [paymentMethod, setPaymentMethod] = useState(0);
   // Fetch Data - http request
   const {
@@ -42,7 +42,11 @@ const View = () => {
 
   // pay payment
   const handleUnpaidPayments = (values) => {
-    console.log("v", values);
+    if (paymentMethod && (attachment.length < 1 || attachment === "default")) {
+      setAttachment([]);
+      message.error(`Form submission failed. Attachment/File is required`);
+      return;
+    }
 
     const formData = new FormData();
 
@@ -77,6 +81,13 @@ const View = () => {
         console.log("res", res.data);
       })
       .catch((err) => console.log("err", err));
+  };
+
+  const handleFinishFailed = ({errorFields}) => {
+    if (attachment === "default") setAttachment([]);
+    if (errorFields.length > 0) {
+      message.error(`Form submission failed, ${errorFields[0].errors[0]}`);
+    }
   };
   return (
     <Layout title='Payments Overview' currentPage={1}>
@@ -235,50 +246,53 @@ const View = () => {
           {!data?.paymentStatus && (
             <section className='mt-20 unpaid-payment-section'>
               <h1 className='f-16 fw-500 mb-15'>Payment Details</h1>
-              <Form
-                layout='vertical'
-                className='ml-40'
-                initialValues={{payment_mode: 0}}
-                onFinish={handleUnpaidPayments}
-              >
-                <Form.Item name='payment_mode'>
-                  <Radio.Group
-                    onChange={handlePaymentMethod}
-                    className='primary-radio-group'
-                  >
-                    <Radio value={0}>Cash</Radio>
-                    <Radio value={1}>Cheque</Radio>
-                    <Radio value={2}>Bank Transfer</Radio>
-                  </Radio.Group>
-                </Form.Item>
-                {paymentMethod === 1 ? (
-                  <Cheque
-                    setAttachment={setAttachment}
-                    attachment={attachment}
-                    disable={{amount: false, max: data?.amount}}
-                  />
-                ) : paymentMethod === 2 ? (
-                  <BankTransfer
-                    setAttachment={setAttachment}
-                    attachment={attachment}
-                    disable={{amount: false, max: data?.amount}}
-                  />
-                ) : (
-                  <Cash
-                    setAttachment={setAttachment}
-                    attachment={attachment}
-                    disable={{amount: false, max: data?.amount}}
-                  />
-                )}
-                <div className='text-end'>
-                  <Link to='/payments'>
-                    <Button className='default-button mr-16'>Cancel</Button>
-                  </Link>
-                  <Button htmlType='submit' className='primary-button'>
-                    Confirm Payment
-                  </Button>
-                </div>
-              </Form>
+              <Card bordered={false} loading={isLoading}>
+                <Form
+                  layout='vertical'
+                  className='ml-40'
+                  initialValues={{payment_mode: 0, Amount: data?.amount}}
+                  onFinish={handleUnpaidPayments}
+                  onFinishFailed={handleFinishFailed}
+                >
+                  <Form.Item name='payment_mode'>
+                    <Radio.Group
+                      onChange={handlePaymentMethod}
+                      className='primary-radio-group'
+                    >
+                      <Radio value={0}>Cash</Radio>
+                      <Radio value={1}>Cheque</Radio>
+                      <Radio value={2}>Bank Transfer</Radio>
+                    </Radio.Group>
+                  </Form.Item>
+                  {paymentMethod === 1 ? (
+                    <Cheque
+                      setAttachment={setAttachment}
+                      attachment={attachment}
+                      disable={{amount: false, max: data?.amount}}
+                    />
+                  ) : paymentMethod === 2 ? (
+                    <BankTransfer
+                      setAttachment={setAttachment}
+                      attachment={attachment}
+                      disable={{amount: false, max: data?.amount}}
+                    />
+                  ) : (
+                    <Cash
+                      setAttachment={setAttachment}
+                      attachment={attachment}
+                      disable={{amount: false, max: data?.amount}}
+                    />
+                  )}
+                  <div className='text-end'>
+                    <Link to='/payments'>
+                      <Button className='default-button mr-16'>Cancel</Button>
+                    </Link>
+                    <Button htmlType='submit' className='primary-button'>
+                      Confirm Payment
+                    </Button>
+                  </div>
+                </Form>
+              </Card>
             </section>
           )}
         </div>

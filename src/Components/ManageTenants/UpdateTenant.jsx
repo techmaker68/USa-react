@@ -46,6 +46,7 @@ const UpdateTenant = () => {
   // handle create tenant
   const handleUpdateTenant = (values) => {
     if (!phoneNumber) {
+      setPhoneNumber(null);
       message.error(`Form submission failed.`);
       return;
     }
@@ -77,8 +78,9 @@ const UpdateTenant = () => {
   };
 
   const handleFinishFailed = ({errorFields}) => {
+    if (phoneNumber === "default") setPhoneNumber("");
     if (errorFields.length > 0) {
-      message.error(`Form submission failed.`);
+      message.error(`Form submission failed, ${errorFields[0].errors[0]}`);
     }
   };
   return (
@@ -203,12 +205,12 @@ const UpdateTenant = () => {
                         <InputNumber className='primary-input-number' min={0} />
                       </Form.Item>
 
-                      <Form.Item label='Number of Users' name='numberOfUsers'>
-                        <InputNumber
-                          min={0}
-                          className='primary-input-number'
-                          rules={Rules.NumberOfBranches}
-                        />
+                      <Form.Item
+                        label='Number of Users'
+                        name='numberOfUsers'
+                        rules={Rules.NumberOfBranches}
+                      >
+                        <InputNumber min={0} className='primary-input-number' />
                       </Form.Item>
                     </div>
                   </div>
