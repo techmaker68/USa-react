@@ -302,6 +302,19 @@ html {
   left: -21px;
 }
 
+// antd default required steric.
+
+// .ant-form-item-label
+//   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+//   position: absolute;
+//   right: -12px;
+//   top: 0;
+// }
+.ant-form-item-label
+  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  display: none !important;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //                                CUSTOM COMPONENTS
 //////////////////////////////////////////////////////////////////////////
@@ -503,3 +516,25 @@ html {
   border: 1px solid #e9e9e9;
   margin: 0 46px;
 }
+
+// error message
+.error-message {
+  position: relative;
+  animation: AnimateDown 0.45s cubic-bezier(0.215, 0.61, 0.355, 1);
+  top: 0px;
+  color: #ff4d4f;
+  filter: blur(0px);
+}
+@keyframes AnimateDown {
+  0% {
+    top: -7px;
+  }
+  20% {
+    filter: blur(0.4px);
+  }
+}
+// 40% {
+//
+// }
+
+// error message

@@ -8,9 +8,10 @@ import CitySelect from "Components/Common/CitySelect";
 import StateSelect from "Components/Common/StateSelect";
 import {UseAxios} from "Hooks/useAxios";
 import {useParams} from "react-router-dom";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useHistory} from "react-router";
 import Http from "Http";
+import {Rules} from "Constants/Global";
 
 const UpdateTenant = () => {
   const {id} = useParams();
@@ -29,6 +30,10 @@ const UpdateTenant = () => {
     successMessage: "", // success message
   });
 
+  useEffect(() => {
+    if (data !== null) setPhoneNumber(data?.phoneNumber);
+  }, [data]);
+
   // phone change
   const handlePhoneChange = (value) => {
     if (value === "") {
@@ -40,6 +45,11 @@ const UpdateTenant = () => {
 
   // handle create tenant
   const handleUpdateTenant = (values) => {
+    if (!phoneNumber) {
+      message.error(`Form submission failed.`);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("id", id);
     formData.append("firstName", values.firstName);
@@ -65,6 +75,12 @@ const UpdateTenant = () => {
       })
       .catch((err) => console.log("err", err));
   };
+
+  const handleFinishFailed = ({errorFields}) => {
+    if (errorFields.length > 0) {
+      message.error(`Form submission failed.`);
+    }
+  };
   return (
     <Layout title='Manage Tenants' currentPage={2}>
       <div className='main-wrapper'>
@@ -72,8 +88,9 @@ const UpdateTenant = () => {
           <Card bordered={false} loading={isLoading}>
             <Form
               layout='vertical'
-              initialValues={data}
+              initialValues={{...data, phone: phoneNumber}}
               onFinish={handleUpdateTenant}
+              onFinishFailed={handleFinishFailed}
             >
               <div className='page-card-header d-flex justify-content-between align-item-center'>
                 {
@@ -90,11 +107,9 @@ const UpdateTenant = () => {
                   <Form.Item
                     name='accessAllowed'
                     className='d-inline-block m-0 p-0'
+                    valuePropName='checked'
                   >
-                    <Switch
-                      defaultChecked={data?.accessAllowed}
-                      className='primary-switch mr-7 mb-7'
-                    />
+                    <Switch className='primary-switch mr-7 mb-7' />
                   </Form.Item>
                   <span className='f-16 fw-600 color-apple align-middle mr-30'>
                     Active
@@ -102,11 +117,9 @@ const UpdateTenant = () => {
                   <Form.Item
                     name='autoRenew'
                     className='d-inline-block m-0 p-0'
+                    valuePropName='checked'
                   >
-                    <Switch
-                      defaultChecked={data?.autoRenew}
-                      className='primary-switch mr-7 mb-7'
-                    />
+                    <Switch className='primary-switch mr-7 mb-7' />
                   </Form.Item>
 
                   <span className='f-16 fw-600 color-apple align-middle'>
@@ -122,7 +135,11 @@ const UpdateTenant = () => {
                   <div className='mx-49'>
                     <div className='d-flex gap-24'>
                       <div>
-                        <Form.Item label='First Name' name='firstName'>
+                        <Form.Item
+                          label='First Name'
+                          name='firstName'
+                          rules={Rules.Name}
+                        >
                           <Input className='primary-input' />
                         </Form.Item>
                         <Form.Item label='Phone Number'>
@@ -131,18 +148,25 @@ const UpdateTenant = () => {
                             containerClass='primary-input-phone'
                             onChange={handlePhoneChange}
                             masks={{sa: "... ... ..."}}
-                            value={
-                              data.phoneNumber ? data.phoneNumber : phoneNumber
-                            }
+                            value={phoneNumber}
                           />
+                          <p
+                            className={phoneNumber ? "d-none" : "error-message"}
+                          >
+                            Field is required.
+                          </p>
                         </Form.Item>
                       </div>
 
-                      <Form.Item label='Last Name' name='lastName'>
+                      <Form.Item
+                        label='Last Name'
+                        name='lastName'
+                        rules={Rules.Name}
+                      >
                         <Input className='primary-input' />
                       </Form.Item>
 
-                      <Form.Item label='Email' name='email'>
+                      <Form.Item label='Email' name='email' rules={Rules.Email}>
                         <Input className='primary-input' />
                       </Form.Item>
                     </div>
@@ -155,10 +179,18 @@ const UpdateTenant = () => {
                   <div className='mx-49'>
                     <div className='d-flex gap-24'>
                       <div>
-                        <Form.Item label='Business Name' name='businessName'>
+                        <Form.Item
+                          label='Business Name'
+                          name='businessName'
+                          rules={Rules.Required}
+                        >
                           <Input className='primary-input' />
                         </Form.Item>
-                        <Form.Item label='Position (Title)' name='position'>
+                        <Form.Item
+                          label='Position (Title)'
+                          name='position'
+                          rules={Rules.Name}
+                        >
                           <Input className='primary-input' />
                         </Form.Item>
                       </div>
@@ -166,12 +198,17 @@ const UpdateTenant = () => {
                       <Form.Item
                         label='Number of Branches'
                         name='numberOfBranches'
+                        rules={Rules.NumberOfBranches}
                       >
                         <InputNumber className='primary-input-number' min={0} />
                       </Form.Item>
 
                       <Form.Item label='Number of Users' name='numberOfUsers'>
-                        <InputNumber min={0} className='primary-input-number' />
+                        <InputNumber
+                          min={0}
+                          className='primary-input-number'
+                          rules={Rules.NumberOfBranches}
+                        />
                       </Form.Item>
                     </div>
                   </div>
@@ -183,26 +220,50 @@ const UpdateTenant = () => {
                   <div className='mx-49'>
                     <div className='d-flex gap-24'>
                       <div>
-                        <Form.Item label='Country' name='country'>
+                        <Form.Item
+                          label='Country'
+                          name='country'
+                          rules={Rules.Required}
+                        >
                           <CountryComponent />
                         </Form.Item>
 
-                        <StateSelect name='state' />
+                        <Form.Item
+                          label='State'
+                          name='state'
+                          rules={Rules.Required}
+                        >
+                          <Input className='primary-input' />
+                        </Form.Item>
                       </div>
 
                       <div>
-                        <Form.Item label='Address' name='address'>
+                        <Form.Item
+                          label='Address'
+                          name='address'
+                          rules={Rules.Required}
+                        >
+                          <Input className='primary-input' />
+                        </Form.Item>
+                        <Form.Item
+                          label='Postal / Zip code'
+                          name='postalCode'
+                          rules={Rules.NumberOfBranches}
+                        >
                           <InputNumber
                             min={0}
                             className='primary-input-number'
                           />
                         </Form.Item>
-                        <Form.Item label='Postal / Zip code' name='postalCode'>
-                          <Input className='primary-input' />
-                        </Form.Item>
                       </div>
 
-                      <CitySelect name='city' />
+                      <Form.Item
+                        label='City'
+                        name='city'
+                        rules={Rules.Required}
+                      >
+                        <Input className='primary-input' />
+                      </Form.Item>
                     </div>
                   </div>
                 </section>
@@ -216,7 +277,11 @@ const UpdateTenant = () => {
                   <div className='mx-49'>
                     <div className='d-flex gap-24'>
                       <div>
-                        <Form.Item label='Domain Name' name='domainIdentifier'>
+                        <Form.Item
+                          label='Domain Name'
+                          name='domainIdentifier'
+                          rules={Rules.Required}
+                        >
                           <Input
                             className='primary-input'
                             suffix={

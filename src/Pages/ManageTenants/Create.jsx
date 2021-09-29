@@ -13,8 +13,6 @@ import {Link} from "react-router-dom";
 import ArrowBack from "Assets/icons/arrow-back.svg";
 import PhoneInput from "react-phone-input-2";
 import CountryComponent from "Components/Common/CountryComponent";
-import CitySelect from "Components/Common/CitySelect";
-import StateSelect from "Components/Common/StateSelect";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 import Cash from "Components/ManageTenants/PaymentModes/Cash";
 import Cheque from "Components/ManageTenants/PaymentModes/Cheque";
@@ -22,7 +20,6 @@ import BankTransfer from "Components/ManageTenants/PaymentModes/BankTransfer";
 import {useState, useEffect} from "react";
 import {UseAxios} from "Hooks/useAxios";
 import {Rules} from "Constants/Global";
-import {axios} from "axios";
 import Http from "Http";
 import moment from "moment";
 import {useHistory} from "react-router";
@@ -31,7 +28,7 @@ const {Option} = Select;
 
 const CreateTenant = () => {
   const [paymentMethod, setPaymentMethod] = useState(0);
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("default");
   const [attachment, setAttachment] = useState([]);
 
   const [planAmount, setPlanAmount] = useState({
@@ -104,6 +101,11 @@ const CreateTenant = () => {
 
   // handle create tenant
   const handleCreateTenant = (values) => {
+    if (!phoneNumber) {
+      message.error(`Form submission failed.`);
+      return;
+    }
+
     const formData = new FormData();
 
     formData.append("FirstName", values.FirstName);
@@ -154,7 +156,14 @@ const CreateTenant = () => {
         history.push("/manage-tenants");
         message.success("Tenant Created Successfully");
       })
-      .catch((err) => console.log("errrrrrrrrrrrr", err.response.data));
+      .catch((err) => console.log("err", err.response.data));
+  };
+
+  const handleFinishFailed = ({errorFields}) => {
+    if (phoneNumber === "default") setPhoneNumber("");
+    if (errorFields.length > 0) {
+      message.error(`Form submission failed.`);
+    }
   };
 
   return (
@@ -179,6 +188,7 @@ const CreateTenant = () => {
                   BillingType: 0,
                   Amount: planAmount?.amount,
                 }}
+                onFinishFailed={handleFinishFailed}
               >
                 {/*Personal Details*/}
                 <section className='mb-24'>
@@ -189,21 +199,12 @@ const CreateTenant = () => {
                       <Form.Item
                         label='First Name'
                         name='FirstName'
-                        rules={Rules.FirstName}
+                        rules={Rules.Name}
                       >
                         <Input className='primary-input' />
                       </Form.Item>
 
-                      <Form.Item
-                        label='Phone Number'
-                        name='PhoneNumber'
-                        rules={[
-                          {
-                            required: phoneNumber ? false : true,
-                            message: "Phone is required",
-                          },
-                        ]}
-                      >
+                      <Form.Item label='Phone Number'>
                         <PhoneInput
                           placeholder='Enter phone number'
                           containerClass='primary-input-phone'
@@ -211,13 +212,17 @@ const CreateTenant = () => {
                           masks={{sa: "... ... ..."}}
                           value={phoneNumber}
                         />
+
+                        <p className={phoneNumber ? "d-none" : "error-message"}>
+                          Field is required.
+                        </p>
                       </Form.Item>
                     </div>
 
                     <Form.Item
                       label='Last Name'
                       name='LastName'
-                      rules={Rules.FirstName}
+                      rules={Rules.Name}
                     >
                       <Input className='primary-input' />
                     </Form.Item>
@@ -236,12 +241,16 @@ const CreateTenant = () => {
                       <Form.Item
                         label='Business Name'
                         name='BusinessName'
-                        rules={Rules.FirstName}
+                        rules={Rules.Required}
                       >
                         <Input className='primary-input' />
                       </Form.Item>
 
-                      <Form.Item label='Position (Title)' name='Position'>
+                      <Form.Item
+                        label='Position (Title)'
+                        name='Position'
+                        rules={Rules.Name}
+                      >
                         <Input className='primary-input' />
                       </Form.Item>
                     </div>
@@ -249,11 +258,16 @@ const CreateTenant = () => {
                     <Form.Item
                       label='Number of Branches'
                       name='NumberOfBranches'
+                      rules={Rules.NumberOfBranches}
                     >
                       <InputNumber className='primary-input-number' min={0} />
                     </Form.Item>
 
-                    <Form.Item label='Number of Users' name='NumberOfUsers'>
+                    <Form.Item
+                      label='Number of Users'
+                      name='NumberOfUsers'
+                      rules={Rules.NumberOfBranches}
+                    >
                       <InputNumber min={0} className='primary-input-number' />
                     </Form.Item>
                   </div>
@@ -264,22 +278,42 @@ const CreateTenant = () => {
                   <hr className='mt-1' />
                   <div className='mx-49 d-flex gap-24'>
                     <div>
-                      <Form.Item label='Country' name='Country'>
+                      <Form.Item
+                        label='Country'
+                        name='Country'
+                        rules={Rules.Required}
+                      >
                         <CountryComponent />
                       </Form.Item>
 
-                      <StateSelect name='State' />
-                    </div>
-                    <div>
-                      <Form.Item label='Address' name='Address'>
+                      <Form.Item
+                        label='State'
+                        name='State'
+                        rules={Rules.Required}
+                      >
                         <Input className='primary-input' />
                       </Form.Item>
-                      <Form.Item label='Postal / Zip code' name='PostalCode'>
+                    </div>
+                    <div>
+                      <Form.Item
+                        label='Address'
+                        name='Address'
+                        rules={Rules.Required}
+                      >
+                        <Input className='primary-input' />
+                      </Form.Item>
+                      <Form.Item
+                        label='Postal / Zip code'
+                        name='PostalCode'
+                        rules={Rules.NumberOfBranches}
+                      >
                         <InputNumber min={0} className='primary-input-number' />
                       </Form.Item>
                     </div>
 
-                    <CitySelect name='City' />
+                    <Form.Item label='City' name='City' rules={Rules.Required}>
+                      <Input className='primary-input' />
+                    </Form.Item>
                   </div>
                 </section>
                 {/*Payment Information*/}
@@ -352,7 +386,11 @@ const CreateTenant = () => {
                       </Select>
                     </Form.Item>
 
-                    <Form.Item label='Domain Name' name='DomainIdentifier'>
+                    <Form.Item
+                      label='Domain Name'
+                      name='DomainIdentifier'
+                      rules={Rules.Required}
+                    >
                       <Input
                         className='primary-input'
                         suffix={

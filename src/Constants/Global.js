@@ -35,16 +35,34 @@ export const DemoRequestStatus = {
 };
 
 export const Rules = {
-  FirstName: [
+  Name: [
     {
       required: true,
-      message: "FirstName is required",
+      message: "Field is required",
     },
+
+    ({getFieldValue}) => ({
+      validator(_, value) {
+        const regex = new RegExp("^[a-zA-Z ]+$");
+
+        if (!value) {
+          return Promise.resolve();
+        }
+        if (value.length < 5) {
+          return Promise.reject(new Error("Minimum 5 character."));
+        }
+        if (!regex.test(value)) {
+          return Promise.reject(new Error("Should be only Characters."));
+        } else {
+          return Promise.resolve();
+        }
+      },
+    }),
   ],
-  LastName: [
+  Required: [
     {
       required: true,
-      message: "LastName is required",
+      message: "Field is required.",
     },
   ],
   Email: [
@@ -54,11 +72,12 @@ export const Rules = {
       type: "email",
     },
   ],
-  BusinessName: [
+
+  NumberOfBranches: [
     {
       required: true,
-      message: "LastName is required",
-      type: "email",
+      message: "Field is required.",
+      type: "number",
     },
   ],
 };
