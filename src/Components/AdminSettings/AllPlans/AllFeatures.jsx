@@ -1,23 +1,18 @@
 import {useState} from "react";
 import PlusIcon from "Assets/icons/plus.svg";
 import FeatureCloseIcon from "Assets/icons/featureCloseIcon.svg";
-import {Checkbox, Input, Button, Form} from "antd";
+import {Checkbox, Input, Button} from "antd";
 
-const AllFeatures = ({
-  features,
-  setFeatures,
-  featureChecked,
-  setFeatureChecked,
-}) => {
+const AllFeatures = ({features, setFeatures, newFeatures, setNewFeatures}) => {
   const [newFeatureModal, setNewFeatureModal] = useState(false);
   const [newFeature, setNewFeature] = useState("");
   const handleFeatureToggle = () => {
     setNewFeatureModal(!newFeatureModal);
   };
 
-  const handleFeatureSubmit = () => {
+  const handleCreateNewFeature = () => {
     setNewFeatureModal(false);
-    setFeatures([...features, {title: newFeature, id: null, new: true}]);
+    setNewFeatures([...newFeature, {title: newFeature, id: null}]);
     setNewFeature("");
   };
 
@@ -26,18 +21,24 @@ const AllFeatures = ({
   };
 
   const isFeatureChecked = (id) => {
-    return featureChecked.some((feature) => feature.id === id || feature?.new);
+    return features.some((feature) => feature.id === id || feature?.new);
   };
 
-  const handleFeatureChecked = ({checked}) => {
-    if (checked) {
-      setFeatureChecked();
+  const handleFeatureChecked = (doDelete, index) => {
+    if (!doDelete) {
+      features.map((feature, i) => {
+        let temp = feature;
+        if (i === index) temp.unCheck = true;
+        return temp;
+      });
     } else {
+      features.map((feature, i) => {
+        let temp = feature;
+        if (i === index) temp.unCheck = false;
+        return temp;
+      });
     }
   };
-
-  // handle feature delete
-  const handleFeatureDelete = () => {};
 
   return (
     <div className='all-features'>
@@ -64,14 +65,17 @@ const AllFeatures = ({
               <div key={feature?.id || index} className='col-6 feature-box'>
                 <div className='d-flex'>
                   <Checkbox
-                    onChange={handleFeatureChecked}
-                    checked={isFeatureChecked(feature?.id)}
+                    onChange={({target}) =>
+                      handleFeatureChecked(target.checked, index)
+                    }
+                    defaultChecked={true}
                     style={{marginTop: 2}}
                   />
+
                   <span className='d-block f-16 ml-8'>{feature?.title}</span>
                 </div>
                 <img
-                  onClick={handleFeatureDelete}
+                  onClick={handleFeatureChecked(true, index)}
                   src={FeatureCloseIcon}
                   alt=''
                 />
@@ -96,7 +100,10 @@ const AllFeatures = ({
                 Cancel
               </Button>
 
-              <Button onClick={handleFeatureSubmit} className='primary-button'>
+              <Button
+                onClick={handleCreateNewFeature}
+                className='primary-button'
+              >
                 <img src={PlusIcon} alt='' /> Add
               </Button>
             </div>

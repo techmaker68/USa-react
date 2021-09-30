@@ -1,99 +1,37 @@
 import Layout from "Layout/Index";
 import {Link} from "react-router-dom";
 import ArrowBack from "Assets/icons/arrow-back.svg";
-import {Form, Input, Button} from "antd";
+import {Form, Input, Button, message} from "antd";
 import Modules from "./Modules";
 import {useState} from "react";
 import Http from "Http";
+import {useHistory} from "react-router";
+import {Rules} from "Constants/Global";
 
 const CreateRole = () => {
   const [checkedKeys, setCheckedKeys] = useState([]);
-  const treeData = [
-    {
-      title: "Dashboard",
-      key: "dashboard",
-    },
-    {
-      title: "Payments",
-      key: "payments",
-      children: [
-        {
-          title: "View Payments",
-          key: "viewPayments",
-        },
-        {
-          title: "Change Status",
-          key: "changeStatus",
-        },
-      ],
-    },
-    {
-      title: "Manage Tenants",
-      key: "manageTenants",
-      children: [
-        {title: "Register Tenant", key: "registerTenant"},
-        {title: "View Tenant", key: "viewTenant"},
-        {title: "Update Tenant", key: "updateTenant"},
-        {title: "Upgrade plan", key: "upgradePlan"},
-        {title: "Reset Password", key: "resetPassword"},
-      ],
-    },
-    {
-      title: "Demo Requests",
-      key: "demoRequests",
-      children: [
-        {title: "View Request", key: "viewRequest"},
-        {title: "Approve Request", key: "approveRequest"},
-        {title: "Decline", key: "decline"},
-      ],
-    },
-    {
-      title: "Users Management",
-      key: "usersManagement",
-      children: [
-        {
-          title: "Manage Users",
-          key: "manageUsers",
-          children: [
-            {title: "Create User", key: "CreateUser"},
-            {title: "Update User", key: "updateUser"},
-            {title: "Inactive", key: "inactive"},
-            {title: "Reset", key: "reset"},
-          ],
-        },
-        {
-          title: "Manage Roles",
-          key: "manageRoles",
-          children: [
-            {title: "Create User", key: "rolesCreateUser"},
-            {
-              title: "View Role",
-              key: "viewRole",
-            },
-            {title: "Update Role", key: "updateRole"},
-          ],
-        },
-      ],
-    },
-  ];
+
+  const history = useHistory();
 
   // create role
 
   const handleCreateRole = (values) => {
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("name", values.description);
-    formData.append("scopes", checkedKeys);
+    const formData = {
+      name: values.name,
+      description: values.description,
+      scopes: checkedKeys,
+    };
 
-    Http.post(`/roles`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    Http.post(`/roles`, formData)
       .then((res) => {
-        console.log("res", res.data);
+        message.success("Role Created Successfully");
+        history.push("/users-management/manage-roles");
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => {
+        Object.keys(err.response.data).forEach((element) => {
+          message.error(err.response.data[element][0]);
+        });
+      });
   };
 
   return (
@@ -115,7 +53,7 @@ const CreateRole = () => {
           <Form layout='vertical' className='mr-30' onFinish={handleCreateRole}>
             <div className='d-flex justify-content-between'>
               <div>
-                <Form.Item label='Role Name' name='name'>
+                <Form.Item label='Role Name' name='name' rules={Rules.Required}>
                   <Input className='primary-input' />
                 </Form.Item>
                 <Form.Item label='Role Name' name='description'>
@@ -136,7 +74,6 @@ const CreateRole = () => {
                 <Modules
                   checkedKeys={checkedKeys}
                   setCheckedKeys={setCheckedKeys}
-                  treeData={treeData}
                 />
               </div>
             </div>

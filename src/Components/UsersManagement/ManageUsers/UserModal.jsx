@@ -40,13 +40,7 @@ const UserModal = ({
     formData.append("gender", values?.gender);
     formData.append("isActive", values?.isActive);
 
-    Http[requestDetail?.method](`${requestDetail.apiEndPoint}`, formData, {
-      // headers: {
-      //   "Accept-Control-Allow-Origin": "*",
-      //   "Access-Control-Allow-Methods":
-      //     "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-      // },
-    })
+    Http[requestDetail?.method](`${requestDetail.apiEndPoint}`, formData)
       .then((res) => {
         message.success("User created successfully");
       })

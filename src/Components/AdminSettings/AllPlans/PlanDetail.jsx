@@ -58,12 +58,6 @@ const PlanDetail = ({charges, handleCharges}) => {
               suffix={<span className='input-domain-suffix'>SAR</span>}
             />
           </Form.Item>
-          <Form.Item label='VAT %' name='vat'>
-            <Input
-              className='primary-input'
-              suffix={<span className='input-domain-suffix'>SAR</span>}
-            />
-          </Form.Item>
         </div>
       </div>
     </div>

@@ -42,6 +42,7 @@ const View = () => {
 
   // pay payment
   const handleUnpaidPayments = (values) => {
+    console.log("values", values);
     if (paymentMethod && (attachment.length < 1 || attachment === "default")) {
       setAttachment([]);
       message.error(`Form submission failed. Attachment/File is required`);
@@ -50,33 +51,49 @@ const View = () => {
 
     const formData = new FormData();
 
-    formData.append("Amount", values.Amount);
+    formData.append("Amount", values.Amount ? values.Amount : null);
     if (attachment.length > 0) {
-      formData.append("Attachement", attachment[0]);
+      formData.append("Attachement", attachment[0] ? attachment[0] : null);
     }
     if (paymentMethod === 1) {
       formData.append(
         "ChequeDate",
-        values?.ChequeDate && moment(values.ChequeDate).format("YYYY-MM-D")
+        values?.ChequeDate
+          ? moment(values.ChequeDate).format("YYYY-MM-D")
+          : null
       );
     } else {
       formData.append(
         "PaymentDate",
-        values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")
+        values?.PaymentDate
+          ? moment(values.PaymentDate).format("YYYY-MM-D")
+          : null
       );
     }
-    formData.append("BankName", values.BankName);
-    formData.append("PayeeName", values.PayeeName);
-    formData.append("ChequeNumber", values.ChequeNumber);
-    formData.append("FromAccountNumber", values.FromAccountNumber);
-    formData.append("ToAccountNumber", values.ToAccountNumber);
-    formData.append("BillingType", data?.billingType);
+    formData.append("BankName", values.BankName ? values.BankName : null);
+    formData.append("PayeeName", values.PayeeName ? values.PayeeName : null);
+    formData.append(
+      "ChequeNumber",
+      values.ChequeNumber ? values.ChequeNumber : null
+    );
+    formData.append(
+      "FromAccountNumber",
+      values.FromAccountNumber ? values.FromAccountNumber : null
+    );
+    formData.append(
+      "ToAccountNumber",
+      values.ToAccountNumber ? values.ToAccountNumber : null
+    );
+    formData.append(
+      "BillingType",
+      data?.billingType ? data?.billingType : null
+    );
 
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    Http.post(`/payments/${id}/makepaid`)
+    Http.post(`/payments/${id}/makepaid`, formData)
       .then((res) => {
         console.log("res", res.data);
       })

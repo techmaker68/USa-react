@@ -1,8 +1,9 @@
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 import {Checkbox, Tree} from "antd";
 import {useState} from "react";
+import {RolesTreeData} from "./../../../Constants/Roles";
 
-const Modules = ({treeData, checkedKeys, setCheckedKeys}) => {
+const Modules = ({checkedKeys, setCheckedKeys}) => {
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
@@ -23,6 +24,8 @@ const Modules = ({treeData, checkedKeys, setCheckedKeys}) => {
     setSelectedKeys(selectedKeysValue);
   };
 
+  console.log("checked", checkedKeys);
+
   return (
     <div className='mb-15'>
       <Tree
@@ -36,7 +39,8 @@ const Modules = ({treeData, checkedKeys, setCheckedKeys}) => {
         checkedKeys={checkedKeys}
         onSelect={onSelect}
         selectedKeys={selectedKeys}
-        treeData={treeData}
+        defaultSelectedKeys={[""]}
+        treeData={RolesTreeData}
         switcherIcon={<img src={SelectArrowDownIcon} alt='' />}
       />
     </div>

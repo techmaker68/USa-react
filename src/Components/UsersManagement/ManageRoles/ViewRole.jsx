@@ -5,7 +5,7 @@ import {Button} from "antd";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
 import tickIcon from "Assets/icons/tickIcon.svg";
 import {Tree} from "antd";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {UseAxios} from "Hooks/useAxios";
 import {useParams} from "react-router-dom";
 
@@ -36,16 +36,37 @@ const ViewRole = () => {
       children: [
         {
           title: "",
-          key: "viewPayments",
-          icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='View Payments' />
+          key: "payments:all",
+          icon: (e) => {
+            return (
+              <TreeDataIcon
+                scopes={data?.scopes}
+                childKey='payments:all'
+                title='View Payments'
+              />
+            );
+          },
+        },
+        {
+          title: "",
+          key: "payments:create",
+          icon: (e) => (
+            <TreeDataIcon
+              scopes={data?.scopes}
+              childKey='payments:create'
+              title='Create Payments'
+            />
           ),
         },
         {
           title: "",
-          key: "changeStatus",
+          key: "payments:detail",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='Change Status' />
+            <TreeDataIcon
+              scopes={data?.scopes}
+              childKey='payments:detail'
+              title='Payment Details'
+            />
           ),
         },
       ],
@@ -56,39 +77,47 @@ const ViewRole = () => {
       children: [
         {
           title: "",
-          key: "registerTenant",
+          key: "tenants:create",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='Register Tenant' />
+            <TreeDataIcon
+              scopes={data?.scopes}
+              childKey='tenants:create'
+              title='Create Tenant'
+            />
           ),
         },
         {
           title: "",
-          key: "viewTenant",
+          key: "tenants:all",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='View Tenant' />
+            <TreeDataIcon
+              scopes={data?.scopes}
+              childKey='tenants:all'
+              title='View Tenants'
+            />
           ),
         },
         {
           title: "",
-          key: "updateTenant",
+          key: "tenants:update",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='Update Tenant' />
+            <TreeDataIcon childKey='tenants:update' title='Update Tenants' />
           ),
         },
         {
           title: "",
-          key: "upgradePlan",
+          key: "tenants:upgradeplan",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='Upgrade Plan' />
+            <TreeDataIcon childKey='tenants:upgradeplan' title='Upgrade Plan' />
           ),
         },
         {
           title: "",
-          key: "resetPassword",
+          key: "tenants:disable",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='Reset Password' />
+            <TreeDataIcon childKey='tenants:disable' title='Disable Tenant' />
           ),
-        },
+        }, // active - inactive
       ],
     },
     {
@@ -97,23 +126,125 @@ const ViewRole = () => {
       children: [
         {
           title: "",
-          key: "viewRequest",
+          key: "demorequests:all",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='View Request' />
+            <TreeDataIcon childKey='demorequests:all' title='View Requests' />
           ),
         },
         {
           title: "",
-          key: "approveRequest",
+          key: "demorequests:detail",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='Approve Request' />
+            <TreeDataIcon
+              childKey='demorequests:detail'
+              title='Request Detail'
+            />
           ),
         },
         {
           title: "",
-          key: "decline",
+          key: "demorequests:changestatus",
           icon: ({selected}) => (
-            <TreeDataIcon selected={selected} title='Decline' />
+            <TreeDataIcon
+              childKey='demorequests:changestatus'
+              title='Change Request Status'
+            />
+          ),
+        },
+        {
+          title: "",
+          key: "demorequests:extenddate",
+          icon: ({selected}) => (
+            <TreeDataIcon
+              childKey='demorequests:extenddate'
+              title='Extend Date'
+            />
+          ),
+        },
+      ],
+    },
+    {
+      title: "Plans",
+      key: "plans",
+      children: [
+        {
+          title: "",
+          key: "plans:all",
+          icon: ({selected}) => (
+            <TreeDataIcon childKey='plans:all' title='View Plans' />
+          ),
+        },
+        {
+          title: "",
+          key: "plans:detail",
+          icon: ({selected}) => (
+            <TreeDataIcon childKey='plans:detail' title='Plan Detail' />
+          ),
+        },
+        {
+          title: "",
+          key: "plans:create",
+          icon: ({selected}) => (
+            <TreeDataIcon childKey='plans:create' title='Create Plan' />
+          ),
+        },
+        {
+          title: "",
+          key: "plans:update",
+          icon: ({selected}) => (
+            <TreeDataIcon childKey='plans:update' title='Update Plan' />
+          ),
+        },
+      ],
+    },
+    {
+      title: "Configurations",
+      key: "configurations",
+      children: [
+        {
+          title: "",
+          key: "configuration:detail",
+          icon: ({selected}) => (
+            <TreeDataIcon
+              childKey='configuration:detail'
+              title='General Settings'
+            />
+          ),
+        },
+        {
+          title: "",
+          key: "configuration:update",
+          icon: ({selected}) => (
+            <TreeDataIcon
+              childKey='configuration:update'
+              title='Update General Settings'
+            />
+          ),
+        },
+      ],
+    },
+    {
+      title: "Business Details",
+      key: "businessDetails",
+      children: [
+        {
+          title: "",
+          key: "businessinfo:detail",
+          icon: ({selected}) => (
+            <TreeDataIcon
+              childKey='businessinfo:detail'
+              title='Business Details'
+            />
+          ),
+        },
+        {
+          title: "",
+          key: "businessinfo:update",
+          icon: ({selected}) => (
+            <TreeDataIcon
+              childKey='businessinfo:update'
+              title='Update Business Details'
+            />
           ),
         },
       ],
@@ -128,30 +259,30 @@ const ViewRole = () => {
           children: [
             {
               title: "",
-              key: "user.create",
+              key: "users:all",
               icon: ({selected}) => (
-                <TreeDataIcon selected={selected} title='Create User' />
+                <TreeDataIcon childKey='users:all' title='View Users' />
               ),
             },
             {
               title: "",
-              key: "updateUser",
+              key: "users:detail",
               icon: ({selected}) => (
-                <TreeDataIcon selected={selected} title='Update User' />
+                <TreeDataIcon childKey='users:detail' title='User Details' />
               ),
             },
             {
               title: "",
-              key: "inactive",
+              key: "users:create",
               icon: ({selected}) => (
-                <TreeDataIcon selected={selected} title='InActive' />
+                <TreeDataIcon childKey='users:create' title='Create User' />
               ),
             },
             {
               title: "",
-              key: "reset",
+              key: "users:update",
               icon: ({selected}) => (
-                <TreeDataIcon selected={selected} title='Reset' />
+                <TreeDataIcon childKey='users:update' title='Update User' />
               ),
             },
           ],
@@ -160,25 +291,26 @@ const ViewRole = () => {
           title: "Manage Roles",
           key: "manageRoles",
           children: [
+            {title: "View Role", key: "roles:all"},
             {
               title: "",
-              key: "rolesCreateUser",
+              key: "roles:detail",
               icon: ({selected}) => (
-                <TreeDataIcon selected={selected} title='Create Role' />
+                <TreeDataIcon childKey='roles:detail' title='Role Detail' />
               ),
             },
             {
               title: "",
-              key: "viewRole",
+              key: "roles:create",
               icon: ({selected}) => (
-                <TreeDataIcon selected={selected} title='View Role' />
+                <TreeDataIcon childKey='roles:create' title='Create Role' />
               ),
             },
             {
               title: "",
-              key: "updateRole",
+              key: "roles:update",
               icon: ({selected}) => (
-                <TreeDataIcon selected={selected} title='Update Role' />
+                <TreeDataIcon childKey='roles:update' title='Update Role' />
               ),
             },
           ],
@@ -225,7 +357,9 @@ const ViewRole = () => {
                 give access to users.
               </p>
 
-              {<ViewModule treeData={treeData} keys={data?.scopes} />}
+              {data.scopes && (
+                <ViewModule treeData={treeData} keys={data?.scopes} />
+              )}
             </div>
           </div>
           {
@@ -249,18 +383,23 @@ const ViewModule = ({treeData, keys}) => {
       <Tree
         className='primary-tree'
         defaultExpandAll
-        defaultSelectedKeys={["0-0-0"]}
         treeData={treeData}
         switcherIcon={<img src={SelectArrowDownIcon} alt='' />}
-        selectedKeys={keys}
         showIcon
       />
     </div>
   );
 };
 
-const TreeDataIcon = ({selected, title}) => {
-  return selected ? (
+const TreeDataIcon = ({childKey, selected, title, scopes}) => {
+  const checkSelected = () => {
+    if (Array.isArray(scopes)) {
+      return scopes.some((scope) => scope === childKey);
+    }
+    return false;
+  };
+
+  return checkSelected() ? (
     <div className='d-flex'>
       <img src={tickIcon} alt='' className='ml-20' />
       <span className='text-nowrap f-12 ml-4-px'>{title}</span>

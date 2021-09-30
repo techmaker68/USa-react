@@ -26,7 +26,7 @@ const Edit = () => {
   });
 
   const [features, setFeatures] = useState([]);
-  const [featureChecked, setFeatureChecked] = useState([]);
+  const [newFeatures, setNewFeatures] = useState([]);
 
   useEffect(() => {
     if (response !== null) {
@@ -35,34 +35,24 @@ const Edit = () => {
   }, [response]);
 
   const handleCreatePlan = (values) => {
-    console.log("values", values);
-    console.log("features", features);
+    const formData = {
+      planName: values.planName,
+      monthlyCharges: charges?.monthlyCharges,
+      yearlyCharges: charges?.annuallyCharges,
+      yearlyChargesDiscountPercentage: values.yearlyChargesDiscountPercentage,
+      numberOfUsers: values.numberOfUsers,
+      databaseSize: values.databaseSize,
+      discountPercentage: charges?.discount,
+      features: features.filter((feature) => !feature.unCheck),
+    };
 
-    const formData = new FormData();
-    formData.append("planName", values.planName);
-    formData.append("monthlyCharges", charges?.monthlyCharges);
-    formData.append("yearlyCharges", charges?.annuallyCharges);
-    formData.append(
-      "yearlyChargesDiscountPercentage",
-      values.yearlyChargesDiscountPercentage
-    );
-    formData.append("numberOfUsers", values.numberOfUsers);
-    formData.append("databaseSize", values.databaseSize);
-    formData.append("discountPercentage", charges?.discount);
-    features.forEach((feature, index) => {
-      formData.append(`features[${index}][id]`, feature.id);
-      formData.append(`features[${index}][title]`, feature.title);
-    });
+    console.log("form", formData);
 
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
-    Http.post(`/plans`)
-      .then((res) => {
-        message.success("Plan Created successfully");
-      })
-      .catch((err) => message.error("Something went wrong"));
+    // Http.post(`/plans`, formData)
+    //   .then((res) => {
+    //     message.success("Plan Created successfully");
+    //   })
+    //   .catch((err) => message.error("Something went wrong"));
   };
 
   // update annual, monthly & calculate discount.
@@ -115,8 +105,8 @@ const Edit = () => {
                 <AllFeatures
                   features={features}
                   setFeatures={setFeatures}
-                  featureChecked={featureChecked}
-                  setFeatureChecked={setFeatureChecked}
+                  newFeatures={newFeatures}
+                  setNewFeatures={setNewFeatures}
                 />
               </Card>
             </div>
