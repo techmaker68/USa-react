@@ -30,7 +30,6 @@ const UseAxios = ({
 
     if (!expectedError) {
       message.error("An unexpected error occurred");
-      console.log("error", error);
     }
     return Promise.reject(error);
   });

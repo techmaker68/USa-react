@@ -1,8 +1,9 @@
 import CameraIcon from "Assets/icons/camera.svg";
 import {Button, Form, Input, InputNumber, Card, message} from "antd";
 import {UseAxios} from "Hooks/useAxios";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Http from "Http";
+import axios from "axios";
 
 const Index = () => {
   const staticCardsData = [
@@ -11,8 +12,8 @@ const Index = () => {
   ];
 
   const [configuration, setConfiguration] = useState([
-    {key: "trialPeriod", value: 0},
-    {key: "vat", value: 0},
+    {name: "trialPeriod", value: 0},
+    {name: "vat", value: 0},
   ]);
   const [profile, setProfile] = useState(null);
 
@@ -29,6 +30,24 @@ const Index = () => {
     successMessage: "", // success message
   });
 
+  useEffect(() => {
+    const requests = configuration.map((conf) => {
+      return Http.get(`/configurations/${conf.name}`);
+    });
+
+    axios
+      .all(requests)
+      .then(
+        axios.spread((...responses) => {
+          setConfiguration(responses.map((res) => res.data));
+          // use/access the results
+        })
+      )
+      .catch((errors) => {
+        message.error("Something went wrong, please try again");
+      });
+  }, []);
+
   // update conf in state
   const handleConfChange = (value, index) => {
     if (value) {
@@ -40,7 +59,9 @@ const Index = () => {
 
   // update conf in DB - http request
   const handleConfUpdate = (index) => {
-    Http.put(`/configurations/${configuration[index].key}`)
+    Http.put(`/configurations/${configuration[index].name}`, {
+      value: configuration[index].value,
+    })
       .then((res) => {
         message.success("Updated successfully");
       })
@@ -69,7 +90,7 @@ const Index = () => {
 
           <div className='general-setting-wrapper'>
             {staticCardsData.map((card, index) => (
-              <div key={card.key} className='card-gs'>
+              <div key={`${card?.name}${index}`} className='card-gs'>
                 <h1 className='f-16 fw-600'>{card?.heading}</h1>
                 <p className='f-12 fw-500'>Change Trial Duration</p>
                 <div className='d-flex align-items-center'>

@@ -41,7 +41,7 @@ const PieMap = () => {
         >
           {data.map((entry, index) => (
             <Cell
-              onMouseEnter={(e) => console.log("e", e)}
+              // onMouseEnter={(e) => }
               key={`cell-${index}`}
               fill={COLORS[index % COLORS.length]}
             />

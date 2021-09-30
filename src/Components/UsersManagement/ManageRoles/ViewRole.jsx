@@ -101,21 +101,33 @@ const ViewRole = () => {
           title: "",
           key: "tenants:update",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='tenants:update' title='Update Tenants' />
+            <TreeDataIcon
+              childKey='tenants:update'
+              title='Update Tenants'
+              scopes={data?.scopes}
+            />
           ),
         },
         {
           title: "",
           key: "tenants:upgradeplan",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='tenants:upgradeplan' title='Upgrade Plan' />
+            <TreeDataIcon
+              childKey='tenants:upgradeplan'
+              title='Upgrade Plan'
+              scopes={data?.scopes}
+            />
           ),
         },
         {
           title: "",
           key: "tenants:disable",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='tenants:disable' title='Disable Tenant' />
+            <TreeDataIcon
+              childKey='tenants:disable'
+              title='Disable Tenant'
+              scopes={data?.scopes}
+            />
           ),
         }, // active - inactive
       ],
@@ -128,7 +140,11 @@ const ViewRole = () => {
           title: "",
           key: "demorequests:all",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='demorequests:all' title='View Requests' />
+            <TreeDataIcon
+              childKey='demorequests:all'
+              title='View Requests'
+              scopes={data?.scopes}
+            />
           ),
         },
         {
@@ -138,6 +154,7 @@ const ViewRole = () => {
             <TreeDataIcon
               childKey='demorequests:detail'
               title='Request Detail'
+              scopes={data?.scopes}
             />
           ),
         },
@@ -148,6 +165,7 @@ const ViewRole = () => {
             <TreeDataIcon
               childKey='demorequests:changestatus'
               title='Change Request Status'
+              scopes={data?.scopes}
             />
           ),
         },
@@ -158,6 +176,7 @@ const ViewRole = () => {
             <TreeDataIcon
               childKey='demorequests:extenddate'
               title='Extend Date'
+              scopes={data?.scopes}
             />
           ),
         },
@@ -171,28 +190,44 @@ const ViewRole = () => {
           title: "",
           key: "plans:all",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='plans:all' title='View Plans' />
+            <TreeDataIcon
+              childKey='plans:all'
+              title='View Plans'
+              scopes={data?.scopes}
+            />
           ),
         },
         {
           title: "",
           key: "plans:detail",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='plans:detail' title='Plan Detail' />
+            <TreeDataIcon
+              childKey='plans:detail'
+              title='Plan Detail'
+              scopes={data?.scopes}
+            />
           ),
         },
         {
           title: "",
           key: "plans:create",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='plans:create' title='Create Plan' />
+            <TreeDataIcon
+              childKey='plans:create'
+              title='Create Plan'
+              scopes={data?.scopes}
+            />
           ),
         },
         {
           title: "",
           key: "plans:update",
           icon: ({selected}) => (
-            <TreeDataIcon childKey='plans:update' title='Update Plan' />
+            <TreeDataIcon
+              childKey='plans:update'
+              title='Update Plan'
+              scopes={data?.scopes}
+            />
           ),
         },
       ],
@@ -207,6 +242,7 @@ const ViewRole = () => {
           icon: ({selected}) => (
             <TreeDataIcon
               childKey='configuration:detail'
+              scopes={data?.scopes}
               title='General Settings'
             />
           ),
@@ -217,6 +253,7 @@ const ViewRole = () => {
           icon: ({selected}) => (
             <TreeDataIcon
               childKey='configuration:update'
+              scopes={data?.scopes}
               title='Update General Settings'
             />
           ),
@@ -233,6 +270,7 @@ const ViewRole = () => {
           icon: ({selected}) => (
             <TreeDataIcon
               childKey='businessinfo:detail'
+              scopes={data?.scopes}
               title='Business Details'
             />
           ),
@@ -243,6 +281,7 @@ const ViewRole = () => {
           icon: ({selected}) => (
             <TreeDataIcon
               childKey='businessinfo:update'
+              scopes={data?.scopes}
               title='Update Business Details'
             />
           ),
@@ -261,28 +300,44 @@ const ViewRole = () => {
               title: "",
               key: "users:all",
               icon: ({selected}) => (
-                <TreeDataIcon childKey='users:all' title='View Users' />
+                <TreeDataIcon
+                  childKey='users:all'
+                  title='View Users'
+                  scopes={data?.scopes}
+                />
               ),
             },
             {
               title: "",
               key: "users:detail",
               icon: ({selected}) => (
-                <TreeDataIcon childKey='users:detail' title='User Details' />
+                <TreeDataIcon
+                  childKey='users:detail'
+                  title='User Details'
+                  scopes={data?.scopes}
+                />
               ),
             },
             {
               title: "",
               key: "users:create",
               icon: ({selected}) => (
-                <TreeDataIcon childKey='users:create' title='Create User' />
+                <TreeDataIcon
+                  childKey='users:create'
+                  title='Create User'
+                  scopes={data?.scopes}
+                />
               ),
             },
             {
               title: "",
               key: "users:update",
               icon: ({selected}) => (
-                <TreeDataIcon childKey='users:update' title='Update User' />
+                <TreeDataIcon
+                  childKey='users:update'
+                  title='Update User'
+                  scopes={data?.scopes}
+                />
               ),
             },
           ],
@@ -296,21 +351,33 @@ const ViewRole = () => {
               title: "",
               key: "roles:detail",
               icon: ({selected}) => (
-                <TreeDataIcon childKey='roles:detail' title='Role Detail' />
+                <TreeDataIcon
+                  childKey='roles:detail'
+                  title='Role Detail'
+                  scopes={data?.scopes}
+                />
               ),
             },
             {
               title: "",
               key: "roles:create",
               icon: ({selected}) => (
-                <TreeDataIcon childKey='roles:create' title='Create Role' />
+                <TreeDataIcon
+                  childKey='roles:create'
+                  title='Create Role'
+                  scopes={data?.scopes}
+                />
               ),
             },
             {
               title: "",
               key: "roles:update",
               icon: ({selected}) => (
-                <TreeDataIcon childKey='roles:update' title='Update Role' />
+                <TreeDataIcon
+                  childKey='roles:update'
+                  title='Update Role'
+                  scopes={data?.scopes}
+                />
               ),
             },
           ],

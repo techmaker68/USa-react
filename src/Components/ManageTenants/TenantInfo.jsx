@@ -18,8 +18,6 @@ const TenantInfo = ({tenantID}) => {
     successMessage: "", // success message
   });
 
-  console.log("data", data);
-
   return (
     <div className='view-requests-wrapper page-card'>
       <div className='page-card-header d-flex justify-content-between align-item-center'>

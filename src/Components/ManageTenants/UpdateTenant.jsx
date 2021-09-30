@@ -72,7 +72,7 @@ const UpdateTenant = () => {
     Http.put(`/tenants/${id}`, formData)
       .then((res) => {
         history.push("/manage-tenants");
-        message.success("Tenant Created Successfully");
+        message.success("Tenant Updated Successfully");
       })
       .catch((err) => console.log("err", err));
   };

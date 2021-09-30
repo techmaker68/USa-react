@@ -143,8 +143,6 @@ const CreateTenant = () => {
         values?.ChequeDate && moment(values.ChequeDate).format("YYYY-MM-D")
       );
     } else {
-      console.log("not called", values?.PaymentMethod);
-
       formData.append(
         "PaymentDate",
         values?.PaymentDate && moment(values.PaymentDate).format("YYYY-MM-D")
@@ -158,7 +156,6 @@ const CreateTenant = () => {
 
     Http.post(`/Tenants`, formData)
       .then((res) => {
-        console.log("success");
         history.push("/manage-tenants");
         message.success("Tenant Created Successfully");
       })

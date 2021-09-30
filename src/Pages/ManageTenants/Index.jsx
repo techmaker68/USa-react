@@ -148,8 +148,6 @@ const Index = () => {
     );
   };
 
-  console.log("asd", pagination);
-
   return (
     <Layout title='Manage Tenants' currentPage={2}>
       <div className='main-wrapper manage-tenants-wrapper'>

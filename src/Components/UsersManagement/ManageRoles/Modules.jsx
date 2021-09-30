@@ -24,8 +24,6 @@ const Modules = ({checkedKeys, setCheckedKeys}) => {
     setSelectedKeys(selectedKeysValue);
   };
 
-  console.log("checked", checkedKeys);
-
   return (
     <div className='mb-15'>
       <Tree

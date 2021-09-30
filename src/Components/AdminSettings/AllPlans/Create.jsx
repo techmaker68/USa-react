@@ -46,8 +46,6 @@ const Edit = () => {
       features: features.filter((feature) => !feature.unCheck),
     };
 
-    console.log("form", formData);
-
     // Http.post(`/plans`, formData)
     //   .then((res) => {
     //     message.success("Plan Created successfully");

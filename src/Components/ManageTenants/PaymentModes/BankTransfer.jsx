@@ -30,7 +30,7 @@ function BankTransfer({planAmount, setAttachment, attachment, disable}) {
       }
     },
     onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
+      // console.log("Dropped files", e.dataTransfer.files);
     },
     beforeUpload: (file) => {
       return false;
@@ -38,7 +38,6 @@ function BankTransfer({planAmount, setAttachment, attachment, disable}) {
   };
 
   const handleFileChange = (fileObj) => {
-    console.log("fileObj", fileObj);
     if (fileObj && !fileObj.file.status) setAttachment([fileObj.file]);
     else setAttachment([]);
   };

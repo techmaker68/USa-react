@@ -78,9 +78,6 @@ const Edit = () => {
   };
 
   const handleCreatePlan = (values) => {
-    console.log("values", values);
-    console.log("features", features);
-
     const formData = new FormData();
     formData.append("planName", values.planName);
     formData.append("monthlyCharges", values.monthlyCharges);

@@ -114,12 +114,12 @@ export const Rules = {
           return Promise.resolve();
         }
         if (value) {
-          let valueLength = value.length;
-          if (valueLength < 16 || valueLength > 24) {
+          let accountNumber = value.length;
+          if (accountNumber < 16 || accountNumber > 24) {
             return Promise.reject(new Error("Min 16 & max 24 length."));
+          } else {
+            return Promise.resolve();
           }
-        } else {
-          return Promise.resolve();
         }
       },
     }),

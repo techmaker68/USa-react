@@ -1,8 +1,10 @@
 import {Modal, Form, Input, Select, Button, Card, message} from "antd";
 import ModalCloseIcon from "Assets/icons/modalClose.svg";
 import SelectArrowDownIcon from "Assets/icons/selectarrowdown.svg";
+import {Rules} from "Constants/Global";
 import {UseAxios} from "Hooks/useAxios";
 import Http from "Http";
+import {useState} from "react";
 
 const {Option} = Select;
 
@@ -12,6 +14,8 @@ const UserModal = ({
   primaryButtonTitle,
   data = {},
   requestDetail,
+  setFilters,
+  filters,
 }) => {
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -32,19 +36,28 @@ const UserModal = ({
 
   // create user - http request
   const handleFormSubmit = (values) => {
-    const formData = new FormData();
-    formData.append("fullName", values?.fullName);
-    formData.append("userName", values?.userName);
-    formData.append("email", values?.email);
-    formData.append("roleId", values?.roleId);
-    formData.append("gender", values?.gender);
-    formData.append("isActive", values?.isActive);
+    const formData = {
+      fullName: values?.fullName,
+      userName: values?.userName,
+      email: values?.email,
+      roleId: values?.roleId,
+      gender: values?.gender,
+      isActive: values?.isActive,
+    };
 
     Http[requestDetail?.method](`${requestDetail.apiEndPoint}`, formData)
       .then((res) => {
+        setFilters({...filters, refresh: !filters.refresh});
+        setIsModalVisible(false);
         message.success("User created successfully");
       })
-      .catch((err) => message.error("Something went wrong, please try again"));
+      .catch((err) => {
+        if (err.response.status === 400) {
+          Object.keys(err.response.data).forEach((element) => {
+            message.error(err.response.data[element][0]);
+          });
+        }
+      });
   };
 
   return (
@@ -65,10 +78,10 @@ const UserModal = ({
         >
           <div className='d-flex gap-24'>
             <div>
-              <Form.Item name='fullName' label='Full Name'>
+              <Form.Item name='fullName' label='Full Name' rules={Rules.Name}>
                 <Input className='primary-input' />
               </Form.Item>
-              <Form.Item label='Role' name='roleId'>
+              <Form.Item label='Role' name='roleId' rules={Rules.Required}>
                 <Select
                   dropdownMatchSelectWidth={false}
                   suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
@@ -84,10 +97,14 @@ const UserModal = ({
               </Form.Item>
             </div>
             <div>
-              <Form.Item label='User Name' name='userName'>
+              <Form.Item
+                label='User Name'
+                name='userName'
+                rules={Rules.Required}
+              >
                 <Input className='primary-input' />
               </Form.Item>
-              <Form.Item label='Gender' name='gender'>
+              <Form.Item label='Gender' name='gender' rules={Rules.Required}>
                 <Select
                   dropdownMatchSelectWidth={false}
                   suffixIcon={<img src={SelectArrowDownIcon} alt='' />}
@@ -99,10 +116,10 @@ const UserModal = ({
               </Form.Item>
             </div>
             <div>
-              <Form.Item label='Email' name='email'>
+              <Form.Item label='Email' name='email' rules={Rules.Email}>
                 <Input className='primary-input' />
               </Form.Item>
-              <Form.Item label='Status' name='isActive'>
+              <Form.Item label='Status' name='isActive' rules={Rules.Required}>
                 <Select
                   dropdownMatchSelectWidth={false}
                   suffixIcon={<img src={SelectArrowDownIcon} alt='' />}

@@ -29,7 +29,7 @@ function Cheque({planAmount, setAttachment, attachment, disable}) {
       }
     },
     onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
+      // console.log("Dropped files", e.dataTransfer.files);
     },
     beforeUpload: (file) => {
       return false;

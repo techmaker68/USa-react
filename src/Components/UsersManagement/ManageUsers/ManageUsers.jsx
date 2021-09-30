@@ -24,10 +24,7 @@ const ManageUsers = () => {
   });
 
   const [filters, setFilters] = useState({
-    paymentStatus: "",
-    billingType: "",
-    paymentMethod: "",
-    search: "",
+    refresh: false,
   });
 
   // Data for Table - []
@@ -37,7 +34,6 @@ const ManageUsers = () => {
   const {response, isLoading, error} = UseAxios({
     endpoint: `/users`, // setup base URL in UseAxios file.
     query: {
-      ...filters,
       current: pagination.current,
       pageSize: pagination.pageSize,
     }, // all the query strings in - {} object
@@ -106,7 +102,9 @@ const ManageUsers = () => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: (value, row) => <TableAction row={row} />,
+      render: (value, row) => (
+        <TableAction setFilters={setFilters} filters={filters} row={row} />
+      ),
     },
   ];
 
@@ -139,7 +137,10 @@ const ManageUsers = () => {
           // table header
         }
         <div className='primary-table__header'>
-          <div className='f-16 fw-700'>Users (10)</div>
+          <div className='f-16 fw-700'>
+            Users{" "}
+            {Array.isArray(response.data) ? `(${response.data.length})` : ""}
+          </div>
 
           <Button onClick={handleCreateUser} className='primary-button'>
             <img className='button-plus-icon' src={PlusIcon} alt='' /> Create
@@ -165,6 +166,8 @@ const ManageUsers = () => {
           setIsModalVisible={setIsCreateUserModal}
           requestDetail={{apiEndPoint: "/users", method: "post"}}
           primaryButtonTitle='Create'
+          setFilters={setFilters}
+          filters={filters}
         />
       )}
       {/* {isUpdateUserModal && (
@@ -176,7 +179,7 @@ const ManageUsers = () => {
 
 export default ManageUsers;
 
-const TableAction = ({row}) => {
+const TableAction = ({row, setFilters, filters}) => {
   const [isUpdateUserModal, setIsUpdateUserModal] = useState(false);
 
   const handleUpdateUser = () => {
@@ -220,6 +223,8 @@ const TableAction = ({row}) => {
           requestDetail={{apiEndPoint: `/users/${row.id}`, method: "put"}}
           primaryButtonTitle='Update'
           data={row}
+          setFilters={setFilters}
+          filters={filters}
         />
       )}
     </>

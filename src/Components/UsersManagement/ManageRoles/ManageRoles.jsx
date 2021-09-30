@@ -66,7 +66,9 @@ const ManageRoles = () => {
           // table header
         }
         <div className='primary-table__header'>
-          <div className='f-16 fw-700'>Roles (02)</div>
+          <div className='f-16 fw-700'>
+            Roles {`(${Array.isArray(response) && response.length})`}
+          </div>
           <Link to='/users-management/create-role'>
             <Button className='primary-button'>
               <img className='button-plus-icon' src={PlusIcon} alt='' /> Create

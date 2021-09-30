@@ -21,6 +21,8 @@ const View = () => {
   const {id} = useParams();
   const [attachment, setAttachment] = useState("default");
   const [paymentMethod, setPaymentMethod] = useState(0);
+  const [refreshPage, setRefreshPage] = useState({refresh: false});
+
   // Fetch Data - http request
   const {
     response: data,
@@ -31,6 +33,7 @@ const View = () => {
     method: "get", // http request method
     errorsMessage: {404: "Page not exist."}, // error message for expected errors - string
     successMessage: "", // success message
+    deps: [refreshPage],
   });
 
   // update active status
@@ -40,9 +43,8 @@ const View = () => {
     setPaymentMethod(target.value);
   };
 
-  // pay payment
+  // pay unpaid payment
   const handleUnpaidPayments = (values) => {
-    console.log("values", values);
     if (paymentMethod && (attachment.length < 1 || attachment === "default")) {
       setAttachment([]);
       message.error(`Form submission failed. Attachment/File is required`);
@@ -89,13 +91,10 @@ const View = () => {
       data?.billingType ? data?.billingType : null
     );
 
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
     Http.post(`/payments/${id}/makepaid`, formData)
       .then((res) => {
-        console.log("res", res.data);
+        setRefreshPage({refresh: !refreshPage.refresh});
+        message.success("Paid Successfully");
       })
       .catch((err) => console.log("err", err));
   };
@@ -106,6 +105,7 @@ const View = () => {
       message.error(`Form submission failed, ${errorFields[0].errors[0]}`);
     }
   };
+
   return (
     <Layout title='Payments Overview' currentPage={1}>
       <div className='main-wrapper'>
