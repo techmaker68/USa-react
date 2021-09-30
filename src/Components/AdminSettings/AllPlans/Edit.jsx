@@ -8,7 +8,6 @@ import {UseAxios} from "Hooks/useAxios";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Http from "Http";
-import PlanDetail from "./PlanDetail";
 
 const Edit = () => {
   const {id} = useParams();
@@ -44,8 +43,29 @@ const Edit = () => {
   const [featureChecked, setFeatureChecked] = useState([]);
 
   useEffect(() => {
-    if (response !== null) {
-      setFeatures(response);
+    if (
+      response !== null &&
+      Array.isArray(response) &&
+      planDetails !== null &&
+      Array.isArray(planDetails.features)
+    ) {
+      // setFeatures(response.map((feature) => ({...feature, check: true})));
+      if (Array.isArray(features)) {
+        const filteredFeatures = response.map((feature) => {
+          let temp = {...feature, check: false};
+
+          for (let i = 0; i < planDetails.features.length; i++) {
+            if (feature.id === planDetails.features[i].id) {
+              temp.check = true;
+              break;
+            }
+          }
+
+          return temp;
+        });
+
+        setFeatures(filteredFeatures);
+      }
     }
     if (planDetails !== null) {
       setCharges({
@@ -72,33 +92,38 @@ const Edit = () => {
       );
     }
 
-    if (discount >= 0 && discount < Infinity)
+    if (discount >= 0 && discount < 100)
       setCharges({...charges, [target.name]: target.value, discount: discount});
     else setCharges({...charges, [target.name]: target.value, discount: 0});
   };
 
-  const handleCreatePlan = (values) => {
-    const formData = new FormData();
-    formData.append("planName", values.planName);
-    formData.append("monthlyCharges", values.monthlyCharges);
-    formData.append("yearlyCharges", values.yearlyCharges);
-    formData.append(
-      "yearlyChargesDiscountPercentage",
-      values.yearlyChargesDiscountPercentage
-    );
-    formData.append("numberOfUsers", values.numberOfUsers);
-    formData.append("databaseSize", values.databaseSize);
-    formData.append("discountPercentage", values.discountPercentage);
-    features.forEach((feature, index) => {
-      formData.append(`features[${index}][id]`, feature.id);
-      formData.append(`features[${index}][title]`, feature.title);
-    });
+  const handleUpdatePlan = (values) => {
+    let filteredFeatures = features.filter((feature) => feature.check);
 
-    Http.post(`/plans`)
+    const formData = {
+      planName: values.planName,
+      monthlyCharges: charges?.monthlyCharges,
+      yearlyCharges: charges?.annuallyCharges,
+      yearlyChargesDiscountPercentage: values.yearlyChargesDiscountPercentage,
+      numberOfUsers: values.numberOfUsers,
+      databaseSize: values.databaseSize,
+      discountPercentage: charges?.discount,
+      features: filteredFeatures.map((feature) => {
+        let temp = feature;
+        delete temp.check;
+        return temp;
+      }),
+    };
+
+    Http.put(`/plans/${planDetails.id}`, formData)
       .then((res) => {
-        message.success("Plan Created successfully");
+        message.success("Plan Updated successfully");
       })
-      .catch((err) => message.error("Something went wrong"));
+      .catch((err) => {
+        Object.keys(err.response.data).forEach((element) => {
+          message.error(err.response.data[element][0]);
+        });
+      });
   };
 
   return (
@@ -110,7 +135,7 @@ const Edit = () => {
         <Card loading={isLoading}>
           <Form
             layout='vertical'
-            onFinish={handleCreatePlan}
+            onFinish={handleUpdatePlan}
             initialValues={planDetails}
           >
             <Link to='/settings/all-plans' className='breadcrumb'>
@@ -132,12 +157,7 @@ const Edit = () => {
                 {
                   // all features
                 }
-                <AllFeatures
-                  features={features}
-                  setFeatures={setFeatures}
-                  featureChecked={featureChecked}
-                  setFeatureChecked={setFeatureChecked}
-                />
+                <AllFeatures features={features} setFeatures={setFeatures} />
               </div>
               <div className='d-flex justify-content-end align-items-center mt-16'>
                 <Link to='/settings/all-plans'>
@@ -145,7 +165,7 @@ const Edit = () => {
                     Cancel
                   </Button>
                 </Link>
-                <Button className='primary-button  btn-role'>
+                <Button htmlType='submit' className='primary-button  btn-role'>
                   Update Plan
                 </Button>
               </div>

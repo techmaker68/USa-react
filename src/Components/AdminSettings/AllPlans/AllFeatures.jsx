@@ -3,7 +3,7 @@ import PlusIcon from "Assets/icons/plus.svg";
 import FeatureCloseIcon from "Assets/icons/featureCloseIcon.svg";
 import {Checkbox, Input, Button} from "antd";
 
-const AllFeatures = ({features, setFeatures, newFeatures, setNewFeatures}) => {
+const AllFeatures = ({features, setFeatures}) => {
   const [newFeatureModal, setNewFeatureModal] = useState(false);
   const [newFeature, setNewFeature] = useState("");
   const handleFeatureToggle = () => {
@@ -12,32 +12,13 @@ const AllFeatures = ({features, setFeatures, newFeatures, setNewFeatures}) => {
 
   const handleCreateNewFeature = () => {
     setNewFeatureModal(false);
-    setNewFeatures([...newFeature, {title: newFeature, id: null}]);
+    setFeatures([...features, {title: newFeature, id: -1, check: true}]);
+
     setNewFeature("");
   };
 
   const handleFeatureChange = ({target}) => {
     if (target.value !== "") setNewFeature(target.value);
-  };
-
-  const isFeatureChecked = (id) => {
-    return features.some((feature) => feature.id === id || feature?.new);
-  };
-
-  const handleFeatureChecked = (doDelete, index) => {
-    if (!doDelete) {
-      features.map((feature, i) => {
-        let temp = feature;
-        if (i === index) temp.unCheck = true;
-        return temp;
-      });
-    } else {
-      features.map((feature, i) => {
-        let temp = feature;
-        if (i === index) temp.unCheck = false;
-        return temp;
-      });
-    }
   };
 
   return (
@@ -62,24 +43,13 @@ const AllFeatures = ({features, setFeatures, newFeatures, setNewFeatures}) => {
         <div className='row gap-4'>
           {Array.isArray(features) &&
             features.map((feature, index) => (
-              <div key={feature?.id || index} className='col-6 feature-box'>
-                <div className='d-flex'>
-                  <Checkbox
-                    onChange={({target}) =>
-                      handleFeatureChecked(target.checked, index)
-                    }
-                    defaultChecked={true}
-                    style={{marginTop: 2}}
-                  />
-
-                  <span className='d-block f-16 ml-8'>{feature?.title}</span>
-                </div>
-                <img
-                  onClick={handleFeatureChecked(true, index)}
-                  src={FeatureCloseIcon}
-                  alt=''
-                />
-              </div>
+              <Feature
+                key={index}
+                feature={feature}
+                features={features}
+                index={index}
+                setFeatures={setFeatures}
+              />
             ))}
         </div>
         {newFeatureModal && (
@@ -116,3 +86,53 @@ const AllFeatures = ({features, setFeatures, newFeatures, setNewFeatures}) => {
 };
 
 export default AllFeatures;
+
+const Feature = ({feature, index, features, setFeatures}) => {
+  const [checked, setChecked] = useState(
+    feature?.check ? feature?.check : false
+  );
+
+  // handle feature checkbox toggle
+  const handleCheckedChange = () => {
+    setChecked(!checked);
+
+    if (checked) {
+      setFeatures(
+        features.map((feature, i) => {
+          let temp = feature;
+          if (i === index) temp.check = !checked;
+          return temp;
+        })
+      );
+    } else {
+      setFeatures(
+        features.map((feature, i) => {
+          let temp = feature;
+          if (i === index) temp.check = !checked;
+          return temp;
+        })
+      );
+    }
+  };
+
+  // handle feature delete
+
+  const handleFeatureDelete = () => {
+    setFeatures(features.filter((feature, i) => i !== index));
+  };
+
+  return (
+    <div key={feature?.id || index} className='col-6 feature-box'>
+      <div className='d-flex'>
+        <Checkbox
+          onChange={handleCheckedChange}
+          checked={checked}
+          style={{marginTop: 2}}
+        />
+
+        <span className='d-block f-16 ml-8'>{feature?.title}</span>
+      </div>
+      <img src={FeatureCloseIcon} onClick={handleFeatureDelete} alt='' />
+    </div>
+  );
+};

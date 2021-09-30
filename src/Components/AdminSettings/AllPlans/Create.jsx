@@ -7,6 +7,7 @@ import {Button} from "antd";
 import {UseAxios} from "Hooks/useAxios";
 import {useState, useEffect} from "react";
 import {Card, Form, message} from "antd";
+import {useHistory} from "react-router";
 import Http from "Http";
 
 const Edit = () => {
@@ -26,15 +27,18 @@ const Edit = () => {
   });
 
   const [features, setFeatures] = useState([]);
-  const [newFeatures, setNewFeatures] = useState([]);
 
   useEffect(() => {
     if (response !== null) {
-      setFeatures(response);
+      setFeatures(response.map((feature) => ({...feature, check: false})));
     }
   }, [response]);
 
+  const history = useHistory();
+  // create new plan
   const handleCreatePlan = (values) => {
+    let filteredFeatures = features.filter((feature) => feature.check);
+
     const formData = {
       planName: values.planName,
       monthlyCharges: charges?.monthlyCharges,
@@ -43,14 +47,19 @@ const Edit = () => {
       numberOfUsers: values.numberOfUsers,
       databaseSize: values.databaseSize,
       discountPercentage: charges?.discount,
-      features: features.filter((feature) => !feature.unCheck),
+      features: filteredFeatures,
     };
 
-    // Http.post(`/plans`, formData)
-    //   .then((res) => {
-    //     message.success("Plan Created successfully");
-    //   })
-    //   .catch((err) => message.error("Something went wrong"));
+    Http.post(`/plans`, formData)
+      .then((res) => {
+        message.success("Plan Created successfully");
+        history.push("/settings/all-plans");
+      })
+      .catch((err) => {
+        Object.keys(err.response.data).forEach((element) => {
+          message.error(err.response.data[element][0]);
+        });
+      });
   };
 
   // update annual, monthly & calculate discount.
@@ -68,7 +77,7 @@ const Edit = () => {
       );
     }
 
-    if (discount >= 0 && discount < Infinity)
+    if (discount >= 0 && discount < 100)
       setCharges({...charges, [target.name]: target.value, discount: discount});
     else setCharges({...charges, [target.name]: target.value, discount: 0});
   };
@@ -100,12 +109,7 @@ const Edit = () => {
                 // all features
               }
               <Card loading={isLoading} bordered={false}>
-                <AllFeatures
-                  features={features}
-                  setFeatures={setFeatures}
-                  newFeatures={newFeatures}
-                  setNewFeatures={setNewFeatures}
-                />
+                <AllFeatures features={features} setFeatures={setFeatures} />
               </Card>
             </div>
             <div className='d-flex justify-content-end align-items-center mt-16'>
