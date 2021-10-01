@@ -1,6 +1,6 @@
-import {Route} from "react-router-dom";
+import { Route } from "react-router-dom";
 
-const PrivateRoute = ({component: Component, ...rest}) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <>
       {true ? (
