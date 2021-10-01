@@ -16,6 +16,7 @@ const UserModal = ({
   requestDetail,
   setFilters,
   filters,
+  messages,
 }) => {
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -49,7 +50,7 @@ const UserModal = ({
       .then((res) => {
         setFilters({...filters, refresh: !filters.refresh});
         setIsModalVisible(false);
-        message.success("User created successfully");
+        message.success(messages[200]);
       })
       .catch((err) => {
         if (err.response.status === 400) {

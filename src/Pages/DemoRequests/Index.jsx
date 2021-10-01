@@ -1,4 +1,4 @@
-import {Input, Table, Select, Menu, Dropdown} from "antd";
+import {Input, Table, Select, Menu, Dropdown, message} from "antd";
 import Layout from "Layout/Index";
 import SearchIcon from "Assets/icons/saerch.svg";
 import FilterArrowDown from "Assets/icons/filterArrowDown.svg";
@@ -9,6 +9,7 @@ import {UseAxios} from "Hooks/useAxios";
 import moment from "moment";
 import {handleAntdTablePagination} from "../../Utilities/HandlePagination";
 import {DemoRequestStatus} from "Constants/Global";
+import Http from "Http";
 
 const {Option} = Select;
 
@@ -23,6 +24,7 @@ const Index = () => {
   const [filters, setFilters] = useState({
     requestStatus: "",
     search: "",
+    refresh: false,
   });
 
   // Data for Table - []
@@ -118,7 +120,9 @@ const Index = () => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: (value, row) => <TableAction row={row} />,
+      render: (value, row) => (
+        <TableAction setFilters={setFilters} filters={filters} row={row} />
+      ),
     },
   ];
 
@@ -207,7 +211,22 @@ const Index = () => {
 
 export default Index;
 
-const TableAction = ({row}) => {
+const TableAction = ({row, filters, setFilters}) => {
+  const handleChangeStatus = (e) => {
+    Http.put(`/demo/${row.id}?status=${e}`)
+      .then((res) => {
+        e === 1
+          ? message.success("Demo Request Approved Successfully")
+          : message.success("Demo Request Declined Successfully");
+        setFilters({...filters, refresh: !filters.refresh});
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          message.error("Not found");
+        }
+      });
+  };
+
   const menu = (
     <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
@@ -215,11 +234,21 @@ const TableAction = ({row}) => {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
-        <Link to=''>Approve</Link>
+        <div
+          className='cursor-pointer fw-500'
+          onClick={() => handleChangeStatus(1)}
+        >
+          Approve
+        </div>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='2'>
-        <Link to=''>Decline</Link>
+        <div
+          className='cursor-pointer fw-500'
+          onClick={() => handleChangeStatus(0)}
+        >
+          Decline
+        </div>
       </Menu.Item>
     </Menu>
   );

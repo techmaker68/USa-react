@@ -74,7 +74,11 @@ const UpdateTenant = () => {
         history.push("/manage-tenants");
         message.success("Tenant Updated Successfully");
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => {
+        Object.keys(err.response.data).forEach((element) => {
+          message.error(err.response.data[element][0]);
+        });
+      });
   };
 
   const handleFinishFailed = ({errorFields}) => {

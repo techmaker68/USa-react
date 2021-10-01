@@ -37,6 +37,8 @@ const CreateTenant = () => {
     billingType: 0,
   });
 
+  const [errors, setErrors] = useState({});
+
   // Fetch plans
   const {
     response: plans,
@@ -112,6 +114,10 @@ const CreateTenant = () => {
       message.error(`Form submission failed. Attachment/File is required`);
       return;
     }
+    if (errors.domainAvailability) {
+      message.error("Domain not available");
+      return;
+    }
 
     const formData = new FormData();
 
@@ -159,7 +165,11 @@ const CreateTenant = () => {
         history.push("/manage-tenants");
         message.success("Tenant Created Successfully");
       })
-      .catch((err) => console.log("err", err.response.data));
+      .catch((err) => {
+        Object.keys(err.response.data).forEach((element) => {
+          message.error(err.response.data[element][0]);
+        });
+      });
   };
 
   const handleFinishFailed = ({errorFields}) => {
@@ -169,6 +179,28 @@ const CreateTenant = () => {
       message.error(`Form submission failed, ${errorFields[0].errors[0]}`);
     }
   };
+
+  const CheckDomainAvailability = ({target}) => {
+    Http.get(`/tenants/domainavailibity/${target.value}`)
+      .then((res) => {
+        if (!res.data)
+          setErrors({...errors, domainAvailability: "Domain not Available."});
+        else {
+          const dummyErrors = {...errors};
+          delete dummyErrors.domainAvailability;
+          setErrors({dummyErrors});
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          const dummyErrors = {...errors};
+          delete dummyErrors.domainAvailability;
+          setErrors({dummyErrors});
+        }
+      });
+  };
+
+  console.log("err", errors);
 
   return (
     <Layout title='Manage Tenants' currentPage={2}>
@@ -390,18 +422,31 @@ const CreateTenant = () => {
                       </Select>
                     </Form.Item>
 
-                    <Form.Item
-                      label='Domain Name'
-                      name='DomainIdentifier'
-                      rules={Rules.Required}
-                    >
-                      <Input
-                        className='primary-input'
-                        suffix={
-                          <span className='input-domain-suffix'>.XYZ</span>
+                    <div>
+                      <Form.Item
+                        label='Domain Name'
+                        name='DomainIdentifier'
+                        rules={Rules.Required}
+                        className='mb-0'
+                      >
+                        <Input
+                          className='primary-input'
+                          suffix={
+                            <span className='input-domain-suffix'>.XYZ</span>
+                          }
+                          onChange={CheckDomainAvailability}
+                        />
+                      </Form.Item>
+                      <p
+                        className={
+                          !errors.domainAvailability
+                            ? "d-none mb-0"
+                            : "error-message mb-0"
                         }
-                      />
-                    </Form.Item>
+                      >
+                        {errors?.domainAvailability}
+                      </p>
+                    </div>
                   </div>
                 </section>
 

@@ -69,7 +69,7 @@ const PlanDetail = ({charges, handleCharges}) => {
           >
             <Input
               className='primary-input'
-              suffix={<span className='input-domain-suffix'>SAR</span>}
+              suffix={<span className='input-domain-suffix'>GB</span>}
             />
           </Form.Item>
         </div>

@@ -1,4 +1,4 @@
-import {Input, Table, Select, Menu, Dropdown} from "antd";
+import {Input, Table, Select, Menu, Dropdown, message} from "antd";
 import Layout from "Layout/Index";
 import SearchIcon from "Assets/icons/saerch.svg";
 import FilterArrowDown from "Assets/icons/filterArrowDown.svg";
@@ -13,6 +13,7 @@ import {UseAxios} from "Hooks/useAxios";
 import {AutoRenew, PaymentMethod, PaymentStatus} from "Constants/Global";
 import moment from "moment";
 import {handleAntdTablePagination} from "../../Utilities/HandlePagination";
+import Http from "Http";
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;
@@ -32,6 +33,7 @@ const Index = () => {
     search: "",
     to: "",
     from: "",
+    refresh: false,
   });
 
   // Data for Table - []
@@ -135,7 +137,9 @@ const Index = () => {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: (value, row) => <TableAction row={row} />,
+      render: (value, row) => (
+        <TableAction filters={filters} setFilters={setFilters} row={row} />
+      ),
     },
   ];
 
@@ -318,7 +322,21 @@ const Index = () => {
 export default Index;
 
 // render table action dropdown menu
-const TableAction = ({row}) => {
+const TableAction = ({row, setFilters, filters}) => {
+  // update active status
+  const handleAccessStatus = (e) => {
+    Http.post(`/tenants/${row?.tenantId}?isActive=${!row?.accessStatus}`)
+      .then((res) => {
+        message.success("Active Status Updated Successfully");
+        setFilters({...filters, refresh: !filters.refresh});
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          message.error("Not found");
+        }
+      });
+  };
+
   const menu = (
     <Menu className='primary-table-action-menu'>
       <Menu.Item key='0'>
@@ -326,7 +344,9 @@ const TableAction = ({row}) => {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='1'>
-        <Link to=''>Active</Link>
+        <div className='cursor-pointer fw-500' onClick={handleAccessStatus}>
+          {row?.accessStatus ? "InActive" : "Active"}
+        </div>
       </Menu.Item>
     </Menu>
   );

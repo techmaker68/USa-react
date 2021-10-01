@@ -168,6 +168,7 @@ const ManageUsers = () => {
           primaryButtonTitle='Create'
           setFilters={setFilters}
           filters={filters}
+          messages={{200: "User Created Successfully"}}
         />
       )}
       {/* {isUpdateUserModal && (
@@ -225,6 +226,7 @@ const TableAction = ({row, setFilters, filters}) => {
           data={row}
           setFilters={setFilters}
           filters={filters}
+          messages={{200: "User Updated Successfully"}}
         />
       )}
     </>

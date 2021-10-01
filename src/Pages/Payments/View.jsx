@@ -37,7 +37,18 @@ const View = () => {
   });
 
   // update active status
-  const handleAccessStatus = () => {};
+  const handleAccessStatus = (e) => {
+    Http.post(`/tenants/${data?.tenantId}?isActive=${e}`)
+      .then((res) => {
+        message.success("Active Status Updated Successfully");
+        setRefreshPage({refresh: !refreshPage.refresh});
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          message.error("Not found");
+        }
+      });
+  };
   // handle payment method toggle
   const handlePaymentMethod = ({target}) => {
     setPaymentMethod(target.value);
@@ -158,7 +169,7 @@ const View = () => {
                     Access Status
                   </p>
                   <Switch
-                    checked={AccessStatus?.accessStatus}
+                    checked={data?.accessStatus}
                     className='primary-switch mr-7'
                     onChange={handleAccessStatus}
                   />
