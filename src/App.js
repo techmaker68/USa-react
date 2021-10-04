@@ -5,6 +5,7 @@ import Dashboard from "./Pages/Dashboard/Index";
 import Login from "./Pages/Auth/Login";
 import Tickets from "Pages/Tickets/Tickets";
 import TicketDetails from "Pages/Tickets/TicketDetails";
+import Report from "Pages/Reports/Report";
 
 function App() {
   return (
@@ -32,6 +33,13 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/tickets/detail" exact>
             <TicketDetails />
+          </PrivateRoute>
+          {
+            // Reports
+          }
+
+          <PrivateRoute path="/reports">
+            <Report />
           </PrivateRoute>
         </Switch>
       </div>

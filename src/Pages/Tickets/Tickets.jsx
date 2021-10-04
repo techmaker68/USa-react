@@ -13,6 +13,7 @@ import LeftIcon from "../../Assets/icons/Icon feather-chevrons-left (3).svg";
 import LeftIcon1 from "../../Assets/icons/Icon feather-chevrons-left (1).svg";
 import QuestionCircle from "../../Assets/icons/Icon awesome-question-circle.svg";
 import { right } from "@popperjs/core";
+import ReactQuill from "react-quill";
 
 function Tickets(props) {
   const [modal, setModal] = useState(false);
@@ -880,29 +881,7 @@ function Tickets(props) {
               <div className="quill-wrap">
                 <div id="editor">
                   <p className="ql-align-center"></p>
-                </div>
-                <div id="toolbar">
-                  <span className="ql-formats">
-                    <button className="ql-image"></button>
-
-                    <button className="ql-bold"></button>
-                    <button className="ql-italic"></button>
-                    <button className="ql-underline"></button>
-                  </span>
-                  <span className="ql-formats">
-                    <select className="ql-color"></select>
-                    <select className="ql-background"></select>
-                  </span>
-                  <span className="ql-formats">
-                    <button className="ql-list" value="ordered"></button>
-                    <button className="ql-list" value="bullet"></button>
-                  </span>
-
-                  <span className="ql-formats">
-                    <button className="clear-format-btn" value="">
-                      Clear Format
-                    </button>
-                  </span>
+                  <ReactQuill theme="snow" />
                 </div>
               </div>
             </div>

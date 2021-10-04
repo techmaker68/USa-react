@@ -153,6 +153,10 @@ select:hover {
   width: 605px;
 }
 
+.help-wrapper .g-select {
+  color: #30c47c !important;
+}
+
 .help-wrapper .type-drop {
   width: 66px;
   height: 24px;
@@ -194,7 +198,6 @@ select:hover {
 
   padding-left: 13px;
   padding-top: 2px;
-  display: none;
 }
 
 .help-wrapper .flag-options-text {
@@ -244,7 +247,7 @@ select:hover {
 }
 
 .comments-wrapper .avatar-background {
-  width: 40px !important;
+  width: 80px !important;
   height: 39px !important;
   background: #ecebeb 0% 0% no-repeat padding-box !important;
   border-radius: 34px !important;
@@ -366,7 +369,6 @@ select:hover {
   border-radius: 3px;
 
   z-index: 20;
-  display: none;
 
   /* padding: 10px 6px 9px 6px; */
 }
@@ -633,9 +635,9 @@ avata .comment-t1 {
   margin-left: 13px;
 }
 
-.help-wrapper2 .subtask-d {
-  width: 609px;
-  height: 36px;
+.subtask-d {
+  width: 609px !important;
+  height: 36px !important;
   background: #fefefe 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #0000000f;
   border: 1px solid #e1e1e1;
@@ -651,12 +653,12 @@ avata .comment-t1 {
   margin-bottom: 0px;
 }
 .help-wrapper2 .t2 {
-  font: normal normal bold 12px/15px Plus Jakarta Sans;
-  letter-spacing: 0px;
+  font-size: 12px;
+  font-weight: 700;
   color: #141414;
   opacity: 1;
   margin-bottom: 0px;
-  margin-top: 2px;
+  margin-left: 10px;
   margin-right: 14px;
 }
 
@@ -766,6 +768,7 @@ avata .comment-t1 {
   color: #bbbbbb;
   border: none;
   outline: none;
+  background: none;
 }
 .help-wrapper2 .btn-internal {
   width: 70px;
@@ -775,6 +778,8 @@ avata .comment-t1 {
   color: #bbbbbb;
   border: none;
   outline: none;
+
+  background: none;
 }
 
 .help-wrapper2 .comment-btn {
@@ -791,7 +796,6 @@ avata .comment-t1 {
 
 .help-wrapper2 .activitylogs-body {
   height: 263px;
-  display: none;
   width: 609px;
   overflow-y: scroll;
   padding: 22px 31px 14px 20px;
@@ -1991,9 +1995,9 @@ input {
   ===================subtask  modal css */
 /* ================================================= */
 
-.subtask-modal .modal-content {
+.subtask-modal .ant-modal-content {
   width: 1062px !important;
-  min-height: 1224px;
+  min-height: 1267px !important;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 3px;
@@ -2038,7 +2042,7 @@ input {
 }
 .hr {
   height: 2px;
-  width: 34px;
+  width: 4% !important;
   opacity: 1;
   color: #30c47c;
 
@@ -2053,8 +2057,18 @@ input {
   padding-top: 10px !important;
   padding-bottom: 20px !important;
 
-  margin-bottom: 0px !important;
+  margin-bottom: 30px !important;
 }
+.subtask-modal .sla-wrapper {
+  width: 348px;
+  min-height: 498px !important;
+  background: #fefefe 0% 0% no-repeat padding-box;
+  border: 1px solid #e1e1e1;
+  border-radius: 3px;
+  opacity: 1;
+  padding: 24px 21px 0px 17px;
+}
+
 .bs-stepper {
   background: #ffffff 0% 0% no-repeat padding-box;
   border: none;
@@ -2064,11 +2078,11 @@ input {
   padding-bottom: 20px !important;
 
   margin-bottom: 0px !important;
+  margin-bottom: 40px !important;
 }
 
 .subtask-modal .activitylogs-body {
   height: 414px !important;
-  display: none;
   width: 609px;
   overflow-y: scroll;
   padding: 22px 31px 14px 20px;
@@ -2206,7 +2220,7 @@ input {
 /* ===========================================================
    */
 
-.link-modal .modal-content {
+.link-modal .ant-modal-content {
   width: 738px;
   height: 583px;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -2317,4 +2331,214 @@ input {
 
   left: 3px;
   top: 3px;
+}
+
+// =====================================================
+// =====================Reports page css=======
+// ==========================================================
+.report-page-wrapper .ant-tabs-tab-btn {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.report-page-wrapper .filter-btn {
+  width: 98px;
+  height: 38px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 4px;
+  opacity: 1;
+
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #000000 !important;
+
+  outline: none !important;
+}
+
+.report-page-wrapper .export-btn {
+  width: 98px;
+  height: 38px;
+  border: 1px solid #1768ac;
+  border-radius: 4px;
+
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #1767aa !important;
+
+  outline: none !important;
+}
+.report-page-wrapper .filter-wrapper {
+  width: 100%;
+  // height: 256px;
+  background: #ffffff 0% 0% no-repeat padding-box !important;
+  border: 10px solid #f2f2f2 !important;
+  border-radius: 8px !important;
+  height: 0px;
+  transition: all 300ms ease-in;
+  // padding: 30px 29px 20px 36px !important;
+  overflow: hidden;
+}
+.report-page-wrapper .filter-wrapper2 {
+  width: 100%;
+  // height: 256px;
+  background: #ffffff 0% 0% no-repeat padding-box !important;
+
+  border-radius: 8px !important;
+  height: 0px;
+  transition: all 300ms ease-in;
+  // padding: 30px 29px 20px 36px !important;
+  overflow: hidden;
+}
+.animate-filter-wrapper {
+  box-shadow: 0px 10px 20px #5b5b5b26 !important;
+  box-shadow: 0px 10px 20px #5b5b5b26 !important;
+
+  height: 256px !important;
+}
+
+.report-page-wrapper .filter-padding {
+  padding: 30px 29px 20px 36px !important;
+}
+
+.animate-filter-wrapper2 {
+  box-shadow: 0px 10px 20px #5b5b5b26 !important;
+  box-shadow: 0px 10px 20px #5b5b5b26 !important;
+  border: 0px solid #f2f2f2 !important;
+  height: 184px !important;
+}
+
+.report-page-wrapper .t1 {
+  font-size: 12px;
+  font-weight: 500;
+  color: #5e5e5e;
+}
+.report-page-wrapper .t2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0px;
+  color: #000000;
+}
+
+.report-page-wrapper .status-select {
+  width: 216px !important;
+  border-radius: 4px;
+  opacity: 1;
+}
+
+.report-page-wrapper .ant-select {
+  height: 38px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0px !important;
+  color: #000000 !important;
+  opacity: 1;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  height: 38px !important;
+
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0px !important;
+  color: #000000 !important;
+  opacity: 1;
+}
+
+.report-page-wrapper .assigned-by {
+  width: 168px !important;
+}
+
+.report-page-wrapper .btns-wrap {
+  // margin-top: 25px;
+
+  float: right;
+}
+
+.report-page-wrapper .btn-clear {
+  width: 96px;
+  height: 36px;
+  border: 1px solid #1768ac;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1768ac;
+}
+
+.report-page-wrapper .btn-apply {
+  width: 96px;
+  height: 36px;
+  border: 1px solid #1768ac;
+  background: #1768ac 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-left: 16px;
+}
+
+.report-page-wrapper .ant-picker-range {
+  position: relative;
+  width: 275px;
+  height: 38px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  opacity: 1;
+  display: inline-flex;
+}
+
+.report-page-wrapper .table-wrapper {
+  margin-top: 35px;
+}
+
+.report-page-wrapper .searchinput {
+  width: 253px;
+  height: 40px;
+}
+
+.report-page-wrapper .data-table th {
+  background: #d6edff;
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+
+  border-left: none !important;
+  border-right: none !important;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.report-page-wrapper
+  .ant-table-thead
+  > tr
+  > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0px !important;
+  height: 1.6em;
+  background-color: rgba(0, 0, 0, 0.06);
+  transform: translateY(-50%);
+  transition: background-color 0.3s;
+  content: "";
+}
+
+.report-page-wrapper .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  text-align: center;
+}
+
+.report-page-wrapper .data-table {
+  margin-top: 13px;
+}
+.report-page-wrapper .setting-btn {
+  width: 40px;
+  height: 38px;
+
+  margin-left: 20px;
 }
