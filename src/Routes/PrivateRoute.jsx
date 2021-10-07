@@ -1,12 +1,15 @@
-import { Route } from "react-router-dom";
+import { useUserContext } from "Context/USerContext";
+import Login from "Pages/Auth/Login";
+import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { isLogin } = useUserContext();
   return (
     <>
-      {true ? (
+      {isLogin() ? (
         <Route {...rest} render={(props) => <Component {...props} />} />
       ) : (
-        ""
+        <Redirect to="/" />
       )}
     </>
   );

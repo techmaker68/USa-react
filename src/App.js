@@ -1,11 +1,12 @@
 import "./App.scss";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./Routes/PrivateRoute";
-import Dashboard from "./Pages/Dashboard/Index";
 import Login from "./Pages/Auth/Login";
-import Tickets from "Pages/Tickets/Tickets";
-import TicketDetails from "Pages/Tickets/TicketDetails";
-import Report from "Pages/Reports/Report";
+import Register from "Pages/Auth/Register";
+import Home from "Pages/Home/Home";
+import Product from "Pages/Home/Product";
+import Category from "Pages/Home/Category";
+import Brand from "Pages/Home/Brand";
 
 function App() {
   return (
@@ -15,31 +16,24 @@ function App() {
           {
             // login
           }
-          <PrivateRoute path="/" exact>
+          <Route path="/" exact>
             <Login />
-          </PrivateRoute>
-          {
-            // Dashboard
-          }
-          <PrivateRoute path="/dashboard" exact>
-            <Dashboard />
-          </PrivateRoute>
-          {
-            // tickets
-          }
+          </Route>
 
-          <PrivateRoute path="/tickets" exact>
-            <Tickets />
+          <Route path="/register" exact>
+            <Register />
+          </Route>
+          <PrivateRoute path="/home" exact>
+            <Home />
           </PrivateRoute>
-          <PrivateRoute path="/tickets/detail" exact>
-            <TicketDetails />
+          <PrivateRoute path="/products" exact>
+            <Product />
           </PrivateRoute>
-          {
-            // Reports
-          }
-
-          <PrivateRoute path="/reports">
-            <Report />
+          <PrivateRoute path="/categories" exact>
+            <Category />
+          </PrivateRoute>
+          <PrivateRoute path="/Brands" exact>
+            <Brand />
           </PrivateRoute>
         </Switch>
       </div>

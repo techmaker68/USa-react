@@ -9,24 +9,29 @@ import ProfileIcon from "Assets/icons/profile.svg";
 import DownIcon from "Assets/icons/downIcon.svg";
 import { Menu, Dropdown } from "antd";
 import { Link } from "react-router-dom";
-
-// profile menu
-
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a href="https://www.antgroup.com">Logout</a>
-    </Menu.Item>
-  </Menu>
-);
+import { useUserContext } from "Context/USerContext";
 
 // Use as parent wrapper. Render Sidebar, Top nav and Content of the page
 const Index = ({ children, title, currentPage }) => {
+  const { login: signin, getUser } = useUserContext();
+  const { logout } = useUserContext();
+
+  // profile menu
+
+  const menu = (
+    <Menu>
+      <Menu.Item key="0">
+        <span onClick={() => logout()}>Logout</span>
+      </Menu.Item>
+    </Menu>
+  );
+
   // static nav links data
   const navLinks = [
-    { title: "Dashboard", url: "/dashboard", icon: <DashboardIcon /> },
-    { title: "Tickets", url: "/tickets", icon: <PaymentsIcon /> },
-    { title: "Reports", url: "/Reports", icon: <TenantsIcon /> },
+    { title: "Brands", url: "/Brands", icon: <DashboardIcon /> },
+    { title: "categories", url: "/categories", icon: <PaymentsIcon /> },
+
+    { title: "products", url: "/products", icon: <TenantsIcon /> },
   ];
 
   return (
