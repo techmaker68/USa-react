@@ -35,6 +35,9 @@ function App() {
           <PrivateRoute path="/Brands" exact>
             <Brand />
           </PrivateRoute>
+          <PrivateRoute path="/cars" exact>
+            <Brand />
+          </PrivateRoute>
         </Switch>
       </div>
     </Router>

@@ -3,7 +3,7 @@ import Layout from "../../Layout/Index.jsx";
 import { Card, Button, Modal, Form, Input, message } from "antd";
 import Api from "Api.js";
 import axios from "axios";
-import { useUserContext } from "Context/USerContext.js";
+import { useUserContext } from "../../Context/UserContext";
 function Brand(props) {
   const { login: signin, getUser } = useUserContext();
   const [refresh, setRefresh] = useState(false);
@@ -20,28 +20,22 @@ function Brand(props) {
   const [response, setResponse] = useState();
 
   function handleNew(values) {
-    console.log(values);
     setModal(false);
 
-    Api.post("/brands/create", values)
+    Api.post("/brands", values)
 
       .then((response) => {
         message.success("brand added successfully");
         setRefresh(!refresh);
 
         setResponse(response.data);
-        console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }
-
-  console.log("asd", editData);
 
   function handleEdit(id) {
     setLoading(true);
-    Api.post("/brands/" + id)
+    Api.get("/brands/" + id)
 
       .then((response) => {
         setLoading(false);
@@ -49,7 +43,6 @@ function Brand(props) {
         setEditData(response.data);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
       });
 
@@ -57,32 +50,26 @@ function Brand(props) {
   }
 
   function deletedata(id) {
-    Api.post("/brands/delete/" + id)
+    Api.delete("/brands/" + id)
 
       .then((response) => {
         message.success("brand deleted successfully");
         setRefresh(!refresh);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }
 
   function updateData(values, id) {
-    console.log(values);
     setEditModal(false);
 
-    Api.post("/brands/update/" + id, values)
+    Api.put("/brands/" + id, values)
 
       .then((response) => {
         message.success("brand edited successfully");
         setRefresh(!refresh);
         setResponse(response.data);
-        console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }
 
   function handleChange(event) {
@@ -116,7 +103,7 @@ function Brand(props) {
               cover={
                 <img
                   alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                  src="https://cdn.pixabay.com/photo/2013/07/13/13/22/car-160895_960_720.png"
                 />
               }
             >
@@ -153,7 +140,16 @@ function Brand(props) {
         <p>Enter Brand Name</p>
 
         <Form layout="vertical" onFinish={handleNew}>
-          <Form.Item label="Name" name="name">
+          <Form.Item
+            rules={[
+              {
+                required: true,
+                message: "field required!",
+              },
+            ]}
+            label="Name"
+            name="name"
+          >
             <Input
               className="primary-input"
               required
@@ -200,7 +196,16 @@ function Brand(props) {
             }}
             initialValues={editData}
           >
-            <Form.Item label="Name" name="name">
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: "field required!",
+                },
+              ]}
+              label="Name"
+              name="name"
+            >
               <Input
                 className="primary-input"
                 required

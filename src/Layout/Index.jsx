@@ -9,7 +9,7 @@ import ProfileIcon from "Assets/icons/profile.svg";
 import DownIcon from "Assets/icons/downIcon.svg";
 import { Menu, Dropdown } from "antd";
 import { Link } from "react-router-dom";
-import { useUserContext } from "Context/USerContext";
+import { useUserContext } from "../Context/UserContext";
 
 // Use as parent wrapper. Render Sidebar, Top nav and Content of the page
 const Index = ({ children, title, currentPage }) => {
@@ -28,10 +28,11 @@ const Index = ({ children, title, currentPage }) => {
 
   // static nav links data
   const navLinks = [
+    { title: "Registered cars", url: "/cars", icon: <TenantsIcon /> },
     { title: "Brands", url: "/Brands", icon: <DashboardIcon /> },
     { title: "categories", url: "/categories", icon: <PaymentsIcon /> },
+    { title: "Products", url: "/products", icon: <TenantsIcon /> },
 
-    { title: "products", url: "/products", icon: <TenantsIcon /> },
   ];
 
   return (

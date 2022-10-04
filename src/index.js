@@ -9,7 +9,7 @@ import "bootstrap/dist/js/bootstrap.js"; // bootstrap js
 import "react-phone-input-2/lib/style.css";
 
 import ReactQuill from "react-quill";
-import UserProvider from "Context/USerContext";
+import UserProvider from "../src/Context/UserContext";
 ReactDOM.render(
   <UserProvider>
     <App />

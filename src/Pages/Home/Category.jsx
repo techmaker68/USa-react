@@ -3,7 +3,7 @@ import Layout from "../../Layout/Index.jsx";
 import Api from "Api.js";
 import axios from "axios";
 import { Card, Button, Modal, Form, Input, message } from "antd";
-import { useUserContext } from "Context/USerContext.js";
+import { useUserContext } from "../../Context/UserContext";
 
 function Category(props) {
   const { login: signin, getUser } = useUserContext();
@@ -21,28 +21,22 @@ function Category(props) {
   }, [refresh]);
 
   function handleNew(values) {
-    console.log(values);
     setModal(false);
 
-    Api.post("/category/create", values)
+    Api.post("/category", values)
 
       .then((response) => {
         message.success("category added successfully");
         setRefresh(!refresh);
 
         setResponse(response.data);
-        console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }
-
-  console.log("asd", editData);
 
   function handleEdit(id) {
     setLoading(true);
-    Api.post("/category/" + id)
+    Api.get("/category/" + id)
 
       .then((response) => {
         setLoading(false);
@@ -50,7 +44,6 @@ function Category(props) {
         setEditData(response.data);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
       });
 
@@ -58,32 +51,26 @@ function Category(props) {
   }
 
   function deletedata(id) {
-    Api.post("/category/delete/" + id)
+    Api.delete("/category/" + id)
 
       .then((response) => {
         message.success("category deleted successfully");
         setRefresh(!refresh);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }
 
   function updateData(values, id) {
-    console.log(values);
     setEditModal(false);
 
-    Api.post("/category/update/" + id, values)
+    Api.put("/category/" + id, values)
 
       .then((response) => {
         message.success("category edited successfully");
         setRefresh(!refresh);
         setResponse(response.data);
-        console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }
 
   function handleChange(event) {
@@ -114,7 +101,7 @@ function Category(props) {
                 cover={
                   <img
                     alt="example"
-                    src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                    src="https://cdn.pixabay.com/photo/2013/07/13/13/22/car-160895_960_720.png"
                   />
                 }
               >
@@ -154,7 +141,16 @@ function Category(props) {
           <p>Enter category Name</p>
 
           <Form layout="vertical" onFinish={handleNew}>
-            <Form.Item label="Name" name="name">
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: "field required!",
+                },
+              ]}
+              label="Name"
+              name="name"
+            >
               <Input
                 className="primary-input"
                 required
